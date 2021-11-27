@@ -3,7 +3,7 @@ name: Deploy MSA Libraries
 on:
   push:
     branches:
-      - feat/deploy 
+      - main
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "[skip ci] version up"
-          git push origin feat/deploy
+          git push origin main
     - name: deploy 
       env: 
         NPM_AUTH_TOKEN: ${{ secrets.DIVOPS_NPM_TOKEN }}
