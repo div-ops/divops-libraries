@@ -16,18 +16,18 @@ jobs:
         node-version: '14'
     - name: install deps and predeploy
       run: |
-        echo hello world
-    # - name: list 
-    #   run: |
-		# 		yarn workspaces since list HEAD^
-    # - name: build 
-    #   run: |
-		# 		yarn workspaces since run build HEAD^
-    # - name: version patch
-    #   run: |
-		# 		yarn workspaces since run version patch HEAD^
-    # - name: deploy 
-    #   env: 
-    #     NPM_AUTH_TOKEN: ${{ secrets.DIVOPS_NPM_TOKEN }}
-    #   run: |
-		# 		yarn workspaces since run deploy HEAD^
+        yarn
+    - name: list 
+        run: 
+          yarn workspaces since list main
+    - name: build 
+      run: 
+          yarn workspaces since run build main
+    - name: version patch
+      run: 
+          yarn workspaces since run version patch main
+    - name: deploy 
+      env: 
+        NPM_AUTH_TOKEN: ${{ secrets.DIVOPS_NPM_TOKEN }}
+      run: 
+          yarn workspaces since run deploy main
