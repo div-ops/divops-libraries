@@ -3,7 +3,7 @@ name: Deploy MSA Libraries
 on:
   push:
     branches:
-      - main 
+      - feat/deploy 
 
 jobs:
   build:
@@ -17,6 +17,9 @@ jobs:
     - name: install deps and predeploy
       run: |
         yarn
+    - name: list 
+      run: |
+				yarn workspaces since list HEAD^
     - name: build 
       run: |
 				yarn workspaces since run build HEAD^
