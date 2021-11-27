@@ -2,7 +2,7 @@
   "name": "@divops/scaffolder",
   "version": "0.0.1",
   "scripts": {
-    "prepack": "tsc index.ts",
+    "build": "divops-build",
     "deploy": "npm publish --access public"
   },
   "main": "index.ts",
@@ -12,5 +12,8 @@
   "devDependencies": {
     "typescript": "^4.4.4"
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.1.0",
+  "dependencies": {
+    "@divops/builder": "workspace:^"
+  }
 }
