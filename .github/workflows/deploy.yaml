@@ -1,0 +1,30 @@
+name: Deploy MSA Libraries
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '14'
+    - name: install deps and predeploy
+      run: |
+        yarn
+    - name: build 
+      run: |
+				yarn workspaces since run build HEAD^
+    - name: version patch
+      run: |
+				yarn workspaces since run version patch HEAD^
+    - name: deploy 
+      env: 
+        NPM_AUTH_TOKEN: ${{ secrets.DIVOPS_NPM_TOKEN }}
+      run: |
+				yarn workspaces since run deploy HEAD^

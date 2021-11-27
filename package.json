@@ -1,0 +1,11 @@
+{
+  "name": "divops-libraries",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "workspaces": [
+    "libraries/*"
+  ],
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
