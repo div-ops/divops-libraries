@@ -12,8 +12,7 @@
     }
   },
   "scripts": {
-    "prepack": "tsc index.ts",
-    "deploy": "npm publish --access public"
+    "deploy": "echo 'no deploy'"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.52",

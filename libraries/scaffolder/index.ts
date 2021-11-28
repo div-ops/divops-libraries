@@ -1,3 +1,3 @@
 export default function () {
-  console.log("this is scaffolder v2");
+  console.log("this is scaffolder v3");
 }

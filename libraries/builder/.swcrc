@@ -1,5 +1,6 @@
 {
   "jsc": {
+    "baseUrl": ".",
     "target": "es2021",
     "parser": {
       "syntax": "typescript",
