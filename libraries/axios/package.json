@@ -6,13 +6,14 @@
     "main": "./index.js"
   },
   "scripts": {
-    "build": "tsc index.ts",
+    "build": "divops-build",
     "deploy": "npm publish --access public"
+  },
+  "devDependencies": {
+    "@divops/builder": "workspace:^",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "axios": "^0.26.1"
-  },
-  "devDependencies": {
-    "typescript": "^4.4.4"
   }
 }

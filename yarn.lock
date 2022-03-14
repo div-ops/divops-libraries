@@ -34,6 +34,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@divops/axios@workspace:libraries/axios"
   dependencies:
+    "@divops/builder": "workspace:^"
     axios: ^0.26.1
     typescript: ^4.4.4
   languageName: unknown

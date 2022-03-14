@@ -100,6 +100,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./libraries/axios/",
           "packageDependencies": [
             ["@divops/axios", "workspace:libraries/axios"],
+            ["@divops/builder", "workspace:libraries/builder"],
             ["axios", "npm:0.26.1"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
