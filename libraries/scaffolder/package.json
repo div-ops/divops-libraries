@@ -1,6 +1,6 @@
 {
   "name": "@divops/scaffolder",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "build": "divops-build",
     "deploy": "npm publish --access public"
