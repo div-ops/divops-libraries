@@ -1,5 +1,4 @@
 import axios, { Axios, AxiosInstance } from "axios";
-// import axios from "axios";
 
 type DivopsAxiosHeaders = Record<string, string>;
 
