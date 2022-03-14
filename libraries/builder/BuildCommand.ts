@@ -45,7 +45,7 @@ export class BuildCommand extends Command {
     await build({
       bundle: true,
       target: "esnext",
-      format: "cjs",
+      format: "esm",
       platform: "node",
       define: {
         "process.env.NODE_ENV": '"production"',
