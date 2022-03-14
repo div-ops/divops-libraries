@@ -9,6 +9,8 @@ export class BuildCommand extends Command {
   output = Option.String("--output", "index.js");
 
   async execute() {
+    const packagePath = process.cwd();
+
     let { entry, output } = this;
     if (!fs.existsSync(entry)) {
       entry = entry.replace(".ts", ".js");
@@ -19,9 +21,17 @@ export class BuildCommand extends Command {
       return;
     }
 
-    const { devDependencies } = require(`${path.dirname(
+    const { devDependencies, publishConfig } = require(`${path.dirname(
       path.resolve(entry)
     )}/package.json`);
+
+    const outfile = ((output) => {
+      if (publishConfig && publishConfig.main) {
+        return path.resolve(packagePath, publishConfig.main);
+      }
+
+      return `${path.dirname(path.resolve(entry))}/build/${output}`;
+    })(output);
 
     await build({
       bundle: true,
@@ -32,7 +42,7 @@ export class BuildCommand extends Command {
         "process.env.NODE_ENV": '"production"',
       },
       entryPoints: [path.resolve(entry)],
-      outfile: `${path.dirname(path.resolve(entry))}/build/${output}`,
+      outfile,
       sourcemap: true,
       plugins: [pnpPlugin()],
       external: [...(devDependencies ? Object.keys(devDependencies) : [])],
