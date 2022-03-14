@@ -2,6 +2,6 @@
   "version": 3,
   "sources": ["pnp:/home/runner/work/divops-libraries/divops-libraries/libraries/scaffolder/index.ts"],
   "sourcesContent": ["export default function () {\n  console.log(\"this is scaffolder v3\");\n}\n"],
-  "mappings": ";;;;;;;;;AAAA;AAAA;AAAA;AAAe,8BAAY;AACzB,UAAQ,IAAI;AAAA;",
+  "mappings": ";AAAe,8BAAY;AACzB,UAAQ,IAAI;AAAA;",
   "names": []
 }
