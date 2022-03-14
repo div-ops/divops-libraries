@@ -10,8 +10,21 @@ export class BuildCommand extends Command {
 
   async execute() {
     const packagePath = process.cwd();
+    const {
+      devDependencies,
+      publishConfig,
+      main,
+    } = require(`${packagePath}/package.json`);
 
     let { entry, output } = this;
+    entry = ((entry) => {
+      if (main) {
+        return path.resolve(packagePath, main);
+      }
+
+      return path.resolve(entry);
+    })(entry);
+
     if (!fs.existsSync(entry)) {
       entry = entry.replace(".ts", ".js");
     }
@@ -20,10 +33,6 @@ export class BuildCommand extends Command {
       console.log(`[builder] entry(${entry}) 없으므로 생략합니다.`);
       return;
     }
-
-    const { devDependencies, publishConfig } = require(`${path.dirname(
-      path.resolve(entry)
-    )}/package.json`);
 
     const outfile = ((output) => {
       if (publishConfig && publishConfig.main) {
