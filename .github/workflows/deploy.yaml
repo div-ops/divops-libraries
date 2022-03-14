@@ -39,5 +39,6 @@ jobs:
       env: 
         NPM_AUTH_TOKEN: ${{ secrets.DIVOPS_NPM_TOKEN }}
         NODE_AUTH_TOKEN: ${{secrets.DIVOPS_NPM_TOKEN}}
+        YARN_NPM_AUTH_TOKEN: ${{secrets.DIVOPS_NPM_TOKEN}}
       run: |
           yarn workspaces since run "npm publish --access public" "HEAD^"
