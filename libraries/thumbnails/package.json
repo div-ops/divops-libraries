@@ -1,9 +1,9 @@
 {
   "name": "@divops/thumbnails",
   "version": "0.0.5",
-  "main": "index.ts",
+  "main": "src/index.js",
   "publishConfig": {
-    "main": "./index.js"
+    "main": "dist/index.js"
   },
   "scripts": {
     "build": "divops-build",

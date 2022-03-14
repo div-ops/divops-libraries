@@ -5,9 +5,9 @@
     "build": "divops-build",
     "deploy": "npm publish --access public"
   },
-  "main": "index.ts",
+  "main": "src/index.ts",
   "publishConfig": {
-    "main": "./index.js"
+    "main": "dist/index.js"
   },
   "devDependencies": {
     "typescript": "^4.4.4"

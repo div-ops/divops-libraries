@@ -114,6 +114,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./libraries/beta-my-sample/",
           "packageDependencies": [
             ["@divops/beta-my-sample", "workspace:libraries/beta-my-sample"],
+            ["@divops/builder", "workspace:libraries/builder"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
           "linkType": "SOFT",

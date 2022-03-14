@@ -46,6 +46,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@divops/beta-my-sample@workspace:libraries/beta-my-sample"
   dependencies:
+    "@divops/builder": "workspace:^"
     typescript: ^4.4.4
   languageName: unknown
   linkType: soft

@@ -45,14 +45,14 @@ export class BuildCommand extends Command {
     await build({
       bundle: true,
       target: "esnext",
-      format: "esm",
+      format: "cjs",
       platform: "node",
       define: {
         "process.env.NODE_ENV": '"production"',
       },
       entryPoints: [path.resolve(entry)],
       outfile,
-      sourcemap: true,
+      sourcemap: false,
       plugins: [pnpPlugin()],
       external: [...(devDependencies ? Object.keys(devDependencies) : [])],
     });
