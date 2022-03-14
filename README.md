@@ -1,2 +1,2 @@
 # divops-libraries
-@divops MAS libraries
+@divops MSA libraries
