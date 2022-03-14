@@ -24,6 +24,7 @@
   },
   "packageManager": "yarn@3.1.0",
   "dependencies": {
+    "@yarnpkg/esbuild-plugin-pnp": "^2.0.1",
     "clipanion": "^3.2.0-rc.4",
     "esbuild": "^0.14.0",
     "regenerator-runtime": "^0.13.9"

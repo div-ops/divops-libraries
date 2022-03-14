@@ -101,7 +101,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@divops/axios", "workspace:libraries/axios"],
             ["@divops/builder", "workspace:libraries/builder"],
+            ["@types/debug", "npm:4.1.7"],
             ["axios", "npm:0.26.1"],
+            ["debug", "virtual:af71d96478b5e56270a8a5aff38634ca4d7885e2dfde2e1fb1b4320752df600eec7a660bc7a8a120a06baa0844eacafb586bf97d4d296fae6eba71692033755f#npm:4.3.3"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
           "linkType": "SOFT",
@@ -126,6 +128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/core", "npm:1.2.112"],
             ["@swc/register", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:0.1.7"],
             ["@types/node", "npm:16.11.10"],
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:2.0.1"],
             ["clipanion", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:3.2.0-rc.4"],
             ["esbuild", "npm:0.14.0"],
             ["regenerator-runtime", "npm:0.13.9"],
@@ -1240,11 +1243,53 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/debug", [
+        ["npm:4.1.7", {
+          "packageLocation": "./.yarn/cache/@types-debug-npm-4.1.7-f54c81f8db-0a7b89d8ed.zip/node_modules/@types/debug/",
+          "packageDependencies": [
+            ["@types/debug", "npm:4.1.7"],
+            ["@types/ms", "npm:0.7.31"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/ms", [
+        ["npm:0.7.31", {
+          "packageLocation": "./.yarn/cache/@types-ms-npm-0.7.31-ea3b89342b-daadd354ae.zip/node_modules/@types/ms/",
+          "packageDependencies": [
+            ["@types/ms", "npm:0.7.31"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/node", [
         ["npm:16.11.10", {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.11.10-6a434088fa-9c79419c5c.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:16.11.10"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@yarnpkg/esbuild-plugin-pnp", [
+        ["npm:2.0.1", {
+          "packageLocation": "./.yarn/cache/@yarnpkg-esbuild-plugin-pnp-npm-2.0.1-34723f0522-ff081f65e0.zip/node_modules/@yarnpkg/esbuild-plugin-pnp/",
+          "packageDependencies": [
+            ["@yarnpkg/esbuild-plugin-pnp", "npm:2.0.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:2.0.1", {
+          "packageLocation": "./.yarn/__virtual__/@yarnpkg-esbuild-plugin-pnp-virtual-17b7af6637/0/cache/@yarnpkg-esbuild-plugin-pnp-npm-2.0.1-34723f0522-ff081f65e0.zip/node_modules/@yarnpkg/esbuild-plugin-pnp/",
+          "packageDependencies": [
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:2.0.1"],
+            ["@types/esbuild", null],
+            ["esbuild", "npm:0.14.0"],
+            ["tslib", "npm:1.14.1"]
+          ],
+          "packagePeers": [
+            "@types/esbuild",
+            "esbuild"
           ],
           "linkType": "HARD",
         }]
@@ -1387,6 +1432,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/create-require-npm-1.1.1-839884ca2e-a9a1503d43.zip/node_modules/create-require/",
           "packageDependencies": [
             ["create-require", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["debug", [
+        ["npm:4.3.3", {
+          "packageLocation": "./.yarn/cache/debug-npm-4.3.3-710fd4cc7f-14472d56fe.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "npm:4.3.3"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:af71d96478b5e56270a8a5aff38634ca4d7885e2dfde2e1fb1b4320752df600eec7a660bc7a8a120a06baa0844eacafb586bf97d4d296fae6eba71692033755f#npm:4.3.3", {
+          "packageLocation": "./.yarn/__virtual__/debug-virtual-62e89db6a5/0/cache/debug-npm-4.3.3-710fd4cc7f-14472d56fe.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "virtual:af71d96478b5e56270a8a5aff38634ca4d7885e2dfde2e1fb1b4320752df600eec7a660bc7a8a120a06baa0844eacafb586bf97d4d296fae6eba71692033755f#npm:4.3.3"],
+            ["@types/supports-color", null],
+            ["ms", "npm:2.1.2"],
+            ["supports-color", null]
+          ],
+          "packagePeers": [
+            "@types/supports-color",
+            "supports-color"
           ],
           "linkType": "HARD",
         }]
@@ -1885,6 +1953,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["ms", [
+        ["npm:2.1.2", {
+          "packageLocation": "./.yarn/cache/ms-npm-2.1.2-ec0c1512ff-673cdb2c31.zip/node_modules/ms/",
+          "packageDependencies": [
+            ["ms", "npm:2.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["node-modules-regexp", [
         ["npm:1.0.0", {
           "packageLocation": "./.yarn/cache/node-modules-regexp-npm-1.0.0-2f5f5ba9c6-9954190353.zip/node_modules/node-modules-regexp/",
@@ -2156,6 +2233,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/swc__wasm",
             "@types/typescript",
             "typescript"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["tslib", [
+        ["npm:1.14.1", {
+          "packageLocation": "./.yarn/cache/tslib-npm-1.14.1-102499115e-dbe628ef87.zip/node_modules/tslib/",
+          "packageDependencies": [
+            ["tslib", "npm:1.14.1"]
           ],
           "linkType": "HARD",
         }]

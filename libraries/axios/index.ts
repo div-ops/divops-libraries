@@ -1,22 +1,22 @@
-// import axios, { Axios, AxiosInstance } from "axios";
-import axios from "axios";
+import axios, { Axios, AxiosInstance } from "axios";
+// import axios from "axios";
 
-// type DivopsAxiosHeaders = Record<string, string>;
+type DivopsAxiosHeaders = Record<string, string>;
 
-// interface DivopsAxiosOptions {
-//   headers?: DivopsAxiosHeaders | undefined | null;
-//   verboseError?: boolean | undefined | null;
-//   config?: Record<string, string> | undefined | null;
-// }
+interface DivopsAxiosOptions {
+  headers?: DivopsAxiosHeaders | undefined | null;
+  verboseError?: boolean | undefined | null;
+  config?: Record<string, string> | undefined | null;
+}
 
-// export interface DivopsAxiosInstance extends DivopsAxiosOptions {
-//   instance: AxiosInstance;
-//   get: Axios["get"];
-//   post: Axios["post"];
-// }
+export interface DivopsAxiosInstance extends DivopsAxiosOptions {
+  instance: AxiosInstance;
+  get: Axios["get"];
+  post: Axios["post"];
+}
 
 export default {
-  create: (options) => {
+  create: (options: DivopsAxiosOptions): DivopsAxiosInstance => {
     const instance = axios.create();
 
     if (options.headers != null) {
