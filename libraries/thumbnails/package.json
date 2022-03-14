@@ -1,6 +1,6 @@
 {
   "name": "@divops/thumbnails",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.ts",
   "publishConfig": {
     "main": "./index.js"
