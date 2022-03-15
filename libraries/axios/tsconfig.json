@@ -4,7 +4,8 @@
     "declaration": true,
     "lib": ["ES2015", "DOM"],
     "target": "es5",
-    "module": "commonjs"
+    "module": "commonjs",
+    "emitDeclarationOnly": true
   },
   "include": ["src"]
 }
