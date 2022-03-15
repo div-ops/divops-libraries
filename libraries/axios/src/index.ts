@@ -3,6 +3,7 @@ import axios, { Axios, AxiosInstance } from "axios";
 type DivopsAxiosHeaders = Record<string, string>;
 
 interface DivopsAxiosOptions {
+  baseURL?: string;
   headers?: DivopsAxiosHeaders | undefined | null;
   verboseError?: boolean | undefined | null;
   config?: Record<string, string> | undefined | null;
@@ -16,7 +17,9 @@ interface DivopsAxiosInstance extends DivopsAxiosOptions {
 
 const divopsAxios = {
   create: (options: DivopsAxiosOptions): DivopsAxiosInstance => {
-    const instance = axios.create();
+    const instance = axios.create(
+      options.baseURL != null ? { baseURL: options.baseURL } : {}
+    );
 
     if (options.headers != null) {
       instance.defaults.headers.common = options.headers;
