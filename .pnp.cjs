@@ -35,6 +35,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/builder"
       },
       {
+        "name": "@divops/notion-database",
+        "reference": "workspace:libraries/notion-databsae"
+      },
+      {
         "name": "@divops/scaffolder",
         "reference": "workspace:libraries/scaffolder"
       },
@@ -49,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/axios", ["workspace:libraries/axios"]],
       ["@divops/beta-my-sample", ["workspace:libraries/beta-my-sample"]],
       ["@divops/builder", ["workspace:libraries/builder"]],
+      ["@divops/notion-database", ["workspace:libraries/notion-databsae"]],
       ["@divops/scaffolder", ["workspace:libraries/scaffolder"]],
       ["@divops/thumbnails", ["workspace:libraries/thumbnails"]],
       ["divops-libraries", ["workspace:."]]
@@ -134,6 +139,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.14.0"],
             ["regenerator-runtime", "npm:0.13.9"],
             ["ts-node", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:10.4.0"],
+            ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@divops/notion-database", [
+        ["workspace:libraries/notion-databsae", {
+          "packageLocation": "./libraries/notion-databsae/",
+          "packageDependencies": [
+            ["@divops/notion-database", "workspace:libraries/notion-databsae"],
+            ["@divops/axios", "workspace:libraries/axios"],
+            ["@divops/builder", "workspace:libraries/builder"],
+            ["@types/node", "npm:17.0.21"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
           "linkType": "SOFT",
@@ -1268,6 +1286,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.11.10-6a434088fa-9c79419c5c.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:16.11.10"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:17.0.21", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-17.0.21-7d68eb6a13-89dcd2fe82.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:17.0.21"]
           ],
           "linkType": "HARD",
         }]

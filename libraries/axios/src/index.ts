@@ -10,9 +10,12 @@ interface DivopsAxiosOptions {
 }
 
 interface DivopsAxiosInstance extends DivopsAxiosOptions {
+  request: AxiosInstance;
   instance: AxiosInstance;
   get: Axios["get"];
   post: Axios["post"];
+  patch: Axios["patch"];
+  delete: Axios["delete"];
 }
 
 const divopsAxios = {
@@ -50,9 +53,12 @@ const divopsAxios = {
     );
 
     return {
+      request: instance,
       instance,
       get: instance.get,
       post: instance.post,
+      patch: instance.patch,
+      delete: instance.delete,
       ...options,
     };
   },
