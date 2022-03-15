@@ -8,13 +8,13 @@ interface DivopsAxiosOptions {
   config?: Record<string, string> | undefined | null;
 }
 
-export interface DivopsAxiosInstance extends DivopsAxiosOptions {
+interface DivopsAxiosInstance extends DivopsAxiosOptions {
   instance: AxiosInstance;
   get: Axios["get"];
   post: Axios["post"];
 }
 
-export default {
+const divopsAxios = {
   create: (options: DivopsAxiosOptions): DivopsAxiosInstance => {
     const instance = axios.create();
 
@@ -54,3 +54,9 @@ export default {
     };
   },
 };
+
+const { create } = divopsAxios;
+
+export { create, DivopsAxiosOptions, DivopsAxiosInstance };
+
+export default divopsAxios;
