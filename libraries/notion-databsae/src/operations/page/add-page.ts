@@ -1,8 +1,9 @@
 import { DivopsAxiosInstance } from "@divops/axios";
+import { chunkStr } from "../../utils/chunk-str";
 import { getLocalDate } from "../../utils/get-local-date";
 import { getTimestamp } from "../../utils/get-timestamp";
 
-export async function createPage({
+export async function addPage({
   context,
   title,
   contents = "",
@@ -28,7 +29,6 @@ export async function createPage({
     },
   });
 
-  const contentsList = contents.replace(/\n/g, "\\n").match(/.{1,1600}/g);
   await context.patch(`/v1/blocks/${pageId}/children`, {
     children: [
       {
@@ -45,7 +45,7 @@ export async function createPage({
           text: [{ type: "text", text: { content: created } }],
         },
       },
-      ...contentsList.map((contents) => ({
+      ...chunkStr(contents, 1600).map((contents) => ({
         object: "block",
         type: "code",
         code: {
