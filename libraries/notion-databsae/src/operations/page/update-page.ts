@@ -18,6 +18,28 @@ export async function updatePage({
 }) {
   const prev = await getPage({ context, pageId });
 
+  const { data: summary } = await context.get(`/v1/pages/${pageId}`);
+  const prevSummary = JSON.parse(summary.properties.Name.title[0].plain_text);
+
+  await context.patch(`/v1/pages/${pageId}`, {
+    parent: { database_id: context.config.databaseId },
+    properties: {
+      Name: {
+        title: [
+          {
+            text: {
+              content: JSON.stringify({
+                ...prevSummary,
+                title: title,
+                summary: contents.trim().split("\n")[0],
+              }),
+            },
+          },
+        ],
+      },
+    },
+  });
+
   await updateBlock({ context, block: { ...prev.title, text: title } });
 
   const promises = [];
