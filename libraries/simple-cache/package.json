@@ -1,0 +1,17 @@
+{
+  "name": "@divops/simple-cache",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "dist/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && divops-build",
+    "deploy": "npm publish --access public"
+  },
+  "devDependencies": {
+    "@divops/builder": "workspace:^",
+    "@types/node": "^17.0.21",
+    "typescript": "^4.4.4"
+  }
+}

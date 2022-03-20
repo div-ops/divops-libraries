@@ -43,6 +43,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/scaffolder"
       },
       {
+        "name": "@divops/simple-cache",
+        "reference": "workspace:libraries/simple-cache"
+      },
+      {
         "name": "@divops/thumbnails",
         "reference": "workspace:libraries/thumbnails"
       }
@@ -55,6 +59,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/builder", ["workspace:libraries/builder"]],
       ["@divops/notion-database", ["workspace:libraries/notion-databsae"]],
       ["@divops/scaffolder", ["workspace:libraries/scaffolder"]],
+      ["@divops/simple-cache", ["workspace:libraries/simple-cache"]],
       ["@divops/thumbnails", ["workspace:libraries/thumbnails"]],
       ["divops-libraries", ["workspace:."]]
     ],
@@ -163,6 +168,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@divops/scaffolder", "workspace:libraries/scaffolder"],
             ["@divops/builder", "workspace:libraries/builder"],
+            ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@divops/simple-cache", [
+        ["workspace:libraries/simple-cache", {
+          "packageLocation": "./libraries/simple-cache/",
+          "packageDependencies": [
+            ["@divops/simple-cache", "workspace:libraries/simple-cache"],
+            ["@divops/builder", "workspace:libraries/builder"],
+            ["@types/node", "npm:17.0.21"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
           "linkType": "SOFT",

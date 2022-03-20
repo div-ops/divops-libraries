@@ -90,6 +90,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@divops/simple-cache@workspace:libraries/simple-cache":
+  version: 0.0.0-use.local
+  resolution: "@divops/simple-cache@workspace:libraries/simple-cache"
+  dependencies:
+    "@divops/builder": "workspace:^"
+    "@types/node": ^17.0.21
+    typescript: ^4.4.4
+  languageName: unknown
+  linkType: soft
+
 "@divops/thumbnails@workspace:libraries/thumbnails":
   version: 0.0.0-use.local
   resolution: "@divops/thumbnails@workspace:libraries/thumbnails"
