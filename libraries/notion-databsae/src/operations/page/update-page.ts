@@ -3,6 +3,7 @@ import { getPage } from "./get-page";
 import { removeBlock } from "../block/remove-block";
 import { updateBlock } from "../block/update-block";
 import { appendBlockList } from "../block/append-block-list";
+import { chunkStr } from "../../utils/chunk-str";
 
 export async function updatePage({
   context,
@@ -17,8 +18,6 @@ export async function updatePage({
 }) {
   const prev = await getPage({ context, pageId });
 
-  const contentsList = contents.replace(/\n/g, "\\n").match(/.{1,1600}/g);
-
   await updateBlock({ context, block: { ...prev.title, text: title } });
 
   const promises = [];
@@ -31,6 +30,6 @@ export async function updatePage({
   await appendBlockList({
     context,
     parentId: pageId,
-    blockList: contentsList.map((text) => ({ type: "code", text })),
+    blockList: chunkStr(contents, 1600).map((text) => ({ type: "code", text })),
   });
 }
