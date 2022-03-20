@@ -11,7 +11,7 @@ class SimpleCache {
   expired;
   inMemoryMap: Map<string, any>;
 
-  constructor({ expired = defaultExpired }: CacheOptions) {
+  constructor({ expired = defaultExpired }: CacheOptions = {}) {
     this.expired = expired;
     this.inMemoryMap = new Map();
 
