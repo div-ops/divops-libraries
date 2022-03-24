@@ -7,7 +7,7 @@ function ensureEnv(key: string): string {
   return process.env[key];
 }
 
-interface NotionDBContextOptions {
+export interface NotionDBContextOptions {
   apiToken?: string;
   databaseId?: string;
   verbose: boolean;
