@@ -21,7 +21,9 @@ class SimpleCache {
     this.setItem = this.setItem.bind(this);
     this.getItem = this.getItem.bind(this);
     this.invalidate = this.invalidate.bind(this);
+    this.invalidateList = this.invalidateList.bind(this);
     this.withCache = this.withCache.bind(this);
+    this.withRefresh = this.withRefresh.bind(this);
   }
 
   setItem(key, data) {
