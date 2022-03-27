@@ -112,6 +112,8 @@ const createSimpleAuth = ({
         `${KEY_MAP.AUTHORIZATION}=${encoded}; Max-Age=${ONE_MONTH}; path=/; Secure; HttpOnly; SameSite=none`,
         `${KEY_MAP.SALT}=${salt}; Max-Age=${ONE_MONTH}; path=/; Secure; HttpOnly; SameSite=none`,
       ]);
+
+      return true;
     },
   };
 
