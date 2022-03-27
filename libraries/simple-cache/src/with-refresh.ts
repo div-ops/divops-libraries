@@ -1,7 +1,7 @@
 import { SimpleCache } from "./simple-cache";
 
 export interface Resource {
-  fn: () => Promise<any>;
+  fn?: () => Promise<any>;
   key: string;
 }
 
@@ -25,10 +25,12 @@ export async function withRefresh({
       return cached;
     }
 
+    if (resource.fn == null) {
+      continue;
+    }
+
     promises.push(
-      resource
-        .fn()
-        .then((data) => data != null && context.setItem(resource.key, data))
+      resource.fn().then((data) => context.setItem(resource.key, data))
     );
   }
 
