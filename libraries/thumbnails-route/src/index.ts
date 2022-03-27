@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 export function createThumbnailsRoute({
   maxAge = 31_536_000,
-  host = "creco.me",
+  host = "127.0.0.1",
 } = {}) {
   return async function handler(req: Request, res: Response) {
     const { text, theme, w, h, p } = req.query;
