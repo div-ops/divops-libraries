@@ -10,15 +10,29 @@ enum KEY_MAP {
   SALT = "sa",
   AUTHORIZATION = "au",
 }
+const ONE_MONTH = 2592000;
 
-const createSimpleAuth = ({ masterPassword }: { masterPassword: string }) => {
-  const ONE_MONTH = 2592000;
+const createSimpleAuth = ({
+  masterId,
+  masterPassword,
+}: {
+  masterId: string;
+  masterPassword: string;
+}) => {
+  masterId = masterId ?? (process.env.MASTER_ID || null);
+  masterPassword = masterPassword ?? (process.env.MASTER_PW || null);
 
-  if (masterPassword == null) {
-    throw new Error("masterPassword가 설정되지 않았습니다.");
+  if (masterId == null || masterPassword == null) {
+    throw new Error("masterId or masterPassword가 설정되지 않았습니다.");
   }
 
   const simpleAuth = {
+    // TODO(@creaticoding): 로그인 from db or resource not env
+    login: ({ id, pw }: { id: string; pw: string }) => {
+      if (id === masterId || `${pw}` === masterPassword) {
+        return true;
+      }
+    },
     createSalt: async (): Promise<string> => {
       return (await randomBytesPromise(64)).toString("base64");
     },
@@ -89,9 +103,11 @@ const createSimpleAuth = ({ masterPassword }: { masterPassword: string }) => {
       }
     },
 
-    setToken: async function (res, salt, hash) {
+    setToken: async function (res, pw) {
+      const { encoded, salt } = await simpleAuth.encodePassword(`${pw}`);
+
       res.setHeader("Set-Cookie", [
-        `${KEY_MAP.AUTHORIZATION}=${hash}; Max-Age=${ONE_MONTH}; path=/; Secure; HttpOnly; SameSite=none`,
+        `${KEY_MAP.AUTHORIZATION}=${encoded}; Max-Age=${ONE_MONTH}; path=/; Secure; HttpOnly; SameSite=none`,
         `${KEY_MAP.SALT}=${salt}; Max-Age=${ONE_MONTH}; path=/; Secure; HttpOnly; SameSite=none`,
       ]);
     },
