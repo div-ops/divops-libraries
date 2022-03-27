@@ -53,7 +53,30 @@ export class BuildCommand extends Command {
       entryPoints: [path.resolve(entry)],
       outfile,
       sourcemap: false,
-      plugins: [pnpPlugin()],
+      plugins: [
+        pnpPlugin(),
+        {
+          name: "copy",
+          setup(build) {
+            build.onEnd(
+              () =>
+                fs.existsSync("src/assets") &&
+                fs.cpSync(
+                  "src/assets",
+                  path.join(
+                    path.dirname(build.initialOptions.outfile),
+                    "assets"
+                  ),
+                  {
+                    recursive: true,
+                    force: true,
+                    dereference: true,
+                  }
+                )
+            );
+          },
+        },
+      ],
       external: [...(devDependencies ? Object.keys(devDependencies) : [])],
     });
   }
