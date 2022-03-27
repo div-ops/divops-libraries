@@ -100,4 +100,4 @@ const createSimpleAuth = ({ masterPassword }: { masterPassword: string }) => {
   return simpleAuth;
 };
 
-export default createSimpleAuth;
+export { createSimpleAuth };
