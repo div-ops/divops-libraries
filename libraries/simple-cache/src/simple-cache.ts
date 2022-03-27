@@ -50,6 +50,12 @@ class SimpleCache {
     this.inMemoryMap.delete(key);
   }
 
+  invalidateList(keyList: string[]) {
+    for (const key of keyList) {
+      this.inMemoryMap.delete(key);
+    }
+  }
+
   async withCache(fn, key) {
     return await withCache({ context: this, fn, key });
   }
