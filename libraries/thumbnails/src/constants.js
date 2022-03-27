@@ -19,8 +19,8 @@ const THUMBNAIL_THEME = Object.freeze({
 });
 
 const FONT_TYPE = Object.freeze({
-  WHITE: `./font/NANUM_54_WHITE.fnt`,
-  BLACK: `./font/NANUM_54_BLACK.fnt`,
+  WHITE: `./assets/font/NANUM_54_WHITE.fnt`,
+  BLACK: `./assets/font/NANUM_54_BLACK.fnt`,
 });
 
 const CONTENT_TYPE = Object.freeze({
