@@ -1465,6 +1465,9 @@ __metadata:
     express: ^4.17.3
     jest: ^27.5.1
     typescript: ^4.4.4
+  peerDependencies:
+    "@divops/thumbnails": "workspace:^"
+    express: "*"
   languageName: unknown
   linkType: soft
 
