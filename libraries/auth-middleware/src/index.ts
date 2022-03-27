@@ -1,1 +1,1 @@
-export * from "./simple-cache";
+export * from "./auth-middleware";
