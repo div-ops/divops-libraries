@@ -1,6 +1,7 @@
 const Jimp = require("jimp");
 const { FONT_TYPE } = require("./constants");
 const path = require("path");
+const THUMBNAIL_PATH = __dirname;
 
 const Font = {
   storage: {},
@@ -10,7 +11,7 @@ const Font = {
       throw new Error(`Font type is not valid. (${type})`);
     }
 
-    return Jimp.loadFont(path.resolve(__dirname, FONT_TYPE[type]));
+    return Jimp.loadFont(path.resolve(THUMBNAIL_PATH, FONT_TYPE[type]));
   },
 
   get: async ({ type }) => {
