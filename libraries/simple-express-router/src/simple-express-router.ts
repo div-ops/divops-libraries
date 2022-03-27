@@ -9,7 +9,7 @@ const createSimpleRouter = (resource: Resource) => {
     const args = { ...req.query, ...req.body, ...req.params };
 
     try {
-      return res.send(await resource({ args, req, res }));
+      return res.send(await resource({ ...args, req, res }));
     } catch (error) {
       console.error(error.message);
       console.error(error.stack);

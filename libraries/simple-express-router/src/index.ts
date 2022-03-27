@@ -1,1 +1,1 @@
-export * from "./simple-auth";
+export * from "./simple-express-router";
