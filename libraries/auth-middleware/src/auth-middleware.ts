@@ -1,13 +1,13 @@
-export function authMiddleware(validator: (req, res) => Promise<void>) {
+export function authMiddleware(key, validator: (req, res) => Promise<void>) {
   return async (req, res, next) => {
     try {
       await validator(req, res);
 
-      req.app.set("auth", {});
+      req.app.set(key, {});
 
       return next();
     } catch {
-      req.app.set("auth", null);
+      req.app.set(key, null);
 
       return next();
     }
