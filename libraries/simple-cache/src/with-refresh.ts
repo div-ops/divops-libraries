@@ -26,7 +26,9 @@ export async function withRefresh({
     }
 
     promises.push(
-      resource.fn().then((data) => context.setItem(resource.key, data))
+      resource
+        .fn()
+        .then((data) => data != null && context.setItem(resource.key, data))
     );
   }
 
