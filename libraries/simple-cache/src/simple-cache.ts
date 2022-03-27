@@ -1,4 +1,5 @@
 import { withCache } from "./with-cache";
+import { Resource, withRefresh } from "./with-refresh";
 
 const defaultExpired = new Date().getTime() + 1000 * 60 * 60 * 24 * 365;
 
@@ -58,6 +59,10 @@ class SimpleCache {
 
   async withCache(fn, key) {
     return await withCache({ context: this, fn, key });
+  }
+
+  async withRefresh(resources: Resource[]) {
+    return await withRefresh({ context: this, resources });
   }
 }
 
