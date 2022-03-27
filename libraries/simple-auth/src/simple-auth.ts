@@ -15,9 +15,11 @@ const ONE_MONTH = 2592000;
 const createSimpleAuth = ({
   masterId,
   masterPassword,
+  context,
 }: {
   masterId: string;
   masterPassword: string;
+  context: Record<string, string>;
 }) => {
   masterId = masterId ?? (process.env.MASTER_ID || null);
   masterPassword = masterPassword ?? (process.env.MASTER_PW || null);
@@ -86,7 +88,7 @@ const createSimpleAuth = ({
           throw new Error(`Not Authorization(token: ${token})`);
         }
 
-        return true;
+        return context;
       } catch (e) {
         if (!e.message.includes("'headers' of undefined")) {
           console.error(e.message);
