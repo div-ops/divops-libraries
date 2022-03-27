@@ -1,6 +1,6 @@
 import * as util from "util";
 import * as crypto from "crypto";
-import { Request } from "express";
+import { Request, Response } from "express";
 
 const randomBytesPromise = util.promisify(crypto.randomBytes);
 
@@ -114,6 +114,16 @@ const createSimpleAuth = ({
       ]);
 
       return true;
+    },
+
+    loginRoute: async (req: Request, res: Response) => {
+      const { id, pw } = req.body || {};
+
+      if (!simpleAuth.login({ id, pw })) {
+        return res.status(403).end("wrong id or password");
+      }
+
+      res.send(await simpleAuth.setToken(res, `${pw}`));
     },
   };
 
