@@ -43,6 +43,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/notion-databsae"
       },
       {
+        "name": "@divops/notion-system",
+        "reference": "workspace:libraries/notion-system"
+      },
+      {
         "name": "@divops/scaffolder",
         "reference": "workspace:libraries/scaffolder"
       },
@@ -75,10 +79,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/beta-my-sample", ["workspace:libraries/beta-my-sample"]],
       ["@divops/builder", ["workspace:libraries/builder"]],
       ["@divops/notion-database", ["workspace:libraries/notion-databsae"]],
+      ["@divops/notion-system", ["workspace:libraries/notion-system"]],
       ["@divops/scaffolder", ["workspace:libraries/scaffolder"]],
       ["@divops/simple-auth", ["workspace:libraries/simple-auth"]],
       ["@divops/simple-cache", ["workspace:libraries/simple-cache"]],
-      ["@divops/simple-express-router", ["workspace:libraries/simple-express-router"]],
+      ["@divops/simple-express-router", ["virtual:bb9cf2177f293170e8d86e65323a2d9a6b5ef20ff57ae6747047b7c08b9e4ba17af50e881cd1519602cff090f9ee38e4fd5a2b76c96103b055073417b83955c3#workspace:libraries/simple-express-router", "workspace:libraries/simple-express-router"]],
       ["@divops/thumbnails", ["workspace:libraries/thumbnails"]],
       ["@divops/thumbnails-route", ["workspace:libraries/thumbnails-route"]],
       ["divops-libraries", ["workspace:."]]
@@ -2626,6 +2631,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@divops/notion-system", [
+        ["workspace:libraries/notion-system", {
+          "packageLocation": "./libraries/notion-system/",
+          "packageDependencies": [
+            ["@divops/notion-system", "workspace:libraries/notion-system"],
+            ["@babel/core", "npm:7.17.8"],
+            ["@babel/preset-env", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:7.16.11"],
+            ["@babel/preset-typescript", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:7.16.7"],
+            ["@divops/auth-middleware", "workspace:libraries/auth-middleware"],
+            ["@divops/builder", "workspace:libraries/builder"],
+            ["@divops/notion-database", "workspace:libraries/notion-databsae"],
+            ["@divops/simple-auth", "workspace:libraries/simple-auth"],
+            ["@divops/simple-cache", "workspace:libraries/simple-cache"],
+            ["@divops/simple-express-router", "virtual:bb9cf2177f293170e8d86e65323a2d9a6b5ef20ff57ae6747047b7c08b9e4ba17af50e881cd1519602cff090f9ee38e4fd5a2b76c96103b055073417b83955c3#workspace:libraries/simple-express-router"],
+            ["@types/babel__core", "npm:7.1.19"],
+            ["@types/babel__preset-env", "npm:7.9.2"],
+            ["@types/express", "npm:4.17.13"],
+            ["@types/jest", "npm:27.4.1"],
+            ["@types/node", "npm:17.0.21"],
+            ["babel-jest", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:27.5.1"],
+            ["express", "npm:4.17.3"],
+            ["jest", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:27.5.1"],
+            ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@divops/scaffolder", [
         ["workspace:libraries/scaffolder", {
           "packageLocation": "./libraries/scaffolder/",
@@ -2680,6 +2712,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@divops/simple-express-router", [
+        ["virtual:bb9cf2177f293170e8d86e65323a2d9a6b5ef20ff57ae6747047b7c08b9e4ba17af50e881cd1519602cff090f9ee38e4fd5a2b76c96103b055073417b83955c3#workspace:libraries/simple-express-router", {
+          "packageLocation": "./.yarn/__virtual__/@divops-simple-express-router-virtual-eea72a629d/1/libraries/simple-express-router/",
+          "packageDependencies": [
+            ["@divops/simple-express-router", "virtual:bb9cf2177f293170e8d86e65323a2d9a6b5ef20ff57ae6747047b7c08b9e4ba17af50e881cd1519602cff090f9ee38e4fd5a2b76c96103b055073417b83955c3#workspace:libraries/simple-express-router"],
+            ["@babel/core", "npm:7.17.8"],
+            ["@babel/preset-env", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:7.16.11"],
+            ["@babel/preset-typescript", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:7.16.7"],
+            ["@divops/builder", "workspace:libraries/builder"],
+            ["@types/babel__core", "npm:7.1.19"],
+            ["@types/babel__preset-env", "npm:7.9.2"],
+            ["@types/express", "npm:4.17.13"],
+            ["@types/jest", "npm:27.4.1"],
+            ["@types/node", "npm:17.0.21"],
+            ["babel-jest", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:27.5.1"],
+            ["express", "npm:4.17.3"],
+            ["jest", "virtual:71e56e998f413b4f9f06074df6bb7b7566a7dfc20941f4d845434a17e42d43db64b154ed9f253546014757e699bcf20b663a0173bd87f2a052ca9a0293fc2100#npm:27.5.1"],
+            ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
+          ],
+          "packagePeers": [
+            "@types/express",
+            "express"
+          ],
+          "linkType": "SOFT",
+        }],
         ["workspace:libraries/simple-express-router", {
           "packageLocation": "./libraries/simple-express-router/",
           "packageDependencies": [

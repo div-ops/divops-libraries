@@ -1,4 +1,4 @@
-export function authMiddleware(key, validator: (req, res) => Promise<void>) {
+export function authMiddleware(key, validator: (req, res) => Promise<any>) {
   return async (req, res, next) => {
     try {
       const auth = await validator(req, res);
@@ -14,7 +14,7 @@ export function authMiddleware(key, validator: (req, res) => Promise<void>) {
   };
 }
 
-export function requireAuthMiddleware(validator: (req, res) => Promise<void>) {
+export function requireAuthMiddleware(validator: (req, res) => Promise<any>) {
   return async (req, res, next) => {
     try {
       await validator(req, res);

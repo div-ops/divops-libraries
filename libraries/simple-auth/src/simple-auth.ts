@@ -131,3 +131,5 @@ const createSimpleAuth = ({
 };
 
 export { createSimpleAuth };
+
+export type SimpleAuth = ReturnType<typeof createSimpleAuth>;
