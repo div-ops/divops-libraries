@@ -1,6 +1,6 @@
-import * as bodyParser from "body-parser";
+import bodyParser from "body-parser";
 import { Application } from "express";
-import * as express from "express";
+import express from "express";
 import next from "next";
 
 export function startServer({
