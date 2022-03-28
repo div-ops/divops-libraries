@@ -1,2 +1,2 @@
 export * from "./simple-express-router";
-export * from "./with-express-app-setting";
+export * from "./with-app-setting";
