@@ -3,13 +3,19 @@ import { Application } from "express";
 import express from "express";
 import next from "next";
 
+export type NextServer = ReturnType<typeof next>;
+
 export function startServer({
+  app,
   customServer,
   hostname = "localhost",
-  dev = process.env.NODE_ENV !== "production",
   port = 3000,
+}: {
+  app: NextServer;
+  customServer: (Express) => void;
+  hostname?: string;
+  port?: number;
 }) {
-  const app = next({ dev, hostname, port });
   const handle = app.getRequestHandler() as Application;
 
   app.prepare().then(() => {
