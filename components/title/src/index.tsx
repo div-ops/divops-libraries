@@ -15,7 +15,7 @@ export default function Title({
     <h1
       className={className}
       style={{
-        ...(padding ? { padding: `${padding};` } : {}),
+        ...(padding ? { padding } : {}),
         ...(underline ? { textDecoration: `underline` } : {}),
       }}
     >
