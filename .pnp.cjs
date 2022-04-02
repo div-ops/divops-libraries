@@ -2791,7 +2791,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"]
           ],
           "packagePeers": [
+            "@types/express",
             "@types/next",
+            "express",
             "next"
           ],
           "linkType": "SOFT",
@@ -2864,10 +2866,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/cli", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:0.1.52"],
             ["@swc/core", "npm:1.2.112"],
             ["@swc/register", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:0.1.7"],
+            ["@types/express", "npm:4.17.13"],
             ["@types/node", "npm:16.11.10"],
             ["@yarnpkg/esbuild-plugin-pnp", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:2.0.1"],
             ["clipanion", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:3.2.0-rc.4"],
             ["esbuild", "npm:0.14.0"],
+            ["express", "npm:4.17.3"],
             ["next", "virtual:0312062885e24a5c63e0fd9543ff097e778ea14894e7caf3379da0726df8dc5265c9e179f91a9d3c89af4f9df5063482fdba1ac265339233278afbfcb29b195b#npm:12.1.4"],
             ["regenerator-runtime", "npm:0.13.9"],
             ["ts-node", "virtual:0ef300b001f466c41b594776409c0d64404c347bd613d301fe8f65e542e625e3d65f6ea6f10e7320abe96eb4794a0925f71ac3e18df34f40e0335b1e330a5bea#npm:10.4.0"],
