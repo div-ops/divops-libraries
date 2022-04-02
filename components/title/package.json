@@ -1,6 +1,6 @@
 {
   "name": "@divops/component-title",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "src/index.tsx",
   "publishConfig": {
     "main": "dist/index.js"
