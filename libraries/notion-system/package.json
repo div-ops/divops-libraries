@@ -30,11 +30,11 @@
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "@divops/auth-middleware": "workspace:^",
-    "@divops/notion-database": "workspace:^",
-    "@divops/simple-auth": "workspace:^",
-    "@divops/simple-cache": "workspace:^",
-    "@divops/simple-express-router": "workspace:^",
+    "@divops/auth-middleware": "*",
+    "@divops/notion-database": "*",
+    "@divops/simple-auth": "*",
+    "@divops/simple-cache": "*",
+    "@divops/simple-express-router": "*",
     "express": "*"
   }
 }
