@@ -1,0 +1,40 @@
+{
+  "name": "@divops/tool-simple-next-server-starter",
+  "packageManager": "yarn@3.1.0",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "bin": {
+    "divops-next-start": "./bin/internal.js"
+  },
+  "publishConfig": {
+    "main": "./build/index.js",
+    "types": "./build/index.d.ts",
+    "bin": {
+      "divops-next-start": "./bin/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf build && divops-build",
+    "deploy": "npm publish --access public"
+  },
+  "dependencies": {
+    "@divops/simple-next-server": "workspace:^",
+    "@yarnpkg/esbuild-plugin-pnp": "^2.0.1",
+    "clipanion": "^3.2.0-rc.4",
+    "esbuild": "^0.14.0",
+    "regenerator-runtime": "^0.13.9"
+  },
+  "devDependencies": {
+    "@divops/builder": "workspace:^",
+    "@swc/cli": "^0.1.52",
+    "@swc/core": "^1.2.112",
+    "@swc/register": "^0.1.7",
+    "@types/node": "^16.11.10",
+    "next": "^12.1.4",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "next": "*"
+  }
+}

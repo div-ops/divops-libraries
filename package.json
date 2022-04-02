@@ -6,7 +6,8 @@
     "divops-build": "divops-build"
   },
   "workspaces": [
-    "libraries/*"
+    "libraries/*",
+    "tools/*"
   ],
   "devDependencies": {
     "typescript": "^4.5.2"
