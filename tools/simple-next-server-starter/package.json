@@ -33,11 +33,15 @@
     "@types/node": "^16.11.10",
     "express": "^4.17.3",
     "next": "^12.1.4",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.6.3"
   },
   "peerDependencies": {
     "express": "*",
-    "next": "*"
+    "next": "*",
+    "react": "*",
+    "react-dom": "*"
   }
 }

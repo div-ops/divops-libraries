@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@divops/builder": "workspace:^",
-    "typescript": "^4.4.4"
+    "typescript": "^4.6.3"
   }
 }
