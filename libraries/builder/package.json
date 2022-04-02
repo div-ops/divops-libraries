@@ -1,6 +1,6 @@
 {
   "name": "@divops/builder",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "index.ts",
   "bin": {
     "divops-build": "./bin/index.js"
