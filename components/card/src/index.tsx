@@ -22,7 +22,6 @@
 //     </div>
 //   );
 // }
-import React from "react";
 import { css } from "@emotion/react";
 
 export default function Card({

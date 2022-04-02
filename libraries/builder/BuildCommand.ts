@@ -7,6 +7,7 @@ import fs from "fs";
 export class BuildCommand extends Command {
   entry = Option.String("--entry", process.cwd() + "/index.ts");
   output = Option.String("--output", "index.js");
+  isReact = Option.Boolean("--react");
 
   async execute() {
     const packagePath = process.cwd();
@@ -53,6 +54,12 @@ export class BuildCommand extends Command {
       entryPoints: [path.resolve(entry)],
       outfile,
       sourcemap: false,
+      ...(this.isReact
+        ? {
+            jsxFactory: "jsx",
+            inject: [path.join(__dirname, "lib", "react-shim.js")],
+          }
+        : {}),
       plugins: [
         pnpPlugin(),
         {
