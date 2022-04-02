@@ -1,4 +1,4 @@
-import React from "react";
+import { css } from "@emotion/react";
 
 export default function Title({
   padding,
@@ -14,10 +14,10 @@ export default function Title({
   return (
     <h1
       className={className}
-      style={{
-        ...(padding ? { padding } : {}),
-        ...(underline ? { textDecoration: `underline` } : {}),
-      }}
+      css={css`
+        ${padding ? `padding: ${padding};` : ``}
+        ${underline ? `textDecoration: underline;` : ``}
+      `}
     >
       {children}
     </h1>
