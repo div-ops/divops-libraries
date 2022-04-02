@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "incremental": true,
     "declaration": true,
+    "declarationDir": "",
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
