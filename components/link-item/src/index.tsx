@@ -18,6 +18,11 @@ export default function LinkItem({
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
+      if (router == null) {
+        console.log("useRouter", useRouter);
+        console.log("router", router);
+      }
+
       if (router.isReady) {
         router.push(href);
       } else {
