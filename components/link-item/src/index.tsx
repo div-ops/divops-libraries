@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 export default function LinkItem({
   className,
@@ -14,15 +15,22 @@ export default function LinkItem({
 }) {
   const router = useRouter();
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    router.push(href);
-  };
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      if (router.isReady) {
+        router.push(href);
+      } else {
+        alert("잠시 후 재시도해주세요 🙏");
+      }
+    },
+    [router]
+  );
 
   return (
     <li className={className}>
       <Link href={href} passHref>
-        <a href={href} target={target} onClick={(e) => handleClick(e)}>
+        <a href={href} target={target} onClick={handleClick}>
           {children}
         </a>
       </Link>
