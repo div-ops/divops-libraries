@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@divops/builder": "workspace:^",
+    "@divops/component-header": "workspace:^",
     "@emotion/react": "^11.8.2",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
@@ -28,13 +29,13 @@
     "typescript": "^4.6.3"
   },
   "peerDependencies": {
+    "@divops/component-header": "*",
     "@emotion/react": "*",
     "react": "*",
     "react-dom": "*"
   },
   "dependencies": {
     "@divops/component-footer": "workspace:^",
-    "@divops/component-header": "workspace:^",
     "@divops/component-title": "workspace:^"
   }
 }

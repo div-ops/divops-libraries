@@ -1632,6 +1632,7 @@ __metadata:
     react-dom: ^18.0.0
     typescript: ^4.6.3
   peerDependencies:
+    "@divops/component-header": "*"
     "@emotion/react": "*"
     react: "*"
     react-dom: "*"
