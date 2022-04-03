@@ -1575,6 +1575,7 @@ __metadata:
     typescript: ^4.6.3
   peerDependencies:
     "@emotion/react": "*"
+    next: "*"
     react: "*"
     react-dom: "*"
   languageName: unknown
