@@ -6,7 +6,7 @@ import Title from "@divops/component-title";
 interface PageProps extends HeaderProps {
   className?: string;
   children: JSX.Element[] | JSX.Element | boolean | undefined | null;
-  header?: React.FC;
+  header?: ({ children }: { children: React.ReactNode }) => JSX.Element;
 }
 
 export default function Page({

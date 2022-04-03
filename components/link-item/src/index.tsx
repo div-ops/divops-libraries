@@ -9,7 +9,7 @@ export default function LinkItem({
   href: string;
   target?: "_self" | "_parent" | "_top" | "_blank";
   children: JSX.Element;
-  as: React.FC<{ href?: string; passHref?: boolean }>;
+  as: (...args: any) => React.ReactElement;
 }) {
   const Link = as;
 

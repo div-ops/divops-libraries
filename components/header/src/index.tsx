@@ -2,7 +2,7 @@ export interface HeaderProps {
   title?: string;
   description?: string;
   icon?: string;
-  as?: React.FC;
+  as?: ({ children }: { children: React.ReactNode }) => JSX.Element;
 }
 
 export default function Header({
