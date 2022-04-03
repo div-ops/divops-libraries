@@ -1,28 +1,22 @@
-import Link from "next/link";
-import { NextRouter } from "next/router";
-
 export default function LinkItem({
   className,
   href,
   target = "_self",
   children,
-  router,
+  as,
 }: {
   className?: string;
   href: string;
   target?: "_self" | "_parent" | "_top" | "_blank";
   children: JSX.Element;
-  router: NextRouter;
+  as: React.FC<{ href?: string; passHref?: boolean }>;
 }) {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    router.push(href);
-  };
+  const Link = as;
 
   return (
     <li className={className}>
       <Link href={href} passHref>
-        <a href={href} target={target} onClick={handleClick}>
+        <a href={href} target={target}>
           {children}
         </a>
       </Link>
