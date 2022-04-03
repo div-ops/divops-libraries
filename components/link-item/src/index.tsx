@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function LinkItem({
+export default function LinkItem({
   className,
   href,
   target = "_self",
