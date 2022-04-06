@@ -90,9 +90,16 @@ const createSimpleAuth = ({
 
         return context;
       } catch (e) {
-        if (!e.message.includes("'headers' of undefined")) {
+        if (
+          ![
+            // 무시할 에러 메시지
+            "'headers' of undefined",
+            "cookie is not defined",
+          ].some((message) => e.message.includes(message))
+        ) {
           console.error(e.message);
         }
+
         throw new Error(`Not Authorization(${e.message})`);
       }
     },
