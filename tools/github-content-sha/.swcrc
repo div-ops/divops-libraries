@@ -1,0 +1,14 @@
+{
+  "jsc": {
+    "baseUrl": ".",
+    "target": "es2021",
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": true
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}
