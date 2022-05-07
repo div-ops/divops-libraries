@@ -1,0 +1,25 @@
+{
+  "name": "@divops/utils-json-storage",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "dist/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && divops-build && tsc -p ./tsconfig.json",
+    "deploy": "npm publish --access public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@divops/builder": "workspace:^",
+    "@types/babel__core": "^7",
+    "@types/babel__preset-env": "^7",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
+    "typescript": "^4.6.3"
+  }
+}
