@@ -14,6 +14,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@divops/builder": "workspace:^"
+    "@divops/builder": "workspace:^",
+    "@divops/scaffolder": "workspace:^"
   }
 }

@@ -1747,12 +1747,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@divops/scaffolder@workspace:libraries/scaffolder":
+"@divops/scaffolder@workspace:^, @divops/scaffolder@workspace:libraries/scaffolder":
   version: 0.0.0-use.local
   resolution: "@divops/scaffolder@workspace:libraries/scaffolder"
   dependencies:
     "@divops/builder": "workspace:^"
+    "@swc/core": ^1.2.112
+    "@swc/register": ^0.1.7
+    "@types/node": ^17.0.21
+    clipanion: ^3.2.0-rc.4
+    execa: 5
+    ts-node: ^10.4.0
     typescript: ^4.6.3
+  bin:
+    scaffold: ./bin/index.js
   languageName: unknown
   linkType: soft
 
@@ -4564,6 +4572,7 @@ __metadata:
   resolution: "divops-libraries@workspace:."
   dependencies:
     "@divops/builder": "workspace:^"
+    "@divops/scaffolder": "workspace:^"
     typescript: ^4.6.3
   languageName: unknown
   linkType: soft
@@ -4917,7 +4926,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^5.0.0":
+"execa@npm:5, execa@npm:^5.0.0":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
   dependencies:
