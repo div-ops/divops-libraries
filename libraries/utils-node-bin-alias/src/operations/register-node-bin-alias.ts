@@ -4,7 +4,10 @@ import { getNodeBinPath } from "@divops/utils-node-bin-path";
 
 // e.g. alias: todo
 // e.g. targetBinary: /Users/$USER/.config/yarn/global/node_modules/\@divops/todo-cli/dist/index.js
-export async function registerAlias(alias: string, targetBinary: string) {
+export async function registerNodeBinAlias(
+  alias: string,
+  targetBinary: string
+) {
   const aliasPath = path.resolve(getNodeBinPath(), alias);
 
   if (fs.existsSync(aliasPath)) {
