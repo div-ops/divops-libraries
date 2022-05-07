@@ -125,6 +125,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/utils-node-bin-path"\
       },\
       {\
+        "name": "@divops/utils-shell",\
+        "reference": "workspace:libraries/utils-shell"\
+      },\
+      {\
         "name": "@divops/tool-github-content-sha",\
         "reference": "workspace:tools/github-content-sha"\
       },\
@@ -164,6 +168,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/tool-simple-next-server-starter", ["workspace:tools/simple-next-server-starter"]],\
       ["@divops/utils-node-bin-alias", ["workspace:libraries/utils-node-bin-alias"]],\
       ["@divops/utils-node-bin-path", ["workspace:libraries/utils-node-bin-path"]],\
+      ["@divops/utils-shell", ["workspace:libraries/utils-shell"]],\
       ["divops-libraries", ["workspace:."]]\
     ],\
     "fallbackPool": [\
@@ -3427,6 +3432,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./libraries/utils-node-bin-path/",\
           "packageDependencies": [\
             ["@divops/utils-node-bin-path", "workspace:libraries/utils-node-bin-path"],\
+            ["@babel/core", "npm:7.17.8"],\
+            ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
+            ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
+            ["@divops/builder", "workspace:libraries/builder"],\
+            ["@types/babel__core", "npm:7.1.19"],\
+            ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/jest", "npm:27.4.1"],\
+            ["@types/node", "npm:17.0.21"],\
+            ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@divops/utils-shell", [\
+        ["workspace:libraries/utils-shell", {\
+          "packageLocation": "./libraries/utils-shell/",\
+          "packageDependencies": [\
+            ["@divops/utils-shell", "workspace:libraries/utils-shell"],\
             ["@babel/core", "npm:7.17.8"],\
             ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\

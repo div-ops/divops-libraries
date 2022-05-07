@@ -1975,6 +1975,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@divops/utils-shell@workspace:libraries/utils-shell":
+  version: 0.0.0-use.local
+  resolution: "@divops/utils-shell@workspace:libraries/utils-shell"
+  dependencies:
+    "@babel/core": ^7.17.8
+    "@babel/preset-env": ^7.16.11
+    "@babel/preset-typescript": ^7.16.7
+    "@divops/builder": "workspace:^"
+    "@types/babel__core": ^7
+    "@types/babel__preset-env": ^7
+    "@types/jest": ^27.4.1
+    "@types/node": ^17.0.21
+    babel-jest: ^27.5.1
+    jest: ^27.5.1
+    typescript: ^4.6.3
+  languageName: unknown
+  linkType: soft
+
 "@emotion/babel-plugin@npm:^11.7.1":
   version: 11.7.2
   resolution: "@emotion/babel-plugin@npm:11.7.2"
