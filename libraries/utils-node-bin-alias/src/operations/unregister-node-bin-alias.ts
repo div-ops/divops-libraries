@@ -1,6 +1,6 @@
 import fs from "fs";
-import path from "path";
 import { getNodeBinPath } from "@divops/utils-node-bin-path";
+import path from "path";
 
 export async function unregisterNodeBinAlias(alias: string) {
   const target = path.resolve(getNodeBinPath(), alias);
