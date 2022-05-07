@@ -121,6 +121,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/utils-date"\
       },\
       {\
+        "name": "@divops/utils-github-storage",\
+        "reference": "workspace:libraries/utils-github-storage"\
+      },\
+      {\
         "name": "@divops/utils-node-bin-alias",\
         "reference": "workspace:libraries/utils-node-bin-alias"\
       },\
@@ -171,6 +175,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/tool-github-content-sha", ["workspace:tools/github-content-sha"]],\
       ["@divops/tool-simple-next-server-starter", ["workspace:tools/simple-next-server-starter"]],\
       ["@divops/utils-date", ["workspace:libraries/utils-date"]],\
+      ["@divops/utils-github-storage", ["workspace:libraries/utils-github-storage"]],\
       ["@divops/utils-node-bin-alias", ["workspace:libraries/utils-node-bin-alias"]],\
       ["@divops/utils-node-bin-path", ["workspace:libraries/utils-node-bin-path"]],\
       ["@divops/utils-shell", ["workspace:libraries/utils-shell"]],\
@@ -3420,6 +3425,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
             ["@divops/builder", "workspace:libraries/builder"],\
+            ["@types/babel__core", "npm:7.1.19"],\
+            ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/jest", "npm:27.4.1"],\
+            ["@types/node", "npm:17.0.21"],\
+            ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@divops/utils-github-storage", [\
+        ["workspace:libraries/utils-github-storage", {\
+          "packageLocation": "./libraries/utils-github-storage/",\
+          "packageDependencies": [\
+            ["@divops/utils-github-storage", "workspace:libraries/utils-github-storage"],\
+            ["@babel/core", "npm:7.17.8"],\
+            ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
+            ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
+            ["@divops/builder", "workspace:libraries/builder"],\
+            ["@octokit/rest", "npm:18.12.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
             ["@types/jest", "npm:27.4.1"],\
