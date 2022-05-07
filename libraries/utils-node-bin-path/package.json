@@ -1,6 +1,6 @@
 {
   "name": "@divops/utils-node-bin-path",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
