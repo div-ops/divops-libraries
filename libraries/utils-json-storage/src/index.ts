@@ -12,15 +12,17 @@ function getUserDir() {
 }
 
 function getStoragePathFile({
+  appName,
   profile,
   storageName,
 }: {
+  appName: string;
   profile: string;
   storageName: string;
 }) {
   return path.join(
     getUserDir(),
-    ".todo-cli",
+    `.${appName}`,
     "storage-config",
     `STORAGE_PATH_${
       (profile === DEFAULT_PROFILE ? "" : `${profile.toUpperCase()}_`) +
@@ -30,13 +32,15 @@ function getStoragePathFile({
 }
 
 async function getStoragePath({
+  appName,
   profile,
   storageName,
 }: {
+  appName: string;
   profile: string;
   storageName: string;
 }) {
-  const storagePathFile = getStoragePathFile({ profile, storageName });
+  const storagePathFile = getStoragePathFile({ appName, profile, storageName });
 
   if (fs.existsSync(storagePathFile)) {
     return await fs.promises.readFile(storagePathFile, "utf8");
@@ -46,7 +50,7 @@ async function getStoragePath({
 
   const storagePath = path.join(
     getUserDir(),
-    ".todo-cli",
+    `.${appName}`,
     "storage",
     profile,
     storageName
@@ -64,9 +68,11 @@ async function getStoragePath({
 }
 
 export function storageOf<T>({
+  appName,
   profile: optionalProfile,
   name: storageName,
 }: {
+  appName: string;
   profile?: string;
   name: string;
 }) {
@@ -75,23 +81,33 @@ export function storageOf<T>({
   return {
     reset: async () => {
       try {
-        await fs.promises.rm(await getStoragePath({ profile, storageName }), {
-          recursive: true,
-        });
+        await fs.promises.rm(
+          await getStoragePath({ appName, profile, storageName }),
+          {
+            recursive: true,
+          }
+        );
         console.log(
-          `${await getStoragePath({ profile, storageName })} is removed`
+          `${await getStoragePath({
+            appName,
+            profile,
+            storageName,
+          })} is removed`
         );
       } catch {
         //
       }
       try {
         await fs.promises.rm(
-          path.join(getUserDir(), getStoragePathFile({ profile, storageName }))
+          path.join(
+            getUserDir(),
+            getStoragePathFile({ appName, profile, storageName })
+          )
         );
         console.log(
           `${path.join(
             getUserDir(),
-            getStoragePathFile({ profile, storageName })
+            getStoragePathFile({ appName, profile, storageName })
           )} is removed`
         );
       } catch {
@@ -101,7 +117,7 @@ export function storageOf<T>({
 
     set: async (key: string, value: T): Promise<T> => {
       const filePath = path.join(
-        await getStoragePath({ profile, storageName }),
+        await getStoragePath({ appName, profile, storageName }),
         key
       );
 
@@ -116,7 +132,7 @@ export function storageOf<T>({
 
     get: async (key: string): Promise<T | null> => {
       const filePath = path.join(
-        await getStoragePath({ profile, storageName }),
+        await getStoragePath({ appName, profile, storageName }),
         key
       );
 
@@ -129,7 +145,7 @@ export function storageOf<T>({
 
     remove: async (key: string): Promise<string> => {
       const filePath = path.join(
-        await getStoragePath({ profile, storageName }),
+        await getStoragePath({ appName, profile, storageName }),
         key
       );
 

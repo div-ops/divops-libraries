@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import { getNodeBinPath } from "@divops/utils-node-bin-path";
 
-// e.g. alias: todo
-// e.g. targetBinary: /Users/$USER/.config/yarn/global/node_modules/\@divops/todo-cli/dist/index.js
+// e.g. alias: todo or wiki or ...
+// e.g. targetBinary: /Users/$USER/.config/yarn/global/node_modules/\@divops/[appName]/dist/index.js
 export async function registerNodeBinAlias(
   alias: string,
   targetBinary: string

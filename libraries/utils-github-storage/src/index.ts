@@ -1,14 +1,22 @@
 import { Octokit } from "@octokit/rest";
 
-export function storageOf<T>({
-  profile: basePath = "",
-  name: tree,
-}: {
-  profile?: string;
-  name: string;
-}) {
-  const { TODO_GITHUB_REPO: repoUrl = "", TODO_GITHUB_TOKEN: token = "" } =
-    process.env;
+interface StorageContext {
+  repoEnvKey: string;
+  tokenEnvKey: string;
+}
+
+export function storageOf<T>(
+  {
+    profile: basePath = "",
+    name: tree,
+  }: {
+    profile?: string;
+    name: string;
+  },
+  context: StorageContext
+) {
+  const repoUrl = process.env?.[context.repoEnvKey] ?? "";
+  const token = process.env?.[context.tokenEnvKey] ?? "";
 
   if (basePath == null) {
     throw new Error(`basePath is null`);
@@ -21,12 +29,12 @@ export function storageOf<T>({
   if (token === "" || repoUrl == "") {
     throw new Error(
       [
-        `TODO_GITHUB_REPO and TODO_GITHUB_TOKEN must be set in the environment`,
-        `환경변수로 TODO_GITHUB_REPO와 TODO_GITHUB_TOKEN을 설정해야 합니다.`,
+        `${context.repoEnvKey} and ${context.tokenEnvKey} must be set in the environment`,
+        `환경변수로 ${context.repoEnvKey}와 ${context.tokenEnvKey}을 설정해야 합니다.`,
         `https://github.com/settings/tokens 으로 가서 설정해주세요.`,
         ``,
-        `e.g. export TODO_GITHUB_REPO=https://github.com/owner/repo`,
-        `e.g. export TODO_GITHUB_TOKEN=ghp_GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG`,
+        `e.g. export ${context.repoEnvKey}=https://github.com/owner/repo`,
+        `e.g. export ${context.tokenEnvKey}=ghp_GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG`,
       ].join("\n")
     );
   }
@@ -118,12 +126,12 @@ export function storageOf<T>({
         if (error.message === "Bad credentials") {
           console.error(
             [
-              `TODO_GITHUB_REPO and TODO_GITHUB_TOKEN must be set in the environment`,
-              `환경변수로 TODO_GITHUB_REPO와 TODO_GITHUB_TOKEN을 설정해야 합니다.`,
+              `${context.repoEnvKey} and ${context.tokenEnvKey} must be set in the environment`,
+              `환경변수로 ${context.repoEnvKey}와 ${context.tokenEnvKey}을 설정해야 합니다.`,
               `https://github.com/settings/tokens 으로 가서 설정해주세요.`,
               ``,
-              `e.g. export TODO_GITHUB_REPO=https://github.com/owner/repo`,
-              `e.g. export TODO_GITHUB_TOKEN=ghp_GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG`,
+              `e.g. export ${context.repoEnvKey}=https://github.com/owner/repo`,
+              `e.g. export ${context.tokenEnvKey}=ghp_GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG`,
             ].join("\n")
           );
           throw error;
