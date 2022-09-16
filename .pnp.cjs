@@ -129,6 +129,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/utils-json-storage"\
       },\
       {\
+        "name": "@divops/utils-kakao-oauth",\
+        "reference": "workspace:libraries/utils-kakao-oauth"\
+      },\
+      {\
         "name": "@divops/utils-node-bin-alias",\
         "reference": "workspace:libraries/utils-node-bin-alias"\
       },\
@@ -181,6 +185,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/utils-date", ["workspace:libraries/utils-date"]],\
       ["@divops/utils-github-storage", ["workspace:libraries/utils-github-storage"]],\
       ["@divops/utils-json-storage", ["workspace:libraries/utils-json-storage"]],\
+      ["@divops/utils-kakao-oauth", ["workspace:libraries/utils-kakao-oauth"]],\
       ["@divops/utils-node-bin-alias", ["workspace:libraries/utils-node-bin-alias"]],\
       ["@divops/utils-node-bin-path", ["workspace:libraries/utils-node-bin-path"]],\
       ["@divops/utils-shell", ["workspace:libraries/utils-shell"]],\
@@ -3492,6 +3497,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@divops/utils-kakao-oauth", [\
+        ["workspace:libraries/utils-kakao-oauth", {\
+          "packageLocation": "./libraries/utils-kakao-oauth/",\
+          "packageDependencies": [\
+            ["@divops/utils-kakao-oauth", "workspace:libraries/utils-kakao-oauth"],\
+            ["@babel/core", "npm:7.17.8"],\
+            ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
+            ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
+            ["@divops/builder", "workspace:libraries/builder"],\
+            ["@types/babel__core", "npm:7.1.19"],\
+            ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/jest", "npm:27.4.1"],\
+            ["@types/node", "npm:17.0.21"],\
+            ["axios", "npm:0.27.2"],\
+            ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
       ["@divops/utils-node-bin-alias", [\
         ["workspace:libraries/utils-node-bin-alias", {\
           "packageLocation": "./libraries/utils-node-bin-alias/",\
@@ -6156,6 +6182,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.27.2", {\
+          "packageLocation": "./.yarn/cache/axios-npm-0.27.2-dbe3a48aea-38cb754046.zip/node_modules/axios/",\
+          "packageDependencies": [\
+            ["axios", "npm:0.27.2"],\
+            ["follow-redirects", "virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.2"],\
+            ["form-data", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["babel-jest", [\
@@ -7726,10 +7761,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
+        ["npm:1.15.2", {\
+          "packageLocation": "./.yarn/cache/follow-redirects-npm-1.15.2-1ec1dd82be-faa66059b6.zip/node_modules/follow-redirects/",\
+          "packageDependencies": [\
+            ["follow-redirects", "npm:1.15.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
         ["virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9", {\
           "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-2db68225c5/0/cache/follow-redirects-npm-1.14.9-522f191631-f5982e0eb4.zip/node_modules/follow-redirects/",\
           "packageDependencies": [\
             ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"],\
+            ["@types/debug", null],\
+            ["debug", null]\
+          ],\
+          "packagePeers": [\
+            "@types/debug",\
+            "debug"\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.2", {\
+          "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-42073a9d6a/0/cache/follow-redirects-npm-1.15.2-1ec1dd82be-faa66059b6.zip/node_modules/follow-redirects/",\
+          "packageDependencies": [\
+            ["follow-redirects", "virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.2"],\
             ["@types/debug", null],\
             ["debug", null]\
           ],\
@@ -7745,6 +7800,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/form-data-npm-3.0.1-d080d436e0-b019e8d35c.zip/node_modules/form-data/",\
           "packageDependencies": [\
             ["form-data", "npm:3.0.1"],\
+            ["asynckit", "npm:0.4.0"],\
+            ["combined-stream", "npm:1.0.8"],\
+            ["mime-types", "npm:2.1.35"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:4.0.0", {\
+          "packageLocation": "./.yarn/cache/form-data-npm-4.0.0-916facec2d-01135bf867.zip/node_modules/form-data/",\
+          "packageDependencies": [\
+            ["form-data", "npm:4.0.0"],\
             ["asynckit", "npm:0.4.0"],\
             ["combined-stream", "npm:1.0.8"],\
             ["mime-types", "npm:2.1.35"]\
