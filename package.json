@@ -1,6 +1,6 @@
 {
   "name": "divops-libraries",
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.3",
   "private": true,
   "scripts": {
     "divops-build": "divops-build",
@@ -11,11 +11,12 @@
     "libraries/*",
     "tools/*"
   ],
-  "devDependencies": {
-    "typescript": "^4.6.3"
-  },
   "dependencies": {
     "@divops/builder": "workspace:^",
-    "@divops/scaffolder": "workspace:^"
+    "@divops/scaffolder": "workspace:^",
+    "typescript": "^4.8.3"
+  },
+  "resolutions": {
+    "typescript": "4.8"
   }
 }
