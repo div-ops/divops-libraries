@@ -3630,6 +3630,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.7.18":
+  version: 18.7.18
+  resolution: "@types/node@npm:18.7.18"
+  checksum: 8aec61f0f96e2a69ce51f1f40f949ca578bbb4fe05d7c0b8ce3aeeb848e90f755837f17f6ac132ca404d974fe9b2974150ad3b4984fc9dc7c3ceddb10bae0167
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
@@ -4702,6 +4709,7 @@ __metadata:
   dependencies:
     "@divops/builder": "workspace:^"
     "@divops/scaffolder": "workspace:^"
+    "@types/node": ^18.7.18
     ts-node: ^10.9.1
     typescript: ^4.8.3
   languageName: unknown

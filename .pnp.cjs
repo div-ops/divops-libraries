@@ -195,6 +195,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@divops/builder", "workspace:libraries/builder"],\
             ["@divops/scaffolder", "workspace:libraries/scaffolder"],\
+            ["@types/node", "npm:18.7.18"],\
             ["ts-node", "virtual:487c03e2cd8dcfd3c90e5b9722a89bd9ae147a1d941fab49bfc41127b888b06e5c90157770d729a7da91c57311797a9c2aad5c5a4b7a2e7642d86d93214c8961#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
           ],\
@@ -5767,6 +5768,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.21"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:18.7.18", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.7.18-5bcc3f839f-8aec61f0f9.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.7.18"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/parse-json", [\
@@ -7136,6 +7144,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["divops-libraries", "workspace:."],\
             ["@divops/builder", "workspace:libraries/builder"],\
             ["@divops/scaffolder", "workspace:libraries/scaffolder"],\
+            ["@types/node", "npm:18.7.18"],\
             ["ts-node", "virtual:487c03e2cd8dcfd3c90e5b9722a89bd9ae147a1d941fab49bfc41127b888b06e5c90157770d729a7da91c57311797a9c2aad5c5a4b7a2e7642d86d93214c8961#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
           ],\
@@ -11120,7 +11129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.9"],\
             ["@tsconfig/node14", "npm:1.0.1"],\
             ["@tsconfig/node16", "npm:1.0.2"],\
-            ["@types/node", null],\
+            ["@types/node", "npm:18.7.18"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
