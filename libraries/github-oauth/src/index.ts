@@ -62,7 +62,7 @@ export const createGitHubOAuth = ({
       };
     },
 
-    findGitHubToken: async (req: IncomingMessage) => {
+    findGitHubToken: (req: IncomingMessage) => {
       const token = parseCookie(req.headers["cookie"]);
 
       return token;

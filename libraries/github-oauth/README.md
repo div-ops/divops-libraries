@@ -1,5 +1,14 @@
 # github-oauth
 
+## 0. environments
+
+```
+CLIENT_ID = process.env.GITHUB_CLIENT_ID,
+CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET,
+REFERER_COOKIE_KEY = "referer",
+OAUTH_COOKIE_KEY = "github-oauth",
+```
+
 ## 1. usage
 
 > pages/api/callback.tsx
