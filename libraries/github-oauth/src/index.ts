@@ -63,9 +63,9 @@ export const createGitHubOAuth = ({
     },
 
     findGitHubToken: (req: IncomingMessage) => {
-      const token = parseCookie(req.headers["cookie"]);
+      const cookies = parseCookie(req.headers["cookie"]);
 
-      return token;
+      return cookies[OAUTH_COOKIE_KEY];
     },
 
     callback: async (req: IncomingMessage, res: ServerResponse) => {
