@@ -50,7 +50,7 @@ export const createGitHubOAuth = ({
       if (req.headers.referer != null) {
         res.setHeader(
           "Set-Cookie",
-          `${REFERER_COOKIE_KEY}=${referer}; Path=/; HttpOnly;`
+          `${REFERER_COOKIE_KEY}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
         );
       }
 
@@ -91,9 +91,9 @@ export const createGitHubOAuth = ({
         `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
       );
 
-      if (req.headers.referer != null) {
-        return res.writeHead(302, { Location: req.headers.referer }).end();
-      }
+      // if (req.headers.referer != null) {
+      //   return res.writeHead(302, { Location: req.headers.referer }).end();
+      // }
 
       const cookies = parseCookie(req.headers["cookie"]);
       if (cookies[REFERER_COOKIE_KEY] != null) {
