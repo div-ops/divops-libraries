@@ -91,6 +91,10 @@ export const createGitHubOAuth = ({
         `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
       );
 
+      if (req.headers.referer != null) {
+        return res.writeHead(302, { Location: req.headers.referer }).end();
+      }
+
       const cookies = parseCookie(req.headers["cookie"]);
       if (cookies[REFERER_COOKIE_KEY] != null) {
         return res
