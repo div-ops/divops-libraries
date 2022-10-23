@@ -131,6 +131,15 @@ export const createGitHubOAuth = ({
               })
               .end();
           }
+
+          res.writeHead(200);
+          res.write(
+            JSON.stringify({
+              referer: req?.headers?.referer,
+              cookies,
+            })
+          );
+          return res.end();
         }
 
         console.log(
