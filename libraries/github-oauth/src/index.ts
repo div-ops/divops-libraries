@@ -101,6 +101,15 @@ export const createGitHubOAuth = ({
             .end();
         }
 
+        const cookies = parseCookie(req.headers["cookie"]);
+        if (cookies[CALLBACK_URL] != null) {
+          return res
+            .writeHead(302, {
+              Location: new URL(cookies[CALLBACK_URL]).origin,
+            })
+            .end();
+        }
+
         return res
           .writeHead(302, {
             Location: new URL(path.join(req.headers.referer, LOGIN_URL)).href,
