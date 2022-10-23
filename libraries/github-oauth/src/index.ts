@@ -47,15 +47,27 @@ export const createGitHubOAuth = ({
   LOGIN_URL?: string;
 } = {}) => {
   return {
+    /**
+     * @name redirectToGitHubAuthPage
+     * @example
+     * const referer = req.headers.referer;
+     *
+     * if (req.headers.referer != null) {
+     *   res.setHeader(
+     *     "Set-Cookie",
+     *     `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
+     *   );
+     * }
+     */
     redirectToGitHubAuthPage: (req: IncomingMessage, res: ServerResponse) => {
-      const referer = req.headers.referer;
+      // const referer = req.headers.referer;
 
-      if (req.headers.referer != null) {
-        res.setHeader(
-          "Set-Cookie",
-          `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
-        );
-      }
+      // if (req.headers.referer != null) {
+      //   res.setHeader(
+      //     "Set-Cookie",
+      //     `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
+      //   );
+      // }
 
       return {
         redirect: {
