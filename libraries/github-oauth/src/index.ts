@@ -132,13 +132,13 @@ export const createGitHubOAuth = ({
               .end();
           }
 
-          res.write({
-            ["X-debug"]: JSON.stringify({
+          res.write(
+            JSON.stringify({
               cookies,
               referer: req?.headers?.referer,
               origin: req?.headers?.origin,
-            }),
-          });
+            })
+          );
           return res.end();
         }
 
