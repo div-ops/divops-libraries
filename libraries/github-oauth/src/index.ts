@@ -120,11 +120,11 @@ export const createGitHubOAuth = ({
           const cookies = parseCookie(req.headers["cookie"]);
           console.log(
             "cookies[CALLBACK_URL] != null",
-            cookies[CALLBACK_URL],
-            cookies[CALLBACK_URL] != null,
-            cookies[CALLBACK_URL]
+            cookies?.[CALLBACK_URL],
+            cookies?.[CALLBACK_URL] != null,
+            cookies?.[CALLBACK_URL]
           );
-          if (cookies[CALLBACK_URL] != null) {
+          if (cookies?.[CALLBACK_URL] != null) {
             return res
               .writeHead(302, {
                 Location: cookies[CALLBACK_URL],
@@ -132,14 +132,16 @@ export const createGitHubOAuth = ({
               .end();
           }
 
-          res.writeHead(200);
-          res.write(
-            JSON.stringify({
-              referer: req?.headers?.referer,
-              cookies,
+          return res
+            .writeHead(302, {
+              Location: new URL(path.join(req.headers.origin)).href,
+              ["X-debug"]: JSON.stringify({
+                cookies,
+                referer: req?.headers?.referer,
+                origin: req?.headers?.origin,
+              }),
             })
-          );
-          return res.end();
+            .end();
         }
 
         console.log(
