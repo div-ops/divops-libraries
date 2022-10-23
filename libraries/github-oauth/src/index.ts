@@ -104,7 +104,9 @@ export const createGitHubOAuth = ({
           .writeHead(302, { Location: `${req.headers.referer}${LOGIN_URL}` })
           .end();
       } catch (error) {
-        return res.writeHead(500).end(error.message);
+        res.writeHead(500);
+        res.write(error.message);
+        return res.end();
       }
     },
 
