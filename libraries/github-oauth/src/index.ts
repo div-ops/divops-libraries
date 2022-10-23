@@ -105,7 +105,7 @@ export const createGitHubOAuth = ({
         if (cookies[CALLBACK_URL] != null) {
           return res
             .writeHead(302, {
-              Location: new URL(cookies[CALLBACK_URL]).origin,
+              Location: cookies[CALLBACK_URL],
             })
             .end();
         }
