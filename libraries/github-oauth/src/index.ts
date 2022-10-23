@@ -101,7 +101,10 @@ export const createGitHubOAuth = ({
           req.headers.referer == null
         );
         // referer 가 없다면, origin 도 없다.
-        if (req.headers.referer == null) {
+        if (
+          req.headers.referer == null ||
+          req.headers.referer === "https://github.com/"
+        ) {
           const cookies = parseCookie(req.headers["cookie"]);
           console.log(
             "cookies[CALLBACK_URL] != null",
