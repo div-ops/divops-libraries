@@ -108,49 +108,40 @@ export const createGitHubOAuth = ({
         );
 
         console.log(
-          "req.headers.referer == null",
-          req?.headers?.referer,
-          req?.headers?.referer == null
+          "[IN CALLBACK]",
+          `${OAUTH_COOKIE_KEY} is set to set-cookie`
         );
-        // referer 가 없다면, origin 도 없다.
-        if (
-          req?.headers?.referer == null ||
-          req?.headers?.referer === "https://github.com/"
-        ) {
-          const cookies = parseCookie(req.headers["cookie"]);
-          console.log(
-            "cookies[CALLBACK_URL] != null",
-            cookies?.[CALLBACK_URL],
-            cookies?.[CALLBACK_URL] != null,
-            cookies?.[CALLBACK_URL]
-          );
-          if (cookies?.[CALLBACK_URL] != null) {
-            return res
-              .writeHead(302, {
-                Location: cookies[CALLBACK_URL],
-              })
-              .end();
-          }
-
-          res.write(
-            JSON.stringify({
-              cookies,
-              referer: req?.headers?.referer,
-              origin: req?.headers?.origin,
-            })
-          );
-          return res.end();
-        }
 
         console.log(
-          "new URL(path.join(req.headers.referer, LOGIN_URL)).href",
-          new URL(path.join(req.headers.referer, LOGIN_URL)).href
+          "[IN CALLBACK]",
+          "req.headers.referer: ",
+          req.headers.referer
         );
-        return res
-          .writeHead(302, {
-            Location: new URL(path.join(req.headers.referer, LOGIN_URL)).href,
+
+        const cookies = parseCookie(req.headers["cookie"]);
+        console.log(
+          "[IN CALLBACK]",
+          "cookies['referer']: ",
+          cookies?.[CALLBACK_URL]
+        );
+
+        if (cookies?.[CALLBACK_URL] != null) {
+          return res
+            .writeHead(302, {
+              Location: cookies[CALLBACK_URL],
+              [OAUTH_COOKIE_KEY]: accessToken,
+            })
+            .end();
+        }
+
+        res.writeHead(500);
+        res.write(
+          JSON.stringify({
+            "req.headers.referer": req.headers.referer,
+            'cookies?.["referer"]': cookies?.["referer"],
           })
-          .end();
+        );
+        return res.end();
       } catch (error) {
         res.writeHead(500);
         res.write(error.message);
