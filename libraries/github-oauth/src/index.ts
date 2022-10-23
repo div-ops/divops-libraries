@@ -71,35 +71,41 @@ export const createGitHubOAuth = ({
     },
 
     callback: async (req: IncomingMessage, res: ServerResponse) => {
-      const { code } = getQueryFromUrl(req.url) as { code: string };
+      try {
+        const { code } = getQueryFromUrl(req.url) as { code: string };
 
-      const {
-        data: { access_token: accessToken },
-      } = await axios({
-        method: "post",
-        url: `https://github.com/login/oauth/access_token`,
-        headers: {
-          accept: "application/json",
-        },
-        data: {
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-          code,
-        },
-      });
+        const {
+          data: { access_token: accessToken },
+        } = await axios({
+          method: "post",
+          url: `https://github.com/login/oauth/access_token`,
+          headers: {
+            accept: "application/json",
+          },
+          data: {
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            code,
+          },
+        });
 
-      res.setHeader(
-        "Set-Cookie",
-        `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
-      );
+        res.setHeader(
+          "Set-Cookie",
+          `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
+        );
 
-      if (req.headers.referer == null) {
-        return res.writeHead(302, { Location: `${req.headers.origin}` }).end();
+        if (req.headers.referer == null) {
+          return res
+            .writeHead(302, { Location: `${req.headers.origin}` })
+            .end();
+        }
+
+        return res
+          .writeHead(302, { Location: `${req.headers.referer}${LOGIN_URL}` })
+          .end();
+      } catch (error) {
+        return res.writeHead(500).end(error.message);
       }
-
-      return res
-        .writeHead(302, { Location: `${req.headers.referer}${LOGIN_URL}` })
-        .end();
     },
 
     getCallbackUrl: async (req?: IncomingMessage) => {
