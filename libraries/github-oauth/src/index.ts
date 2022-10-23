@@ -98,7 +98,8 @@ export const createGitHubOAuth = ({
         console.log(
           "req.headers.referer == null",
           req.headers.referer,
-          req.headers.referer == null
+          req.headers.referer == null,
+          req.headers.origin
         );
         if (req.headers.referer == null) {
           return res
@@ -110,7 +111,8 @@ export const createGitHubOAuth = ({
         console.log(
           "cookies[CALLBACK_URL] != null",
           cookies[CALLBACK_URL],
-          cookies[CALLBACK_URL] != null
+          cookies[CALLBACK_URL] != null,
+          cookies[CALLBACK_URL]
         );
         if (cookies[CALLBACK_URL] != null) {
           return res
