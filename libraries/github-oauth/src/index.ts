@@ -98,28 +98,24 @@ export const createGitHubOAuth = ({
         console.log(
           "req.headers.referer == null",
           req.headers.referer,
-          req.headers.referer == null,
-          req.headers.origin
+          req.headers.referer == null
         );
+        // referer 가 없다면, origin 도 없다.
         if (req.headers.referer == null) {
-          return res
-            .writeHead(302, { Location: `${req.headers.origin}` })
-            .end();
-        }
-
-        const cookies = parseCookie(req.headers["cookie"]);
-        console.log(
-          "cookies[CALLBACK_URL] != null",
-          cookies[CALLBACK_URL],
-          cookies[CALLBACK_URL] != null,
-          cookies[CALLBACK_URL]
-        );
-        if (cookies[CALLBACK_URL] != null) {
-          return res
-            .writeHead(302, {
-              Location: cookies[CALLBACK_URL],
-            })
-            .end();
+          const cookies = parseCookie(req.headers["cookie"]);
+          console.log(
+            "cookies[CALLBACK_URL] != null",
+            cookies[CALLBACK_URL],
+            cookies[CALLBACK_URL] != null,
+            cookies[CALLBACK_URL]
+          );
+          if (cookies[CALLBACK_URL] != null) {
+            return res
+              .writeHead(302, {
+                Location: cookies[CALLBACK_URL],
+              })
+              .end();
+          }
         }
 
         console.log(
