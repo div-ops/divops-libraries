@@ -132,7 +132,6 @@ export const createGitHubOAuth = ({
               .end();
           }
 
-          res.writeHead(200);
           res.write({
             ["X-debug"]: JSON.stringify({
               cookies,
