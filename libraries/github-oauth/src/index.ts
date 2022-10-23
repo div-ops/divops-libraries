@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IncomingMessage, ServerResponse } from "http";
+import path from "path";
 
 function parseCookie(cookieString: string): Record<string, string | null> {
   return cookieString
@@ -101,7 +102,9 @@ export const createGitHubOAuth = ({
         }
 
         return res
-          .writeHead(302, { Location: `${req.headers.referer}${LOGIN_URL}` })
+          .writeHead(302, {
+            Location: new URL(path.join(req.headers.referer, LOGIN_URL)).href,
+          })
           .end();
       } catch (error) {
         res.writeHead(500);
