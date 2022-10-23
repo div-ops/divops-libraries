@@ -35,13 +35,15 @@ function getQueryFromUrl(url: string) {
 export const createGitHubOAuth = ({
   CLIENT_ID = process.env.GITHUB_CLIENT_ID,
   CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET,
-  REFERER_COOKIE_KEY = "referer",
+  CALLBACK_URL = "referer",
   OAUTH_COOKIE_KEY = "github-oauth",
+  LOGIN_URL = "/login/github",
 }: {
   CLIENT_ID?: string;
   CLIENT_SECRET?: string;
-  REFERER_COOKIE_KEY?: string;
+  CALLBACK_URL?: string;
   OAUTH_COOKIE_KEY?: string;
+  LOGIN_URL?: string;
 } = {}) => {
   return {
     redirectToGitHubAuthPage: (req: IncomingMessage, res: ServerResponse) => {
@@ -50,7 +52,7 @@ export const createGitHubOAuth = ({
       if (req.headers.referer != null) {
         res.setHeader(
           "Set-Cookie",
-          `${REFERER_COOKIE_KEY}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
+          `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
         );
       }
 
@@ -91,20 +93,30 @@ export const createGitHubOAuth = ({
         `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
       );
 
-      // if (req.headers.referer != null) {
-      //   return res.writeHead(302, { Location: req.headers.referer }).end();
-      // }
-
-      const cookies = parseCookie(req.headers["cookie"]);
-      if (cookies[REFERER_COOKIE_KEY] != null) {
-        return res
-          .writeHead(302, { Location: cookies[REFERER_COOKIE_KEY] })
-          .end();
+      if (req.headers.referer == null) {
+        return res.writeHead(302, { Location: `${req.headers.origin}` }).end();
       }
 
-      return res.writeHead(302, { Location: "/" }).end();
+      return res
+        .writeHead(302, { Location: `${req.headers.referer}${LOGIN_URL}` })
+        .end();
+    },
+
+    getCallbackUrl: async (req?: IncomingMessage) => {
+      const cookieString =
+        typeof window !== "undefined"
+          ? window.document.cookie
+          : req?.headers?.["cookie"];
+
+      if (cookieString != null) {
+        const cookies = parseCookie(cookieString);
+
+        if (cookies[CALLBACK_URL] != null) {
+          return cookies[CALLBACK_URL];
+        }
+      }
+
+      return null;
     },
   };
 };
-
-export const gitHubOAuth = createGitHubOAuth();
