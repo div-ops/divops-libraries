@@ -120,3 +120,5 @@ export const createGitHubOAuth = ({
     },
   };
 };
+
+export const gitHubOAuth = createGitHubOAuth();
