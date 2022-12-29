@@ -63,6 +63,10 @@ export const createGitHubOAuth = async ({
   ensureVariable("GIST_STORAGE_TOKEN", GIST_STORAGE_TOKEN);
   ensureVariable("GIST_STORAGE_KEY_STORE_ID", GIST_STORAGE_KEY_STORE_ID);
 
+  const cryptoSecret = Buffer.from(`github-oauth-${name}`)
+    .reverse()
+    .slice(0, 16);
+
   const gistStorage = await createGistJSONStorage({
     token: GIST_STORAGE_TOKEN,
     keyStoreId: GIST_STORAGE_KEY_STORE_ID,
@@ -184,11 +188,12 @@ export const createGitHubOAuth = async ({
       });
 
       const userPoolKey = `gist-storage-${name}-user-pool`;
-      const userAccessTokenID = encrypt(accessToken).slice(0, 10);
+      const cryptedAccessToken = encrypt(accessToken, { iv: cryptoSecret });
+      const userAccessTokenID = cryptedAccessToken.slice(0, 10);
 
       await gistStorage.set(userPoolKey, {
         ...((await gistStorage.find<any>(userPoolKey)) ?? {}),
-        [userAccessTokenID]: accessToken,
+        [userAccessTokenID]: cryptedAccessToken,
       });
 
       return userAccessTokenID;

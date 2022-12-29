@@ -7,7 +7,7 @@ function randomString(size: number) {
   return crypto.randomBytes(240).toString("base64").slice(0, size);
 }
 
-export function encrypt(plain: string) {
+export function encrypt(plain: string, { iv }: { iv: Buffer }) {
   const password = randomString(99);
   const specialSalt = Buffer.from(Date.now().toString().slice(0, 10)).toString(
     "base64"
@@ -21,7 +21,7 @@ export function encrypt(plain: string) {
   return `${password}${specialSalt}${result}`;
 }
 
-export function decrypt(encoded: string) {
+export function decrypt(encoded: string, { iv }: { iv: Buffer }) {
   const password = encoded.slice(0, 99);
   const specialSalt = encoded.slice(99, 115);
   const token = encoded.slice(115);
