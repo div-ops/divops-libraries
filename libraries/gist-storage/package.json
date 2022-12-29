@@ -9,12 +9,14 @@
     "build": "rm -rf dist && divops-build && tsc -p ./tsconfig.json",
     "deploy": "npm publish --access public"
   },
+  "dependencies": {
+    "@octokit/rest": "^18.12.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@divops/builder": "workspace:^",
-    "@octokit/rest": "^18.12.0",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/jest": "^27.4.1",
