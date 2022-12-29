@@ -34,25 +34,35 @@ function getQueryFromUrl(url: string) {
   }, {});
 }
 
+function ensureVariable(key, value) {
+  if (value == null || value === "") {
+    throw new Error(`${key}가 주어지지 않았습니다.`);
+  }
+}
 export const createGitHubOAuth = async ({
   name,
-  CLIENT_ID = process.env.GITHUB_CLIENT_ID,
-  CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET,
-  CALLBACK_URL = "referer",
-  OAUTH_COOKIE_KEY = "github-oauth",
-  LOGIN_URL = "/login/github",
+  callbackUrl = "referer",
+  oauthCookieKey = "github-oauth",
+  loginUrl = "/login/github",
+  GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET,
   GIST_STORAGE_TOKEN = process.env.GIST_STORAGE_TOKEN,
   GIST_STORAGE_KEY_STORE_ID = process.env.GIST_STORAGE_KEY_STORE_ID,
 }: {
   name: string;
-  CLIENT_ID?: string;
-  CLIENT_SECRET?: string;
-  CALLBACK_URL?: string;
-  OAUTH_COOKIE_KEY?: string;
-  LOGIN_URL?: string;
+  callbackUrl?: string;
+  oauthCookieKey?: string;
+  loginUrl?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
   GIST_STORAGE_TOKEN?: string;
   GIST_STORAGE_KEY_STORE_ID?: string;
 }) => {
+  ensureVariable("GITHUB_CLIENT_ID", GITHUB_CLIENT_ID);
+  ensureVariable("GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET);
+  ensureVariable("GIST_STORAGE_TOKEN", GIST_STORAGE_TOKEN);
+  ensureVariable("GIST_STORAGE_KEY_STORE_ID", GIST_STORAGE_KEY_STORE_ID);
+
   const gistStorage = await createGistJSONStorage({
     token: GIST_STORAGE_TOKEN,
     keyStoreId: GIST_STORAGE_KEY_STORE_ID,
@@ -67,7 +77,7 @@ export const createGitHubOAuth = async ({
      * if (req.headers.referer != null) {
      *   res.setHeader(
      *     "Set-Cookie",
-     *     `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
+     *     `${callbackUrl}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
      *   );
      * }
      */
@@ -77,13 +87,13 @@ export const createGitHubOAuth = async ({
       // if (req.headers.referer != null) {
       //   res.setHeader(
       //     "Set-Cookie",
-      //     `${CALLBACK_URL}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
+      //     `${callbackUrl}=${referer}; Path=/; HttpOnly; Secure; SameSite=None;`
       //   );
       // }
 
       return {
         redirect: {
-          destination: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`,
+          destination: `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}`,
           permanent: false,
         },
       };
@@ -92,7 +102,7 @@ export const createGitHubOAuth = async ({
     findGitHubToken: (req: IncomingMessage) => {
       const cookies = parseCookie(req.headers["cookie"]);
 
-      return cookies[OAUTH_COOKIE_KEY];
+      return cookies[oauthCookieKey];
     },
 
     callback: async (req: IncomingMessage, res: ServerResponse) => {
@@ -108,21 +118,18 @@ export const createGitHubOAuth = async ({
             accept: "application/json",
           },
           data: {
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET,
+            client_id: GITHUB_CLIENT_ID,
+            client_secret: GITHUB_CLIENT_SECRET,
             code,
           },
         });
 
         res.setHeader(
           "Set-Cookie",
-          `${OAUTH_COOKIE_KEY}=${accessToken}; Path=/; HttpOnly;`
+          `${oauthCookieKey}=${accessToken}; Path=/; HttpOnly;`
         );
 
-        console.log(
-          "[IN CALLBACK]",
-          `${OAUTH_COOKIE_KEY} is set to set-cookie`
-        );
+        console.log("[IN CALLBACK]", `${oauthCookieKey} is set to set-cookie`);
 
         console.log(
           "[IN CALLBACK]",
@@ -134,14 +141,14 @@ export const createGitHubOAuth = async ({
         console.log(
           "[IN CALLBACK]",
           "cookies['referer']: ",
-          cookies?.[CALLBACK_URL]
+          cookies?.[callbackUrl]
         );
 
-        if (cookies?.[CALLBACK_URL] != null) {
+        if (cookies?.[callbackUrl] != null) {
           return res
             .writeHead(302, {
-              Location: cookies[CALLBACK_URL],
-              [OAUTH_COOKIE_KEY]: accessToken,
+              Location: cookies[callbackUrl],
+              [oauthCookieKey]: accessToken,
             })
             .end();
         }
@@ -170,8 +177,8 @@ export const createGitHubOAuth = async ({
           accept: "application/json",
         },
         data: {
-          client_id: process.env.GITHUB_CLIENT_ID,
-          client_secret: process.env.GITHUB_CLIENT_SECRET,
+          client_id: GITHUB_CLIENT_ID,
+          client_secret: GITHUB_CLIENT_SECRET,
           code: code,
         },
       });
