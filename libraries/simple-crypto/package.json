@@ -1,6 +1,6 @@
 {
-  "name": "@divops/github-oauth",
-  "version": "0.0.24",
+  "name": "@divops/simple-crypto",
+  "version": "0.0.0",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
@@ -14,8 +14,6 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@divops/builder": "workspace:^",
-    "@divops/gist-storage": "workspace:^",
-    "@types/axios": "^0.14.0",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/jest": "^27.4.1",
@@ -23,12 +21,5 @@
     "babel-jest": "^27.5.1",
     "jest": "^27.5.1",
     "typescript": "^4.6.3"
-  },
-  "dependencies": {
-    "@divops/simple-crypto": "workspace:^",
-    "axios": "^0.27"
-  },
-  "peerDependencies": {
-    "@divops/gist-storage": "*"
   }
 }
