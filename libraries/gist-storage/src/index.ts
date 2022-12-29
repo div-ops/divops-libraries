@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/rest";
-import { DEFAULT_GIST_FILE_NAME, DEFAULT_GITHUB_BASE_URL } from "./constant";
+import { DEFAULT_GIST_FILE_NAME } from "./constant";
 import {
   getGistContentJSON,
   getGistContent,
@@ -9,7 +9,7 @@ import {
 export async function createGistStorage({
   token,
   keyStoreId,
-  baseUrl = DEFAULT_GITHUB_BASE_URL,
+  baseUrl,
 }: {
   token: string;
   keyStoreId: string;
