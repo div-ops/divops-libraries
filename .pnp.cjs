@@ -109,6 +109,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/simple-cache"\
       },\
       {\
+        "name": "@divops/simple-crypto",\
+        "reference": "workspace:libraries/simple-crypto"\
+      },\
+      {\
         "name": "@divops/simple-express-router",\
         "reference": "workspace:libraries/simple-express-router"\
       },\
@@ -186,6 +190,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/scaffolder", ["workspace:libraries/scaffolder"]],\
       ["@divops/simple-auth", ["workspace:libraries/simple-auth"]],\
       ["@divops/simple-cache", ["workspace:libraries/simple-cache"]],\
+      ["@divops/simple-crypto", ["workspace:libraries/simple-crypto"]],\
       ["@divops/simple-express-router", ["virtual:bb9cf2177f293170e8d86e65323a2d9a6b5ef20ff57ae6747047b7c08b9e4ba17af50e881cd1519602cff090f9ee38e4fd5a2b76c96103b055073417b83955c3#workspace:libraries/simple-express-router", "workspace:libraries/simple-express-router"]],\
       ["@divops/simple-next-server", ["virtual:0312062885e24a5c63e0fd9543ff097e778ea14894e7caf3379da0726df8dc5265c9e179f91a9d3c89af4f9df5063482fdba1ac265339233278afbfcb29b195b#workspace:libraries/simple-next-server", "workspace:libraries/simple-next-server"]],\
       ["@divops/thumbnails", ["workspace:libraries/thumbnails"]],\
@@ -3186,6 +3191,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
             ["@divops/builder", "workspace:libraries/builder"],\
+            ["@divops/gist-storage", "workspace:libraries/gist-storage"],\
+            ["@divops/simple-crypto", "workspace:libraries/simple-crypto"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
@@ -3283,6 +3290,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./libraries/simple-cache/",\
           "packageDependencies": [\
             ["@divops/simple-cache", "workspace:libraries/simple-cache"],\
+            ["@babel/core", "npm:7.17.8"],\
+            ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
+            ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
+            ["@divops/builder", "workspace:libraries/builder"],\
+            ["@types/babel__core", "npm:7.1.19"],\
+            ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/jest", "npm:27.4.1"],\
+            ["@types/node", "npm:17.0.21"],\
+            ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@divops/simple-crypto", [\
+        ["workspace:libraries/simple-crypto", {\
+          "packageLocation": "./libraries/simple-crypto/",\
+          "packageDependencies": [\
+            ["@divops/simple-crypto", "workspace:libraries/simple-crypto"],\
             ["@babel/core", "npm:7.17.8"],\
             ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\

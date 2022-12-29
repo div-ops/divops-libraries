@@ -13,14 +13,14 @@ export async function createGistStorage({
 }: {
   token: string;
   keyStoreId: string;
-  baseUrl: string;
+  baseUrl?: string;
 }) {
   const octokit = new Octokit({ auth: token, baseUrl });
 
   // NOTE: Ensure KeyStore
   await getGistContentJSON({ id: keyStoreId, octokit });
 
-  return {
+  const self = {
     set: async (key: string, content: string) => {
       const keyId = await findGistIdByKey(key, { id: keyStoreId, octokit });
 
@@ -64,5 +64,43 @@ export async function createGistStorage({
 
       return await getGistContent({ id, octokit });
     },
+
+    find: async (key: string) => {
+      try {
+        return await self.get(key);
+      } catch {
+        return null;
+      }
+    },
   };
+
+  return self;
+}
+
+export async function createGistJSONStorage(options: {
+  token: string;
+  keyStoreId: string;
+  baseUrl?: string;
+}) {
+  const gistStorage = await createGistStorage(options);
+
+  const self = {
+    set: async <T>(key: string, content: T) => {
+      await gistStorage.set(key, JSON.stringify(content));
+    },
+
+    get: async <T>(key: string) => {
+      return JSON.parse(await gistStorage.get(key)) as T;
+    },
+
+    find: async <T>(key: string) => {
+      try {
+        return await self.get<T>(key);
+      } catch {
+        return null;
+      }
+    },
+  };
+
+  return self;
 }

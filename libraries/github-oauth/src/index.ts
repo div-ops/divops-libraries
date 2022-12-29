@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IncomingMessage, ServerResponse } from "http";
-import path from "path";
+import { createGistJSONStorage } from "@divops/gist-storage";
+import { encrypt } from "@divops/simple-crypto";
 
 function parseCookie(cookieString: string): Record<string, string | null> {
   return cookieString
@@ -33,19 +34,30 @@ function getQueryFromUrl(url: string) {
   }, {});
 }
 
-export const createGitHubOAuth = ({
+export const createGitHubOAuth = async ({
+  name,
   CLIENT_ID = process.env.GITHUB_CLIENT_ID,
   CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET,
   CALLBACK_URL = "referer",
   OAUTH_COOKIE_KEY = "github-oauth",
   LOGIN_URL = "/login/github",
+  GIST_STORAGE_TOKEN = process.env.GIST_STORAGE_TOKEN,
+  GIST_STORAGE_KEY_STORE_ID = process.env.GIST_STORAGE_KEY_STORE_ID,
 }: {
+  name: string;
   CLIENT_ID?: string;
   CLIENT_SECRET?: string;
   CALLBACK_URL?: string;
   OAUTH_COOKIE_KEY?: string;
   LOGIN_URL?: string;
-} = {}) => {
+  GIST_STORAGE_TOKEN?: string;
+  GIST_STORAGE_KEY_STORE_ID?: string;
+}) => {
+  const gistStorage = await createGistJSONStorage({
+    token: GIST_STORAGE_TOKEN,
+    keyStoreId: GIST_STORAGE_KEY_STORE_ID,
+  });
+
   return {
     /**
      * @name redirectToGitHubAuthPage
@@ -148,24 +160,31 @@ export const createGitHubOAuth = ({
         return res.end();
       }
     },
+    loginOauthAccessToken: async (code: string) => {
+      const {
+        data: { access_token: accessToken },
+      } = await axios({
+        method: "post",
+        url: `https://github.com/login/oauth/access_token`,
+        headers: {
+          accept: "application/json",
+        },
+        data: {
+          client_id: process.env.GITHUB_CLIENT_ID,
+          client_secret: process.env.GITHUB_CLIENT_SECRET,
+          code: code,
+        },
+      });
 
-    getCallbackUrl: async (req?: IncomingMessage) => {
-      const cookieString =
-        typeof window !== "undefined"
-          ? window.document.cookie
-          : req?.headers?.["cookie"];
+      const userPoolKey = `gist-storage-${name}-user-pool`;
+      const userAccessTokenID = encrypt(accessToken).slice(0, 10);
 
-      if (cookieString != null) {
-        const cookies = parseCookie(cookieString);
+      await gistStorage.set(userPoolKey, {
+        ...((await gistStorage.find<any>(userPoolKey)) ?? {}),
+        [userAccessTokenID]: accessToken,
+      });
 
-        if (cookies[CALLBACK_URL] != null) {
-          return cookies[CALLBACK_URL];
-        }
-      }
-
-      return null;
+      return userAccessTokenID;
     },
   };
 };
-
-export const gitHubOAuth = createGitHubOAuth();

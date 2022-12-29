@@ -65,3 +65,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 ```
+
+# FLOW
+
+```
+FLOW
+
+1. www.creco.services/github-editor/login 에서 로그인 버튼을 클릭
+2. app.divops.kr/login/test-login 으로 이동됨
+3. ☝️https://github.com/login/oauth/authorize 으로 이동시켜서 인증하게함
+4. 인증 완료 후, https://app.divops.kr/login/callback 으로 이동
+5. callback 페이지에서 code를 읽고 /login/api/user-token 를 호출
+6. /login/api/user-token 에서는 POST /login/oauth/access_token 으로 accessToken을 구해서 header 로 내려줌
+7. 응답 중 accessToken 를 code라는 쿼리 파라미터로 들고 www.creco.services/github-editor/login 로 돌아감
+8. /github-editor/login 에서는 code 쿼리파라미터를 가지고 POST `https://app.divops.kr/login/api/set-token` 을 요청하는 예시 API 를 호출
+
+```
