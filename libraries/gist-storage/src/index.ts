@@ -49,7 +49,7 @@ export async function createGistStorage({
         gist_id: keyStoreId,
         files: {
           [DEFAULT_GIST_FILE_NAME]: {
-            content: { ...keyStoreContent, key: newKeyId },
+            content: JSON.stringify({ ...keyStoreContent, key: newKeyId }),
           },
         },
       });
