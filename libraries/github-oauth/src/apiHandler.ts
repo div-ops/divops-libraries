@@ -1,7 +1,7 @@
 import { createGitHubOAuth } from "./createGitHubOAuth";
 import { NextApiRequest, NextApiResponse } from "./types";
 
-export function createAPIHandlerUserToken(name: string) {
+export function createAPIHandlerUserToken({ name }: { name: string }) {
   return async function loginUserTokenAPI(
     req: NextApiRequest,
     res: NextApiResponse
