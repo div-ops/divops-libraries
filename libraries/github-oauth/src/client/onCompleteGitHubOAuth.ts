@@ -1,26 +1,6 @@
-function guardBrowserEnvironment() {
-  if (typeof window === "undefined" || typeof localStorage === "undefined") {
-    throw new Error("브라우저 환경이 아닙니다.");
-  }
-}
+import { guardBrowserEnvironment } from "./utils";
 
-export function beforeAuthorization({
-  referrer,
-  CLIENT_ID,
-}: {
-  referrer: string;
-  CLIENT_ID: string;
-}) {
-  guardBrowserEnvironment();
-
-  localStorage.setItem("referrer", referrer);
-
-  window.location.assign(
-    `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`
-  );
-}
-
-export async function afterAuthorization({ code }: { code: string }) {
+export async function onCompleteGitHubOAuth({ code }: { code: string }) {
   guardBrowserEnvironment();
 
   const response = await fetch("/login/api/user-token", {
