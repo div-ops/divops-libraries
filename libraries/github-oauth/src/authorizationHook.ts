@@ -20,7 +20,7 @@ export function beforeAuthorization({
   );
 }
 
-export async function afterAuthorization(code: string) {
+export async function afterAuthorization({ code }: { code: string }) {
   guardBrowserEnvironment();
 
   const response = await fetch("/login/api/user-token", {
