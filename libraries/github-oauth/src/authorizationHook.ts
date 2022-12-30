@@ -4,7 +4,7 @@ function guardBrowserEnvironment() {
   }
 }
 
-export async function beforeAuthorization({
+export function beforeAuthorization({
   referrer,
   CLIENT_ID,
 }: {
