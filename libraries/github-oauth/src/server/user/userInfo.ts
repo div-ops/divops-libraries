@@ -11,7 +11,7 @@ export function createUserInfo({ name }: { name: string }) {
 
       return res.json({
         data: await gitHubOAuth.fetchUserInfo({
-          cryptedGitHubID: authorization,
+          cryptedGitHubID: decodeURIComponent(authorization),
         }),
       });
     } catch (error: any) {
