@@ -25,6 +25,7 @@ export async function onCompleteGitHubOAuth({
   });
 
   const Authorization = response.headers.get("Authorization");
+  console.log({ Authorization });
   const [, token] = Authorization.split(" ");
 
   const referrer = localStorage.getItem("referrer");
