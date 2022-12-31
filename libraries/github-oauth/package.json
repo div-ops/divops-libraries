@@ -1,6 +1,6 @@
 {
   "name": "@divops/github-oauth",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
