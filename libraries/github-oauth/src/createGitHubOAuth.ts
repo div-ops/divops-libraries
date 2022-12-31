@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IncomingMessage, ServerResponse } from "http";
 import { createGistJSONStorage } from "@divops/gist-storage";
-import { encrypt } from "@divops/simple-crypto";
+import { encrypt, decrypt } from "@divops/simple-crypto";
 import { ensureVariable, parseCookie } from "./utils";
 
 export const createGitHubOAuth = async ({
@@ -107,13 +107,21 @@ export const createGitHubOAuth = async ({
       console.log("userPoolKey", userPoolKey);
       const userPool = await gistStorage.find<any>(userPoolKey);
 
-      const token = userPool[accessTokenKey];
+      const cryptedAccessToken = userPool[accessTokenKey];
+      const accessToken = decrypt(cryptedAccessToken, { iv: cryptoSecret });
 
-      console.log("userPool", userPool);
-      console.log("accessTokenKey", accessTokenKey);
-      console.log("token", token);
+      console.log("accessToken", accessToken);
 
-      return token;
+      const { data } = await axios({
+        method: "get",
+        url: `https://api.github.com/user`,
+        headers: {
+          accept: "application/vnd.github+json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return data;
     },
   };
 };
