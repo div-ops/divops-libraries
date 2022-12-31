@@ -6,7 +6,7 @@ export function createUserToken({ name }: { name: string }) {
     req: NextApiRequest,
     res: NextApiResponse
   ) {
-    const gitHubOAuth = await createGitHubOAuth({ name });
+    const gitHubOAuth = createGitHubOAuth({ name });
 
     const authorization = await gitHubOAuth.loginOauthAccessToken(
       req.body.code

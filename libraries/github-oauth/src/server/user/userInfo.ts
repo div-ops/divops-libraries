@@ -5,7 +5,7 @@ export function createUserInfo({ name }: { name: string }) {
   return async function userInfo(req: NextApiRequest, res: NextApiResponse) {
     try {
       const { authorization } = req.cookies;
-      const gitHubOAuth = await createGitHubOAuth({ name });
+      const gitHubOAuth = createGitHubOAuth({ name });
 
       // const decoded = Buffer.from(authorization, "base64").toString("utf8");
 
