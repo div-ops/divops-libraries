@@ -10,7 +10,10 @@ export function createSetCookie({ before }: CorsOptions) {
       return res.status(400).json({ message: "권한이 없습니다." });
     }
 
-    res.setHeader("Set-Cookie", `authorization=${authorization}; Path=/;`);
+    res.setHeader(
+      "Set-Cookie",
+      `authorization=${authorization}; Path=/; SameSite=None; Secure;`
+    );
 
     return res.end();
   };
