@@ -16,3 +16,7 @@ export type NextApiResponse<T = any> = ServerResponse & {
   json: Send<T>;
   status: (statusCode: number) => NextApiResponse<T>;
 };
+
+export interface CorsOptions {
+  before: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
+}

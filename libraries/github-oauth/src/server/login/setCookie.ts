@@ -1,10 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "../../types";
+import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 
-export interface SetCookieOptions {
-  before: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
-}
-
-export function createSetCookie({ before }: SetCookieOptions) {
+export function createSetCookie({ before }: CorsOptions) {
   return async function setCookie(req: NextApiRequest, res: NextApiResponse) {
     await before(req, res);
 
@@ -16,6 +12,6 @@ export function createSetCookie({ before }: SetCookieOptions) {
 
     res.setHeader("Set-Cookie", `authorization=${authorization}; Path=/;`);
 
-    return res.json({ status: true });
+    return res.end();
   };
 }

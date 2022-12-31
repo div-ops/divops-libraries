@@ -27,8 +27,6 @@ export function createUserInfo({ name }: { name: string }) {
         });
       }
 
-      // const decoded = Buffer.from(authorization, "base64").toString("utf8");
-
       return res.json({
         data: await promised,
       });
