@@ -2,7 +2,7 @@ import axios from "axios";
 import { IncomingMessage, ServerResponse } from "http";
 import { createGistJSONStorage } from "@divops/gist-storage";
 import { encrypt } from "@divops/simple-crypto";
-import { ensureVariable, parseCookie, getQueryFromUrl } from "./utils";
+import { ensureVariable, parseCookie } from "./utils";
 
 export const createGitHubOAuth = async ({
   name,
@@ -74,68 +74,6 @@ export const createGitHubOAuth = async ({
       return cookies[oauthCookieKey];
     },
 
-    callback: async (req: IncomingMessage, res: ServerResponse) => {
-      try {
-        const { code } = getQueryFromUrl(req.url) as { code: string };
-
-        const {
-          data: { access_token: accessToken },
-        } = await axios({
-          method: "post",
-          url: `https://github.com/login/oauth/access_token`,
-          headers: {
-            accept: "application/json",
-          },
-          data: {
-            client_id: GITHUB_CLIENT_ID,
-            client_secret: GITHUB_CLIENT_SECRET,
-            code,
-          },
-        });
-
-        res.setHeader(
-          "Set-Cookie",
-          `${oauthCookieKey}=${accessToken}; Path=/; HttpOnly;`
-        );
-
-        console.log("[IN CALLBACK]", `${oauthCookieKey} is set to set-cookie`);
-
-        console.log(
-          "[IN CALLBACK]",
-          "req.headers.referer: ",
-          req.headers.referer
-        );
-
-        const cookies = parseCookie(req.headers["cookie"]);
-        console.log(
-          "[IN CALLBACK]",
-          "cookies['referer']: ",
-          cookies?.[callbackUrl]
-        );
-
-        if (cookies?.[callbackUrl] != null) {
-          return res
-            .writeHead(302, {
-              Location: cookies[callbackUrl],
-              [oauthCookieKey]: accessToken,
-            })
-            .end();
-        }
-
-        res.writeHead(500);
-        res.write(
-          JSON.stringify({
-            "req.headers.referer": req.headers.referer,
-            'cookies?.["referer"]': cookies?.["referer"],
-          })
-        );
-        return res.end();
-      } catch (error) {
-        res.writeHead(500);
-        res.write(error.message);
-        return res.end();
-      }
-    },
     loginOauthAccessToken: async (code: string) => {
       const {
         data: { access_token: accessToken },
