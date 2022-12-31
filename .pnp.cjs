@@ -89,6 +89,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:libraries/github-oauth"\
       },\
       {\
+        "name": "@divops/github-oauth-sdk",\
+        "reference": "workspace:libraries/github-oauth-sdk"\
+      },\
+      {\
         "name": "@divops/notion-database",\
         "reference": "workspace:libraries/notion-databsae"\
       },\
@@ -185,6 +189,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@divops/component-title", ["virtual:b02e6978b0c0229bd08b4698f090abf62b06b16ccb50d68cdfd8fb7e3a41b44632748608d21817b77335bf4cf3061c5ed371b883b54d215e25226788c8fa0ac3#workspace:components/title", "workspace:components/title"]],\
       ["@divops/gist-storage", ["workspace:libraries/gist-storage"]],\
       ["@divops/github-oauth", ["workspace:libraries/github-oauth"]],\
+      ["@divops/github-oauth-sdk", ["workspace:libraries/github-oauth-sdk"]],\
       ["@divops/notion-database", ["workspace:libraries/notion-databsae"]],\
       ["@divops/notion-system", ["workspace:libraries/notion-system"]],\
       ["@divops/scaffolder", ["workspace:libraries/scaffolder"]],\
@@ -3199,6 +3204,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.21"],\
             ["axios", "npm:0.27.2"],\
+            ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@divops/github-oauth-sdk", [\
+        ["workspace:libraries/github-oauth-sdk", {\
+          "packageLocation": "./libraries/github-oauth-sdk/",\
+          "packageDependencies": [\
+            ["@divops/github-oauth-sdk", "workspace:libraries/github-oauth-sdk"],\
+            ["@babel/core", "npm:7.17.8"],\
+            ["@babel/preset-env", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.11"],\
+            ["@babel/preset-typescript", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:7.16.7"],\
+            ["@divops/builder", "workspace:libraries/builder"],\
+            ["@types/babel__core", "npm:7.1.19"],\
+            ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/jest", "npm:27.4.1"],\
+            ["@types/node", "npm:17.0.21"],\
             ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
             ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\

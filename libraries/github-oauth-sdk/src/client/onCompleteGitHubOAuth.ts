@@ -1,9 +1,20 @@
 import { guardBrowserEnvironment } from "./utils";
 
-export async function onCompleteGitHubOAuth({ code }: { code: string }) {
+/**
+ * @name onCompleteGitHubOAuth
+ * @param url "/login/api/user-token"
+ * @param code GitHub에서 얻은 code 값
+ */
+export async function onCompleteGitHubOAuth({
+  url,
+  code,
+}: {
+  url: string;
+  code: string;
+}) {
   guardBrowserEnvironment();
 
-  const response = await fetch("/login/api/user-token", {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,6 +27,7 @@ export async function onCompleteGitHubOAuth({ code }: { code: string }) {
   const Authorization = response.headers.get("Authorization");
 
   const referrer = localStorage.getItem("referrer");
+
   localStorage.removeItem("referrer");
 
   if (!Authorization || !referrer) {
