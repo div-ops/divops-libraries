@@ -39,12 +39,8 @@ export async function onCompleteGitHubOAuth({
   }
 
   if (referrer.includes("?")) {
-    window.location.assign(
-      `${referrer}${`&code=${window.btoa(encodeURIComponent(token))}`}`
-    );
+    window.location.assign(`${referrer}${`&code=${token}`}`);
   } else {
-    window.location.assign(
-      `${referrer}${`?code=${window.btoa(encodeURIComponent(token))}`}`
-    );
+    window.location.assign(`${referrer}${`?code=${token}`}`);
   }
 }
