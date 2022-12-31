@@ -1,17 +1,3 @@
-export function parseCookie(
-  cookieString: string
-): Record<string, string | null> {
-  return cookieString
-    ?.split(";")
-    .map((x) => x.trim().split("="))
-    .reduce((acc, [key, value]) => {
-      return {
-        ...acc,
-        ...(key != null && value != null ? { [key]: value } : {}),
-      };
-    }, {});
-}
-
 export function getQueryFromUrl(url: string) {
   if (!url.includes("?")) {
     return {};

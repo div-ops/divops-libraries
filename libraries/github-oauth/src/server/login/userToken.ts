@@ -12,7 +12,7 @@ export function createUserToken({ name }: { name: string }) {
       req.body.code
     );
 
-    res.setHeader("Authorization", `Bearer ${authorization}`);
+    res.setHeader("Authorization", `${authorization}`);
 
     return res.json({ status: true });
   };
