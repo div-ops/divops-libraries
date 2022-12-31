@@ -1,5 +1,5 @@
-import { createGitHubOAuth } from "../createGitHubOAuth";
-import { NextApiRequest, NextApiResponse } from "../types";
+import { createGitHubOAuth } from "../../createGitHubOAuth";
+import { NextApiRequest, NextApiResponse } from "../../types";
 
 export function createCallback({ name }: { name: string }) {
   return async function callback(req: NextApiRequest, res: NextApiResponse) {

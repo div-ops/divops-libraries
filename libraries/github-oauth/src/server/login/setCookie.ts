@@ -1,4 +1,3 @@
-import { createGitHubOAuth } from "../../createGitHubOAuth";
 import { NextApiRequest, NextApiResponse } from "../../types";
 
 export interface SetCookieOptions {
