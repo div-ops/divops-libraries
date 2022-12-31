@@ -75,6 +75,7 @@ export const createGitHubOAuth = async ({
 
       const { accessToken } = userPool[cryptedGitHubID] ?? {};
       const Authorization = decrypt(accessToken, { iv: cryptoSecret });
+      console.log({ Authorization });
 
       const { data } = await axios({
         method: "get",
