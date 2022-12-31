@@ -104,9 +104,12 @@ export const createGitHubOAuth = async ({
 
     fetchUserInfo: async ({ accessTokenKey }: { accessTokenKey: string }) => {
       const userPoolKey = `gist-storage-${name}-user-pool`;
+      console.log("userPoolKey", userPoolKey);
       const userPool = await gistStorage.find<any>(userPoolKey);
 
       const token = userPool[accessTokenKey];
+      console.log("accessTokenKey", accessTokenKey);
+      console.log("token", token);
 
       return token;
     },
