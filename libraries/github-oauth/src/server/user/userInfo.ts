@@ -1,10 +1,16 @@
 import { createGitHubOAuth } from "../../createGitHubOAuth";
-import { NextApiRequest, NextApiResponse } from "../../types";
+import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 
 const cache: Record<string, any> = {};
 
-export function createUserInfo({ name }: { name: string }) {
+interface Options extends CorsOptions {
+  name: string;
+}
+
+export function createUserInfo({ name, before }: Options) {
   return async function userInfo(req: NextApiRequest, res: NextApiResponse) {
+    await before(req, res);
+
     if (req.cookies.authorization == null) {
       return res.json({ data: null });
     }

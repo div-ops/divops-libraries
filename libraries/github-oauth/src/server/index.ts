@@ -6,9 +6,10 @@ import { createUserInfo } from "./user";
 export const API = {
   of({ name }: { name: string }) {
     return {
-      UserToken: () => createUserToken({ name }),
+      UserToken: (options: CorsOptions) =>
+        createUserToken({ name, ...options }),
       SetCookie: (options: CorsOptions) => createSetCookie(options),
-      UserInfo: () => createUserInfo({ name }),
+      UserInfo: (options: CorsOptions) => createUserInfo({ name, ...options }),
       Logout: (options: CorsOptions) => createLogout(options),
     };
   },

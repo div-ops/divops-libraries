@@ -1,11 +1,17 @@
 import { createGitHubOAuth } from "../../createGitHubOAuth";
-import { NextApiRequest, NextApiResponse } from "../../types";
+import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 
-export function createUserToken({ name }: { name: string }) {
+interface Options extends CorsOptions {
+  name: string;
+}
+
+export function createUserToken({ name, before }: Options) {
   return async function loginUserTokenAPI(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
+    await before(req, res);
+
     const gitHubOAuth = createGitHubOAuth({ name });
 
     const authorization = await gitHubOAuth.loginOauthAccessToken(
