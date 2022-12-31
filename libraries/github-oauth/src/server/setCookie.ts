@@ -1,3 +1,4 @@
+import { createGitHubOAuth } from "../createGitHubOAuth";
 import { NextApiRequest, NextApiResponse } from "../types";
 
 export interface SetCookieOptions {
@@ -14,10 +15,7 @@ export function createSetCookie({ before }: SetCookieOptions) {
       return res.status(400).json({ message: "권한이 없습니다." });
     }
 
-    const decoded = decodeURIComponent(authorization);
-    const [, token] = decoded.split(" ");
-
-    res.setHeader("Set-Cookie", `token=${token}; Path=/;`);
+    res.setHeader("Set-Cookie", `authorization=${authorization}; Path=/;`);
 
     return res.json({ status: true });
   };
