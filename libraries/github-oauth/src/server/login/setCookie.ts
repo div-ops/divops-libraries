@@ -1,5 +1,5 @@
-import { createGitHubOAuth } from "../createGitHubOAuth";
-import { NextApiRequest, NextApiResponse } from "../types";
+import { createGitHubOAuth } from "../../createGitHubOAuth";
+import { NextApiRequest, NextApiResponse } from "../../types";
 
 export interface SetCookieOptions {
   before: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
