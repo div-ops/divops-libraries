@@ -3,7 +3,7 @@ import { createGistJSONStorage } from "@divops/gist-storage";
 import { encrypt, decrypt } from "@divops/simple-crypto";
 import { ensureVariable } from "./utils";
 
-export const createGitHubOAuth = async ({
+export const createGitHubOAuth = ({
   name,
   callbackUrl = "referer",
   oauthCookieKey = "github-oauth",
@@ -31,7 +31,7 @@ export const createGitHubOAuth = async ({
     .reverse()
     .slice(0, 16);
 
-  const gistStorage = await createGistJSONStorage({
+  const gistStorage = createGistJSONStorage({
     token: GIST_STORAGE_TOKEN,
     keyStoreId: GIST_STORAGE_KEY_STORE_ID,
   });
@@ -75,7 +75,6 @@ export const createGitHubOAuth = async ({
 
       const { accessToken } = userPool[cryptedGitHubID] ?? {};
       const Authorization = decrypt(accessToken, { iv: cryptoSecret });
-      console.log({ Authorization });
 
       const { data } = await axios({
         method: "get",

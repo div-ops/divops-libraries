@@ -6,7 +6,7 @@ import {
   findGistIdByKey,
 } from "./operations";
 
-export async function createGistStorage({
+export function createGistStorage({
   token,
   keyStoreId,
   baseUrl,
@@ -18,7 +18,7 @@ export async function createGistStorage({
   const octokit = new Octokit({ auth: token, baseUrl });
 
   // NOTE: Ensure KeyStore
-  await getGistContentJSON({ id: keyStoreId, octokit });
+  // await getGistContentJSON({ id: keyStoreId, octokit });
 
   const self = {
     set: async (key: string, content: string) => {
@@ -77,12 +77,12 @@ export async function createGistStorage({
   return self;
 }
 
-export async function createGistJSONStorage(options: {
+export function createGistJSONStorage(options: {
   token: string;
   keyStoreId: string;
   baseUrl?: string;
 }) {
-  const gistStorage = await createGistStorage(options);
+  const gistStorage = createGistStorage(options);
 
   const self = {
     set: async <T>(key: string, content: T) => {
