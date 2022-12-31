@@ -24,16 +24,14 @@ export async function onCompleteGitHubOAuth({
     }),
   });
 
-  const Authorization = response.headers.get("Authorization");
-  console.log({ Authorization });
-  const [, token] = Authorization.split(" ");
+  const token = response.headers.get("Authorization");
 
   const referrer = localStorage.getItem("referrer");
 
   localStorage.removeItem("referrer");
 
   if (!token || !referrer) {
-    alert("잘못된 접근인데, 어떻게 오셨어요? 다시 접근해보세용!");
+    alert("Not Authorized. (!token || !referrer)");
     setTimeout(() => {
       window.history.back();
     }, 3000);
