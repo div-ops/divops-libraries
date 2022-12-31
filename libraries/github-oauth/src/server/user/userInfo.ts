@@ -7,11 +7,11 @@ export function createUserInfo({ name }: { name: string }) {
       const { authorization } = req.cookies;
       const gitHubOAuth = await createGitHubOAuth({ name });
 
-      const decoded = Buffer.from(authorization, "base64").toString("utf8");
+      // const decoded = Buffer.from(authorization, "base64").toString("utf8");
 
       return res.json({
         data: await gitHubOAuth.fetchUserInfo({
-          cryptedGitHubID: decodeURIComponent(decoded),
+          cryptedGitHubID: authorization,
         }),
       });
     } catch (error: any) {
