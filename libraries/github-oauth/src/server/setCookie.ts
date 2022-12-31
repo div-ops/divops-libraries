@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "../types";
 
 export interface SetCookieOptions {
-  before: () => Promise<void>;
+  before: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 }
 
 export function createSetCookie({ before }: SetCookieOptions) {
   return async function setCookie(req: NextApiRequest, res: NextApiResponse) {
-    await before();
+    await before(req, res);
 
     const authorization = req.headers?.["authorization"];
 
