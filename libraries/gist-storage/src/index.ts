@@ -108,10 +108,10 @@ export function createGistJSONStorage(options: {
     },
 
     setById: async <T>(id: string | null, content: T) => {
-      await gistStorage.setById(id, JSON.stringify(content));
+      return await gistStorage.setById(id, JSON.stringify(content, null, 2));
     },
     set: async <T>(key: string, content: T) => {
-      await gistStorage.set(key, JSON.stringify(content));
+      await gistStorage.set(key, JSON.stringify(content, null, 2));
     },
 
     find: async <T>(key: string) => {

@@ -121,7 +121,7 @@ export const createGitHubOAuth = ({
       console.log(`3STEP`, { newResource });
 
       await gistStorage.setById(keyId, {
-        count: prevList.data.length + 1,
+        totalCount: prevList.data.length + 1,
         data: [...prevList.data, newResource],
       });
 
