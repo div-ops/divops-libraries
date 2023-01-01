@@ -57,14 +57,14 @@ export const createGitHubOAuth = ({
       });
 
       const userPoolKey = `gist-storage-${name}-user-pool`;
-      const githubID = (await fetchUser({ accessToken })).login;
-      const cryptedGitHubID = encrypt(githubID, { iv: cryptoSecret });
+      const githubId = (await fetchUser({ accessToken })).login;
+      const cryptedGitHubID = encrypt(githubId, { iv: cryptoSecret });
 
       await gistStorage.set(userPoolKey, {
         ...((await gistStorage.find<any>(userPoolKey)) ?? {}),
         [cryptedGitHubID]: {
           id: cryptedGitHubID,
-          githubID,
+          githubId,
           accessToken: encrypt(accessToken, { iv: cryptoSecret }),
         },
       });
@@ -92,30 +92,34 @@ export const createGitHubOAuth = ({
       model: string;
       resource: T;
     }) => {
-      const user = await getUserFromUserPool({
-        key: cryptedGitHubID,
-        gistStorage,
-        userPoolKey,
-      });
-
       const resourceListKey = `gist-storage-${name}-${model}-list`;
 
-      const githubID = user.githubID;
-      const keyId = await gistStorage.getId(resourceListKey);
-      const prevList = await gistStorage.getById<any>(keyId);
+      const [user, keyId] = await Promise.all([
+        getUserFromUserPool({
+          key: cryptedGitHubID,
+          gistStorage,
+          userPoolKey,
+        }),
+        gistStorage.getId(resourceListKey),
+      ]);
 
-      const newId = await gistStorage.setById(null, resource);
+      const [prevList, newId] = await Promise.all([
+        gistStorage.getById<any>(keyId),
+        gistStorage.setById(null, resource),
+      ]);
+
+      const newResource = {
+        id: newId,
+        githubId: user.githubId,
+        created: new Date().toUTCString(),
+      };
 
       await gistStorage.setById(keyId, {
-        count: prevList.count + 1,
-        data: [
-          ...prevList.data,
-          {
-            id: newId,
-            created: new Date().toUTCString(),
-          },
-        ],
+        count: prevList.data.length + 1,
+        data: [...prevList.data, newResource],
       });
+
+      return newResource;
     },
   };
 };

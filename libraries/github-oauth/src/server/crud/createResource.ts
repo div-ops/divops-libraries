@@ -2,8 +2,6 @@ import { createGitHubOAuth } from "../../githubOAuth";
 import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 import { getAuthorization } from "../utils";
 
-const cache: Record<string, any> = {};
-
 interface Options extends CorsOptions {
   name: string;
 }
@@ -15,6 +13,9 @@ export function createCreateResource({ name, before }: Options) {
   ) {
     await before(req, res);
 
+    const model = req.body.model;
+    const resource = req.body.resource;
+
     const authorization = getAuthorization(req);
 
     if (authorization == null) {
@@ -23,24 +24,14 @@ export function createCreateResource({ name, before }: Options) {
 
     try {
       const gitHubOAuth = createGitHubOAuth({ name });
-      const promised = gitHubOAuth
-        .fetchUserInfo({
-          cryptedGitHubID: authorization,
-        })
-        .then((x) => {
-          cache[authorization] = x;
-          return x;
-        });
 
-      if (cache[authorization] != null) {
-        return res.json({
-          data: cache[authorization],
-        });
-      }
-
-      return res.json({
-        data: await promised,
+      await gitHubOAuth.createResource({
+        cryptedGitHubID: authorization,
+        model,
+        resource,
       });
+
+      return res.end();
     } catch (error: any) {
       return res.json({
         message: error.message,
