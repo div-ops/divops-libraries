@@ -1,5 +1,6 @@
 import { createGitHubOAuth } from "../../createGitHubOAuth";
 import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
+import { getAuthorization } from "../../utils";
 
 const cache: Record<string, any> = {};
 
@@ -11,25 +12,26 @@ export function createUserInfo({ name, before }: Options) {
   return async function userInfo(req: NextApiRequest, res: NextApiResponse) {
     await before(req, res);
 
-    if (req.cookies.authorization == null) {
+    const authorization = getAuthorization(req);
+
+    if (authorization == null) {
       return res.json({ data: null });
     }
 
     try {
-      const { authorization } = req.cookies ?? {};
       const gitHubOAuth = createGitHubOAuth({ name });
       const promised = gitHubOAuth
         .fetchUserInfo({
-          cryptedGitHubID: decodeURIComponent(authorization),
+          cryptedGitHubID: authorization,
         })
         .then((x) => {
-          cache[decodeURIComponent(authorization)] = x;
+          cache[authorization] = x;
           return x;
         });
 
-      if (cache[decodeURIComponent(authorization)] != null) {
+      if (cache[authorization] != null) {
         return res.json({
-          data: cache[decodeURIComponent(authorization)],
+          data: cache[authorization],
         });
       }
 

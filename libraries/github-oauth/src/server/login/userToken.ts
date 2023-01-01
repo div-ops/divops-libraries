@@ -20,6 +20,6 @@ export function createUserToken({ name, before }: Options) {
 
     res.setHeader("Authorization", `${authorization}`);
 
-    return res.json({ status: true });
+    return res.end();
   };
 }
