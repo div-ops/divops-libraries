@@ -103,10 +103,14 @@ export const createGitHubOAuth = ({
         gistStorage.getId(resourceListKey),
       ]);
 
+      console.log(`1STEP`, { user, keyId });
+
       const [prevList, newId] = await Promise.all([
         gistStorage.getById<any>(keyId),
         gistStorage.setById(null, resource),
       ]);
+
+      console.log(`2STEP`, { prevList, newId });
 
       const newResource = {
         id: newId,
@@ -114,10 +118,14 @@ export const createGitHubOAuth = ({
         created: new Date().toUTCString(),
       };
 
+      console.log(`3STEP`, { newResource });
+
       await gistStorage.setById(keyId, {
         count: prevList.data.length + 1,
         data: [...prevList.data, newResource],
       });
+
+      console.log(`4STEP`, { newResource });
 
       return newResource;
     },
