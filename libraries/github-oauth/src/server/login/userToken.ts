@@ -1,4 +1,4 @@
-import { createGitHubOAuth } from "../../createGitHubOAuth";
+import { createGitHubOAuth } from "../../githubOAuth";
 import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 
 interface Options extends CorsOptions {

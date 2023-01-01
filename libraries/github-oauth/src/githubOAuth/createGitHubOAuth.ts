@@ -1,7 +1,9 @@
 import axios from "axios";
 import { createGistJSONStorage } from "@divops/gist-storage";
-import { encrypt, decrypt } from "@divops/simple-crypto";
-import { ensureVariable } from "./utils";
+import { encrypt } from "@divops/simple-crypto";
+import { getAuthorization, getUserFromUserPool } from "./utils";
+import { ensureVariable } from "../utils";
+import { fetchUser } from "./resource";
 
 export const createGitHubOAuth = ({
   name,
@@ -27,6 +29,7 @@ export const createGitHubOAuth = ({
   ensureVariable("GIST_STORAGE_TOKEN", GIST_STORAGE_TOKEN);
   ensureVariable("GIST_STORAGE_KEY_STORE_ID", GIST_STORAGE_KEY_STORE_ID);
 
+  const userPoolKey = `gist-storage-${name}-user-pool`;
   const cryptoSecret = Buffer.from(`github-oauth-${name}`)
     .reverse()
     .slice(0, 16);
@@ -53,8 +56,8 @@ export const createGitHubOAuth = ({
         },
       });
 
-      const githubID = await fetchUserGitHubID({ accessToken });
       const userPoolKey = `gist-storage-${name}-user-pool`;
+      const githubID = (await fetchUser({ accessToken })).login;
       const cryptedGitHubID = encrypt(githubID, { iv: cryptoSecret });
 
       await gistStorage.set(userPoolKey, {
@@ -70,35 +73,49 @@ export const createGitHubOAuth = ({
     },
 
     fetchUserInfo: async ({ cryptedGitHubID }: { cryptedGitHubID: string }) => {
-      const userPoolKey = `gist-storage-${name}-user-pool`;
-      const userPool = await gistStorage.find<any>(userPoolKey);
-
-      const { accessToken } = userPool[cryptedGitHubID] ?? {};
-      const Authorization = decrypt(accessToken, { iv: cryptoSecret });
-
-      const { data } = await axios({
-        method: "get",
-        url: `https://api.github.com/user`,
-        headers: {
-          accept: "application/vnd.github+json",
-          Authorization: `Bearer ${Authorization}`,
-        },
+      const accessToken = await getAuthorization({
+        key: cryptedGitHubID,
+        cryptoSecret,
+        gistStorage,
+        userPoolKey,
       });
 
-      return data;
+      return await fetchUser({ accessToken });
+    },
+
+    createResource: async <T>({
+      cryptedGitHubID,
+      model,
+      resource,
+    }: {
+      cryptedGitHubID: string;
+      model: string;
+      resource: T;
+    }) => {
+      const user = await getUserFromUserPool({
+        key: cryptedGitHubID,
+        gistStorage,
+        userPoolKey,
+      });
+
+      const resourceListKey = `gist-storage-${name}-${model}-list`;
+
+      const githubID = user.githubID;
+      const keyId = await gistStorage.getId(resourceListKey);
+      const prevList = await gistStorage.getById<any>(keyId);
+
+      const newId = await gistStorage.setById(null, resource);
+
+      await gistStorage.setById(keyId, {
+        count: prevList.count + 1,
+        data: [
+          ...prevList.data,
+          {
+            id: newId,
+            created: new Date().toUTCString(),
+          },
+        ],
+      });
     },
   };
 };
-
-async function fetchUserGitHubID({ accessToken }: { accessToken: string }) {
-  const { data } = await axios({
-    method: "get",
-    url: `https://api.github.com/user`,
-    headers: {
-      accept: "application/vnd.github+json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-
-  return data.login;
-}

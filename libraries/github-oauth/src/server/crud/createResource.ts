@@ -8,8 +8,11 @@ interface Options extends CorsOptions {
   name: string;
 }
 
-export function createUserInfo({ name, before }: Options) {
-  return async function userInfo(req: NextApiRequest, res: NextApiResponse) {
+export function createCreateResource({ name, before }: Options) {
+  return async function createResource(
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) {
     await before(req, res);
 
     const authorization = getAuthorization(req);

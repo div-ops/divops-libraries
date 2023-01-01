@@ -24,22 +24,3 @@ export function ensureVariable(key, value) {
     throw new Error(`${key}가 주어지지 않았습니다.`);
   }
 }
-
-export function getAuthorization(req: NextApiRequest): string | null {
-  const authorization = (() => {
-    try {
-      return req.cookies?.authorization ?? req.headers?.authorization ?? null;
-    } catch {
-      if (req.headers?.authorization === "") {
-        return null;
-      }
-
-      return req.headers?.authorization ?? null;
-    }
-  })();
-  if (authorization == null) {
-    return null;
-  }
-
-  return decodeURIComponent(authorization);
-}
