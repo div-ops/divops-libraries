@@ -47,18 +47,3 @@ export function createReadResourceList({ name, before }: Options) {
     }
   };
 }
-
-/*
-keyStore 에 List gist 의 key를 저장하고 있었는데, 이러면 유저마다 하나씩 만들어줘야함..ㅅㅂ
-어떻게 하면 유저...어쩌지..ㅅㅂ거..
-
-- 유저가 어떤 글을 써
-  - 그 글의 카테고리를 맘대로 할 수 있게 했어
-  - gist 의 종류는 사실
-  - 리스트 gist 키: `gist-storage-${category}-${app-divops-kr}-${username}`
-
-  - 글을 쓰다 (Create API)
-    - 리스트 gist에 summary를 추가를 하고
-      - 오류가 발생했다면, 새로 추가한다. 👈
-    - 새로운 gist 를 추가
-*/
