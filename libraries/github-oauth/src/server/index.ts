@@ -1,5 +1,9 @@
 import { CorsOptions } from "../types";
-import { createCreateResource } from "./crud";
+import {
+  createCreateResource,
+  createReadResource,
+  createReadResourceList,
+} from "./crud";
 import { createUserToken, createSetCookie } from "./login";
 import { createLogout } from "./logout";
 import { createUserInfo } from "./user";
@@ -7,13 +11,21 @@ import { createUserInfo } from "./user";
 export const API = {
   of({ name }: { name: string }) {
     return {
-      UserToken: (options: CorsOptions) =>
-        createUserToken({ name, ...options }),
-      SetCookie: (options: CorsOptions) => createSetCookie(options),
-      UserInfo: (options: CorsOptions) => createUserInfo({ name, ...options }),
-      Logout: (options: CorsOptions) => createLogout(options),
-      CreateResource: (options: CorsOptions) =>
-        createCreateResource({ name, ...options }),
+      UserToken: withCorsOptions(name, createUserToken),
+      SetCookie: withCorsOptions(name, createSetCookie),
+      UserInfo: withCorsOptions(name, createUserInfo),
+      Logout: withCorsOptions(name, createLogout),
+      CreateResource: withCorsOptions(name, createCreateResource),
+      ReadResource: withCorsOptions(name, createReadResource),
+      ReadListResource: withCorsOptions(name, createReadResourceList),
     };
   },
 };
+
+const withCorsOptions =
+  <T extends (...args: any) => any>(
+    name: string,
+    fn: T
+  ): ((options: CorsOptions) => ReturnType<T>) =>
+  (options: CorsOptions) =>
+    fn({ name, ...options });
