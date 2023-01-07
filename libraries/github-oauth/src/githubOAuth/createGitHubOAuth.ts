@@ -123,7 +123,7 @@ export const createGitHubOAuth = ({
 
           await gistStorage.setById(keyStoreId, {
             ...(await gistStorage.getById(keyStoreId)),
-            resourceListKey: newId,
+            [resourceListKey]: newId,
           });
           return newId;
         })();
