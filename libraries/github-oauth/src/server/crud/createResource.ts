@@ -1,3 +1,4 @@
+import { decrypt } from "@divops/simple-crypto";
 import { createGitHubOAuth } from "../../githubOAuth";
 import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
 import { getAuthorization } from "../utils";
@@ -16,19 +17,21 @@ export function createCreateResource({ name, before }: Options) {
     const model = req.body.model;
     const resource = req.body.resource;
 
-    const authorization = getAuthorization(req);
+    const cryptedGitHubId = getAuthorization(req);
 
-    if (authorization == null) {
+    if (cryptedGitHubId == null) {
       return res.json({ data: null });
     }
 
     try {
       const gitHubOAuth = createGitHubOAuth({ name });
+      const githubId = gitHubOAuth.decryptGitHubID({ cryptedGitHubId });
 
       await gitHubOAuth.createResource({
-        cryptedGitHubID: authorization,
+        cryptedGitHubId,
         model,
         resource,
+        githubId,
       });
 
       return res.end();

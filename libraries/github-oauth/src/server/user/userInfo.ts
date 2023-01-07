@@ -22,7 +22,7 @@ export function createUserInfo({ name, before }: Options) {
       const gitHubOAuth = createGitHubOAuth({ name });
       const promised = gitHubOAuth
         .fetchUserInfo({
-          cryptedGitHubID: authorization,
+          cryptedGitHubId: authorization,
         })
         .then((x) => {
           cache[authorization] = x;

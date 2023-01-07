@@ -37,11 +37,16 @@ export function createGistStorage({
       return await self.getById(id);
     },
 
-    setById: async (id: string | null, content: string) => {
+    setById: async (
+      id: string | null,
+      content: string,
+      description: string
+    ) => {
       if (id != null) {
         await octokit.rest.gists.update({
           gist_id: id,
           files: { [DEFAULT_GIST_FILE_NAME]: { content } },
+          description,
         });
         return id;
       } else {
@@ -50,15 +55,16 @@ export function createGistStorage({
         } = await octokit.rest.gists.create({
           files: { [DEFAULT_GIST_FILE_NAME]: { content } },
           public: false,
+          description,
         });
         return id;
       }
     },
 
-    set: async (key: string, content: string) => {
+    set: async (key: string, content: string, description: string) => {
       const keyId = await findGistIdByKey(key, { id: keyStoreId, octokit });
 
-      const newId = await self.setById(keyId, content);
+      const newId = await self.setById(keyId, content, description);
 
       if (keyId == null) {
         const keyStoreContent = await getGistContentJSON({
@@ -100,21 +106,39 @@ export function createGistJSONStorage(options: {
     getId: async (key: string) => {
       return await gistStorage.getId(key);
     },
-    getById: async <T>(id: string) => {
+    getById: async <T = any>(id: string) => {
       return JSON.parse(await gistStorage.getById(id)) as T;
     },
-    get: async <T>(key: string) => {
+    get: async <T = any>(key: string) => {
       return JSON.parse(await gistStorage.get(key)) as T;
     },
 
-    setById: async <T>(id: string | null, content: T) => {
-      return await gistStorage.setById(id, JSON.stringify(content, null, 2));
+    setById: async <T = any>(id: string | null, content: T) => {
+      return await gistStorage.setById(
+        id,
+        JSON.stringify(content, null, 2),
+        id
+      );
     },
-    set: async <T>(key: string, content: T) => {
-      await gistStorage.set(key, JSON.stringify(content, null, 2));
+    set: async <T = any>(key: string, content: T) => {
+      await gistStorage.set(key, JSON.stringify(content, null, 2), key);
     },
 
-    find: async <T>(key: string) => {
+    findId: async (key: string): Promise<string | null> => {
+      try {
+        return await gistStorage.getId(key);
+      } catch {
+        return null;
+      }
+    },
+    findById: async <T = any>(id: string) => {
+      try {
+        return await self.getById<T>(id);
+      } catch {
+        return null;
+      }
+    },
+    find: async <T = any>(key: string) => {
       try {
         return await self.get<T>(key);
       } catch {

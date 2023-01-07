@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createGistJSONStorage } from "@divops/gist-storage";
-import { encrypt } from "@divops/simple-crypto";
+import { decrypt, encrypt } from "@divops/simple-crypto";
 import { getAuthorization, getUserFromUserPool } from "./utils";
 import { ensureVariable } from "../utils";
 import { fetchUser } from "./resource";
@@ -29,6 +29,7 @@ export const createGitHubOAuth = ({
   ensureVariable("GIST_STORAGE_TOKEN", GIST_STORAGE_TOKEN);
   ensureVariable("GIST_STORAGE_KEY_STORE_ID", GIST_STORAGE_KEY_STORE_ID);
 
+  const keyStoreId = GIST_STORAGE_KEY_STORE_ID;
   const userPoolKey = `gist-storage-${name}-user-pool`;
   const cryptoSecret = Buffer.from(`github-oauth-${name}`)
     .reverse()
@@ -36,10 +37,18 @@ export const createGitHubOAuth = ({
 
   const gistStorage = createGistJSONStorage({
     token: GIST_STORAGE_TOKEN,
-    keyStoreId: GIST_STORAGE_KEY_STORE_ID,
+    keyStoreId,
   });
 
   return {
+    encryptGitHubID: ({ githubId }: { githubId: string }) => {
+      return encrypt(githubId, { iv: cryptoSecret });
+    },
+
+    decryptGitHubID: ({ cryptedGitHubId }: { cryptedGitHubId: string }) => {
+      return decrypt(cryptedGitHubId, { iv: cryptoSecret });
+    },
+
     loginOauthAccessToken: async (code: string) => {
       const {
         data: { access_token: accessToken },
@@ -58,23 +67,23 @@ export const createGitHubOAuth = ({
 
       const userPoolKey = `gist-storage-${name}-user-pool`;
       const githubId = (await fetchUser({ accessToken })).login;
-      const cryptedGitHubID = encrypt(githubId, { iv: cryptoSecret });
+      const cryptedGitHubId = encrypt(githubId, { iv: cryptoSecret });
 
       await gistStorage.set(userPoolKey, {
         ...((await gistStorage.find<any>(userPoolKey)) ?? {}),
-        [cryptedGitHubID]: {
-          id: cryptedGitHubID,
+        [cryptedGitHubId]: {
+          id: cryptedGitHubId,
           githubId,
           accessToken: encrypt(accessToken, { iv: cryptoSecret }),
         },
       });
 
-      return cryptedGitHubID;
+      return cryptedGitHubId;
     },
 
-    fetchUserInfo: async ({ cryptedGitHubID }: { cryptedGitHubID: string }) => {
+    fetchUserInfo: async ({ cryptedGitHubId }: { cryptedGitHubId: string }) => {
       const accessToken = await getAuthorization({
-        key: cryptedGitHubID,
+        key: cryptedGitHubId,
         cryptoSecret,
         gistStorage,
         userPoolKey,
@@ -84,50 +93,86 @@ export const createGitHubOAuth = ({
     },
 
     createResource: async <T>({
-      cryptedGitHubID,
+      cryptedGitHubId,
       model,
       resource,
+      githubId,
     }: {
-      cryptedGitHubID: string;
+      cryptedGitHubId: string;
       model: string;
       resource: T;
+      githubId: string;
     }) => {
-      const resourceListKey = `gist-storage-${name}-${model}-list`;
+      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
 
-      const [user, keyId] = await Promise.all([
+      let [user, keyId] = await Promise.all([
         getUserFromUserPool({
-          key: cryptedGitHubID,
+          key: cryptedGitHubId,
           gistStorage,
           userPoolKey,
         }),
-        gistStorage.getId(resourceListKey),
+        gistStorage.findId(resourceListKey),
       ]);
 
-      console.log(`1STEP`, { user, keyId });
+      if (keyId == null) {
+        keyId = await (async () => {
+          const newId = await gistStorage.setById(null, {
+            totalCount: 0,
+            data: [],
+          });
 
-      const [prevList, newId] = await Promise.all([
-        gistStorage.getById<any>(keyId),
-        gistStorage.setById(null, resource),
-      ]);
-
-      console.log(`2STEP`, { prevList, newId });
+          await gistStorage.setById(keyStoreId, {
+            ...(await gistStorage.getById(keyStoreId)),
+            resourceListKey: newId,
+          });
+          return newId;
+        })();
+      }
 
       const newResource = {
-        id: newId,
+        ...resource,
         githubId: user.githubId,
         created: new Date().toUTCString(),
       };
 
-      console.log(`3STEP`, { newResource });
+      const [prevList, newId] = await Promise.all([
+        gistStorage.getById<any>(keyId),
+        gistStorage.setById(null, newResource),
+      ]);
 
       await gistStorage.setById(keyId, {
         totalCount: prevList.data.length + 1,
-        data: [...prevList.data, newResource],
+        data: [
+          ...prevList.data,
+          {
+            id: newId,
+            ...newResource,
+          },
+        ],
       });
-
-      console.log(`4STEP`, { newResource });
 
       return newResource;
     },
+
+    readResourceList: async ({
+      model,
+      githubId,
+    }: {
+      model: string;
+      githubId: string;
+    }): Promise<ResourceList> => {
+      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+
+      return await gistStorage.get(resourceListKey);
+    },
+
+    readResource: async <T = any>({ id }: { id: string }): Promise<T> => {
+      return await gistStorage.findById(id);
+    },
   };
 };
+
+interface ResourceList<T = any> {
+  totalCount: number;
+  data: Array<T>;
+}
