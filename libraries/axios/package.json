@@ -1,6 +1,6 @@
 {
   "name": "@divops/axios",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
