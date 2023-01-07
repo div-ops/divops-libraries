@@ -19,6 +19,10 @@ export class BuildCommand extends Command {
 
     let { entry, output } = this;
     entry = ((entry) => {
+      if (entry) {
+        return path.resolve(entry);
+      }
+
       if (main) {
         return path.resolve(packagePath, main);
       }
