@@ -13,4 +13,3 @@ build/
 dist/
 
 index.d.ts
-*.d.ts
