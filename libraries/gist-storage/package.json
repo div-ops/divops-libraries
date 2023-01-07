@@ -1,6 +1,6 @@
 {
   "name": "@divops/gist-storage",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "src/internal.js",
   "publishConfig": {
     "main": "dist/index.js"
