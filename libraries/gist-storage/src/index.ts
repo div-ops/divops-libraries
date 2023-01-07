@@ -117,7 +117,7 @@ export function createGistJSONStorage(options: {
       return await gistStorage.setById(
         id,
         JSON.stringify(content, null, 2),
-        id
+        id ?? undefined
       );
     },
     set: async <T = any>(key: string, content: T) => {
