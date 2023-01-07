@@ -1,6 +1,6 @@
 import { Command, Option } from "clipanion";
 import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
-import { build } from "esbuild";
+import { build, OnResolveArgs, OnResolveResult } from "esbuild";
 import path from "path";
 import fs from "fs";
 
@@ -65,7 +65,7 @@ export class BuildCommand extends Command {
           }
         : {}),
       plugins: [
-        pnpPlugin(),
+        pnpPlugin({ onResolve: pnpOnResolve }),
         {
           name: "copy",
           setup(build) {
@@ -92,3 +92,41 @@ export class BuildCommand extends Command {
     });
   }
 }
+
+const pnpOnResolve: Parameters<typeof pnpPlugin>[0]["onResolve"] = async (
+  args,
+  { resolvedPath, error, watchFiles }
+) => {
+  if (resolvedPath != null) {
+    if (resolvedPath.endsWith("src/internal.js")) {
+      resolvedPath = resolvedPath.replace(/src\/internal.js$/, "src/index.ts");
+    }
+  }
+
+  // NOTE: 아래는 pnpResolve 기본 동작
+  const problems = error ? [{ text: error.message }] : [];
+  // Sometimes dynamic resolve calls might be wrapped in a try / catch,
+  // but ESBuild neither skips them nor does it provide a way for us to tell.
+  // Because of that, we downgrade all errors to warnings in these situations.
+  // Issue: https://github.com/evanw/esbuild/issues/1127
+  let mergeWith;
+  switch (args.kind) {
+    case `require-call`:
+    case `require-resolve`:
+    case `dynamic-import`:
+      {
+        mergeWith = { warnings: problems };
+      }
+      break;
+    default:
+      {
+        mergeWith = { errors: problems };
+      }
+      break;
+  }
+  if (resolvedPath !== null) {
+    return { namespace: `pnp`, path: resolvedPath, watchFiles };
+  } else {
+    return { external: true, ...mergeWith, watchFiles };
+  }
+};
