@@ -65,7 +65,7 @@ export class BuildCommand extends Command {
           }
         : {}),
       plugins: [
-        pnpPlugin({ onResolve: pnpOnResolve }),
+        pnpPlugin(),
         {
           name: "copy",
           setup(build) {

@@ -1,12 +1,12 @@
 {
   "name": "@divops/gist-storage",
   "version": "0.0.15",
-  "main": "src/internal.js",
+  "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
   },
   "scripts": {
-    "build": "rm -rf dist && divops-build --entry ./src/index.ts && tsc -p ./tsconfig.json",
+    "build": "rm -rf dist && divops-build && tsc -p ./tsconfig.json",
     "deploy": "npm publish --access public"
   },
   "dependencies": {
