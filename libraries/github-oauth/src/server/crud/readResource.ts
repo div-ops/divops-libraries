@@ -29,12 +29,12 @@ export function createReadResource({ name, before }: Options) {
       const data = await gitHubOAuth.readResource({ id });
 
       if (data.githubId !== githubId) {
-        return res.status(400).end({
+        return res.status(400).json({
           message: `${githubId}에게 ${id}의 권한이 없습니다.`,
         });
       }
 
-      return res.end({ data });
+      return res.json({ data });
     } catch (error: any) {
       if (error.statusCode != null) {
         return res.status(400).end(error.message);

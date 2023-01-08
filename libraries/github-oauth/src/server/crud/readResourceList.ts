@@ -32,7 +32,7 @@ export function createReadResourceList({ name, before }: Options) {
         githubId,
       });
 
-      return res.end({
+      return res.json({
         totalCount,
         data: data.slice((pageNo - 1) * pageSize, pageNo * pageSize),
       });
