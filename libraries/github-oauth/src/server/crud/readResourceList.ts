@@ -38,7 +38,9 @@ export function createReadResourceList({ name, before }: Options) {
       });
     } catch (error: any) {
       if (error.statusCode != null) {
-        return res.status(400).end(error.message);
+        return res.status(400).json({
+          message: error.message,
+        });
       }
 
       return res.status(500).json({
