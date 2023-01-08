@@ -129,29 +129,17 @@ export const createGitHubOAuth = ({
         })();
       }
 
-      const newResource = {
-        ...resource,
-        githubId: user.githubId,
-        created: new Date().toUTCString(),
-      };
+      const created = new Date().toUTCString();
 
       const [prevList, newId] = await Promise.all([
         gistStorage.getById<any>(keyId),
-        gistStorage.setById(null, newResource),
+        gistStorage.setById(null, { ...resource, githubId, created }),
       ]);
 
       await gistStorage.setById(keyId, {
         totalCount: prevList.data.length + 1,
-        data: [
-          ...prevList.data,
-          {
-            id: newId,
-            ...newResource,
-          },
-        ],
+        data: [...prevList.data, { id: newId, githubId, created }],
       });
-
-      return newResource;
     },
 
     readResourceList: async ({
