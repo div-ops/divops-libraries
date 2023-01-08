@@ -19,7 +19,7 @@ export class BuildCommand extends Command {
 
     let { entry, output } = this;
     entry = ((entry) => {
-      if (entry) {
+      if (entry && fs.existsSync(entry)) {
         return path.resolve(entry);
       }
 
