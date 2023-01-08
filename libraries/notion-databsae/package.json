@@ -1,6 +1,6 @@
 {
   "name": "@divops/notion-database",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
