@@ -16,6 +16,7 @@ export function createCreateResource({ name, before }: Options) {
 
     const model = req.body.model;
     const resource = req.body.resource;
+    const summary = req.body.summary;
 
     const cryptedGitHubId = getAuthorization(req);
 
@@ -30,6 +31,7 @@ export function createCreateResource({ name, before }: Options) {
       await gitHubOAuth.createResource({
         cryptedGitHubId,
         model,
+        summary,
         resource,
         githubId,
       });

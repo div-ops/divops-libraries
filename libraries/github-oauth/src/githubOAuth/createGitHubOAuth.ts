@@ -92,15 +92,17 @@ export const createGitHubOAuth = ({
       return await fetchUser({ accessToken });
     },
 
-    createResource: async <T>({
+    createResource: async <S, R>({
       cryptedGitHubId,
       model,
+      summary,
       resource,
       githubId,
     }: {
       cryptedGitHubId: string;
       model: string;
-      resource: T;
+      summary: S;
+      resource: R;
       githubId: string;
     }) => {
       const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
@@ -133,12 +135,12 @@ export const createGitHubOAuth = ({
 
       const [prevList, newId] = await Promise.all([
         gistStorage.getById<any>(keyId),
-        gistStorage.setById(null, { ...resource, githubId, created }),
+        gistStorage.setById(null, { summary, githubId, created, ...resource }),
       ]);
 
       await gistStorage.setById(keyId, {
         totalCount: prevList.data.length + 1,
-        data: [...prevList.data, { id: newId, githubId, created }],
+        data: [...prevList.data, { id: newId, ...summary, githubId, created }],
       });
     },
 
