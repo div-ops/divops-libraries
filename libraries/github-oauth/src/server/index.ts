@@ -3,6 +3,7 @@ import {
   createCreateResource,
   createReadResource,
   createReadResourceList,
+  createDeleteResource,
 } from "./crud";
 import { createUserToken, createSetCookie } from "./login";
 import { createLogout } from "./logout";
@@ -18,6 +19,7 @@ export const API = {
       CreateResource: withCorsOptions(name, createCreateResource),
       ReadResource: withCorsOptions(name, createReadResource),
       ReadListResource: withCorsOptions(name, createReadResourceList),
+      DeleteResource: withCorsOptions(name, createDeleteResource),
     };
   },
 };
