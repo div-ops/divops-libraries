@@ -13,6 +13,7 @@ export class BuildCommand extends Command {
     const packagePath = process.cwd();
     const {
       devDependencies,
+      peerDependencies,
       publishConfig,
       main,
     } = require(`${packagePath}/package.json`);
@@ -88,7 +89,10 @@ export class BuildCommand extends Command {
           },
         },
       ],
-      external: [...(devDependencies ? Object.keys(devDependencies) : [])],
+      external: [
+        ...(devDependencies ? Object.keys(devDependencies) : []),
+        ...(peerDependencies ? Object.keys(peerDependencies) : []),
+      ],
     });
   }
 }
