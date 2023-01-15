@@ -15,8 +15,8 @@ export function createDeleteResource({ name, before }: Options) {
     await before(req, res);
 
     try {
-      const model = parseQueryStr(req, "model");
-      const id = parseQueryStr(req, "id");
+      const model = req.body.model;
+      const id = req.body.id;
 
       const cryptedGitHubId = getAuthorization(req);
 
