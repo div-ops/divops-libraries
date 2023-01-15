@@ -6,7 +6,7 @@ export function useCallbackGitHubOAuth({ url }: { url: string }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) {
+    if (router == null || !router.isReady) {
       return;
     }
 
