@@ -1,16 +1,15 @@
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { useEffect } from "react";
 import { guardBrowserEnvironment } from "../utils";
 
 export function useRequestGitHubOAuth({ CLIENT_ID }: { CLIENT_ID: string }) {
-  const router = useRouter();
-
   useEffect(() => {
-    if (router == null || !router.isReady) {
+    if (Router == null || Router.isReady) {
+      console.log({ Router, isReady: Router.isReady });
       return;
     }
 
-    const referrer = router.query.referrer;
+    const referrer = Router.query.referrer;
 
     if (referrer == null || Array.isArray(referrer)) {
       setTimeout(() => {
@@ -27,5 +26,5 @@ export function useRequestGitHubOAuth({ CLIENT_ID }: { CLIENT_ID: string }) {
     window.location.assign(
       `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`
     );
-  }, [router]);
+  }, [Router]);
 }

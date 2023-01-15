@@ -1,16 +1,15 @@
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { useEffect } from "react";
 import { guardBrowserEnvironment } from "../utils";
 
 export function useCallbackGitHubOAuth({ url }: { url: string }) {
-  const router = useRouter();
-
   useEffect(() => {
-    if (router == null || !router.isReady) {
+    if (Router == null || Router.isReady) {
+      console.log({ Router, isReady: Router.isReady });
       return;
     }
 
-    const code = router.query.code;
+    const code = Router.query.code;
 
     if (code == null || Array.isArray(code)) {
       alert("잘못된 접근인데, 어떻게 오셨어요? 다시 접근해보세용! 2");
@@ -58,5 +57,5 @@ export function useCallbackGitHubOAuth({ url }: { url: string }) {
         );
       }
     })();
-  }, [router]);
+  }, [Router]);
 }
