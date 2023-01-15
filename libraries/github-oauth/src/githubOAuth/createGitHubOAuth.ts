@@ -184,6 +184,42 @@ export const createGitHubOAuth = ({
 
       await gistStorage.removeById(id);
     },
+
+    updateResource: async <S, R>({
+      id,
+      cryptedGitHubId,
+      model,
+      summary,
+      resource,
+      githubId,
+    }: {
+      id: string;
+      cryptedGitHubId: string;
+      model: string;
+      summary: S;
+      resource: R;
+      githubId: string;
+    }) => {
+      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+
+      const keyId = await gistStorage.getId(resourceListKey);
+
+      const prevList = await gistStorage.getById<any>(keyId);
+
+      const prevItem = prevList.data.find((x) => x.id === id);
+      const updatedItem = { ...prevItem, ...resource, summary };
+
+      await gistStorage.setById(id, updatedItem);
+
+      prevList.data[id] = updatedItem;
+
+      await gistStorage.setById(keyId, {
+        totalCount: prevList.length,
+        data: [...prevList.data],
+      });
+
+      await gistStorage.removeById(id);
+    },
   };
 };
 
