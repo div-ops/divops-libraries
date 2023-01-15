@@ -217,8 +217,6 @@ export const createGitHubOAuth = ({
         totalCount: prevList.length,
         data: [...prevList.data],
       });
-
-      await gistStorage.removeById(id);
     },
   };
 };
