@@ -178,8 +178,8 @@ export const createGitHubOAuth = ({
         .then((x) => x.data.filter((xx) => xx.id !== id));
 
       await gistStorage.setById(keyId, {
-        totalCount: removedList.data.length,
-        data: [...removedList.data],
+        totalCount: removedList.length,
+        data: [...removedList],
       });
     },
   };
