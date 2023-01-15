@@ -7,7 +7,7 @@ export function useRequestGitHubOAuth({ CLIENT_ID }: { CLIENT_ID: string }) {
 
   useEffect(() => {
     if (router == null || !router.isReady) {
-      console.log({ router, isReady: router.isReady });
+      console.log({ router, isReady: router?.isReady });
       return;
     }
 
