@@ -1,7 +1,7 @@
 {
   "name": "@divops/tool-github-content-sha",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./src/index.ts",
   "bin": {
     "github-content-sha": "./bin/internal.js"

@@ -1,6 +1,6 @@
 {
   "name": "@divops/simple-crypto",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
