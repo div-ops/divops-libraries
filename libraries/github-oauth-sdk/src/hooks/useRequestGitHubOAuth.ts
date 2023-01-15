@@ -6,7 +6,7 @@ export function useRequestGitHubOAuth({ CLIENT_ID }: { CLIENT_ID: string }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) {
+    if (router == null || !router.isReady) {
       return;
     }
 
