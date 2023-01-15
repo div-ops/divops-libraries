@@ -90,6 +90,12 @@ export function createGistStorage({
         return null;
       }
     },
+
+    removeById: async (id: string) => {
+      await octokit.rest.gists.delete({
+        gist_id: id,
+      });
+    },
   };
 
   return self;
@@ -145,6 +151,8 @@ export function createGistJSONStorage(options: {
         return null;
       }
     },
+
+    removeById: gistStorage.removeById,
   };
 
   return self;

@@ -181,6 +181,8 @@ export const createGitHubOAuth = ({
         totalCount: removedList.length,
         data: [...removedList],
       });
+
+      await gistStorage.removeById(id);
     },
   };
 };
