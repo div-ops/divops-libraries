@@ -1,2 +1,3 @@
-export * from "./server";
 export * from "./githubOAuth";
+export * from "./GitHubOAuthApp";
+export * from "./GitHubOAuthServer";

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { guardBrowserEnvironment } from "../utils";
+import { guardBrowserEnvironment } from "./utils";
 
 export function useRequestGitHubOAuth({ CLIENT_ID }: { CLIENT_ID: string }) {
   const router = useRouter();

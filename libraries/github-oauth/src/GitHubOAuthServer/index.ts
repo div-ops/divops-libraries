@@ -10,7 +10,7 @@ import { createUserToken, createSetCookie } from "./login";
 import { createLogout } from "./logout";
 import { createUserInfo } from "./user";
 
-export const API = {
+export const GitHubOAuthServer = {
   of({ name }: { name: string }) {
     return {
       UserToken: withCorsOptions(name, createUserToken),
