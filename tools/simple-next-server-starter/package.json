@@ -1,7 +1,7 @@
 {
   "name": "@divops/tool-simple-next-server-starter",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "./index.ts",
   "bin": {
     "divops-next-start": "./bin/internal.js"

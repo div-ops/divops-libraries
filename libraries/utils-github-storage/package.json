@@ -1,6 +1,6 @@
 {
   "name": "@divops/utils-github-storage",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"

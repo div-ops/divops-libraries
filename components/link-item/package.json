@@ -1,6 +1,6 @@
 {
   "name": "@divops/component-link-item",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "main": "src/index.tsx",
   "publishConfig": {
     "main": "dist/index.js"
