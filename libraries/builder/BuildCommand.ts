@@ -48,6 +48,11 @@ export class BuildCommand extends Command {
       return `${path.dirname(path.resolve(entry))}/build/${output}`;
     })(output);
 
+    const external = [
+      ...(devDependencies ? Object.keys(devDependencies) : []),
+      ...(peerDependencies ? Object.keys(peerDependencies) : []),
+    ].flatMap((x) => [x, `${x}/*`]);
+
     await build({
       bundle: true,
       target: "esnext",
@@ -89,10 +94,7 @@ export class BuildCommand extends Command {
           },
         },
       ],
-      external: [
-        ...(devDependencies ? Object.keys(devDependencies) : []),
-        ...(peerDependencies ? Object.keys(peerDependencies) : []),
-      ],
+      external,
     });
   }
 }
