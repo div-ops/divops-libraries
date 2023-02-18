@@ -11,8 +11,6 @@ type BASE_URLS = Record<
 
 export const BaseUrls: BASE_URLS = Object.entries(BaseUrlOfOrigins).reduce(
   (acc, cur) => {
-    acc[cur[0]].push(...cur[1]);
-
     return {
       ...acc,
       [cur[0]]: [...(acc[cur[0]] == null ? [] : acc[cur[0]]), ...cur[1]],
