@@ -1,20 +1,19 @@
-export const DefaultBaseUrl = "https://app.divops.kr/github-api";
-
 const BaseUrlOfOrigins = {
-  [DefaultBaseUrl]: ["localhost", "www.creco.services"],
+  "https://app.divops.kr/github-api": ["localhost", "www.creco.services"],
 } as const;
 
-type BASE_URLS = Record<
-  typeof BaseUrlOfOrigins[keyof typeof BaseUrlOfOrigins][number],
-  keyof typeof BaseUrlOfOrigins
->;
+export const DefaultBaseUrl = "https://app.divops.kr/github-api";
 
-export const BaseUrls: BASE_URLS = Object.entries(BaseUrlOfOrigins).reduce(
-  (acc, cur) => {
-    return {
-      ...acc,
-      [cur[0]]: [...(acc[cur[0]] == null ? [] : acc[cur[0]]), ...cur[1]],
-    };
+type BaseUrlsType = {
+  [key in typeof BaseUrlOfOrigins[typeof DefaultBaseUrl][number]]: typeof DefaultBaseUrl;
+};
+
+export const BaseUrls: BaseUrlsType = Object.entries(BaseUrlOfOrigins).reduce(
+  (acc, [key, values]) => {
+    values.forEach((value) => {
+      acc[value as keyof BaseUrlsType] = key as typeof DefaultBaseUrl;
+    });
+    return acc;
   },
-  {} as BASE_URLS
+  {} as BaseUrlsType
 );
