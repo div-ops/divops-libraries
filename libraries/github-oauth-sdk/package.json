@@ -1,6 +1,6 @@
 {
   "name": "@divops/github-oauth-sdk",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js"
