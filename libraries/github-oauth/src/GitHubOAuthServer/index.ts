@@ -51,53 +51,58 @@ export const GitHubOAuthRoutes = ({
   const before = createBefore({ allowedOrigins });
 
   return function handler(req: NextApiRequest, res: NextApiResponse) {
-    console.log(`[${req.method}] ${req.url}`);
-    const origin = req.headers.origin;
-    const { model } = { ...(req.body ?? {}), ...(req.query ?? {}) } as {
-      model?: string;
-    };
+    try {
+      console.log(`[${req.method}] ${req.url}`);
+      const origin = req.headers.origin;
+      const { model } = { ...(req.body ?? {}), ...(req.query ?? {}) } as {
+        model?: string;
+      };
 
-    if (isAllowed({ allowedOrigins }, { origin, model })) {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: now allowed origin with model." });
+      if (isAllowed({ allowedOrigins }, { origin, model })) {
+        return res
+          .status(403)
+          .json({ message: "Forbidden: now allowed origin with model." });
+      }
+
+      const client = new URL(origin).hostname;
+      const api = GitHubOAuthServer.of({ server, client });
+      const path = req.url.split("?")[0];
+
+      switch (`[${req.method}]${path}`) {
+        case `[OPTIONS]${prefix}/resource/create`:
+        case `[POST]${prefix}/resource/create`: {
+          return api.CreateResource({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/resource/read`:
+        case `[GET]${prefix}/resource/read`: {
+          return api.ReadResource({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/resource/readList`:
+        case `[GET]${prefix}/resource/readList`: {
+          return api.ReadListResource({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/resource/update`:
+        case `[POST]${prefix}/resource/update`: {
+          return api.UpdateResource({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/resource/delete`:
+        case `[POST]${prefix}/resource/delete`: {
+          return api.DeleteResource({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/user/info`:
+        case `[GET]${prefix}/user/info`: {
+          return api.UserInfo({ before })(req, res);
+        }
+        case `[OPTIONS]${prefix}/user-token`:
+        case `[POST]${prefix}/user-token`: {
+          return api.UserToken({ before })(req, res);
+        }
+      }
+
+      return res.status(404).json({ message: "Not Found" });
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
     }
-
-    const api = GitHubOAuthServer.of({ server, client: origin });
-    const path = req.url.split("?")[0];
-
-    switch (`[${req.method}]${path}`) {
-      case `[OPTIONS]${prefix}/resource/create`:
-      case `[POST]${prefix}/resource/create`: {
-        return api.CreateResource({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/resource/read`:
-      case `[GET]${prefix}/resource/read`: {
-        return api.ReadResource({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/resource/readList`:
-      case `[GET]${prefix}/resource/readList`: {
-        return api.ReadListResource({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/resource/update`:
-      case `[POST]${prefix}/resource/update`: {
-        return api.UpdateResource({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/resource/delete`:
-      case `[POST]${prefix}/resource/delete`: {
-        return api.DeleteResource({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/user/info`:
-      case `[GET]${prefix}/user/info`: {
-        return api.UserInfo({ before })(req, res);
-      }
-      case `[OPTIONS]${prefix}/user-token`:
-      case `[POST]${prefix}/user-token`: {
-        return api.UserToken({ before })(req, res);
-      }
-    }
-
-    return res.status(404).json({ message: "Not Found" });
   };
 };
 
