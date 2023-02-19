@@ -47,18 +47,9 @@ export const GitHubOAuthRoutes = ({
 }) => {
   return function handler(req: NextApiRequest, res: NextApiResponse) {
     const server = GitHubOAuthServer.of({ name: name });
-    const before = createCors();
+    const before = createCors({ origins });
+    console.log(`[${req.method}] ${req.url}`);
 
-    console.log(
-      JSON.stringify(
-        {
-          method: req.method,
-          url: req.url,
-        },
-        null,
-        2
-      )
-    );
     switch (`[${req.method}]${req.url}`) {
       case `[OPTIONS]${prefix}/resource/create`:
       case `[POST]${prefix}/resource/create`: {
@@ -89,14 +80,6 @@ export const GitHubOAuthRoutes = ({
         return server.UserToken({ before })(req, res);
       }
     }
-
-    res.setHeader(
-      "debugging-message",
-      JSON.stringify({
-        method: req.method,
-        url: req.url,
-      })
-    );
 
     return res.status(404).json({ message: "Not Found" });
   };
