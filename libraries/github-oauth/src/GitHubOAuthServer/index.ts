@@ -1,3 +1,5 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+import NextCors from "nextjs-cors";
 import { CorsOptions } from "../types";
 import {
   createCreateResource,
@@ -33,3 +35,52 @@ const withCorsOptions =
   ): ((options: CorsOptions) => ReturnType<T>) =>
   (options: CorsOptions) =>
     fn({ name, ...options });
+
+export const GitHubOAuthRoutes = ({
+  origins,
+  prefix,
+  name,
+}: {
+  origins: string[];
+  prefix: string;
+  name: string;
+}) => {
+  return function handler(req: NextApiRequest, res: NextApiResponse) {
+    const server = GitHubOAuthServer.of({ name: name });
+    const before = createCors();
+
+    switch (`[${req.method}]${req.url}`) {
+      case `[POST]${prefix}/resource/create`: {
+        return server.CreateResource({ before })(req, res);
+      }
+      case `[GET]${prefix}/resource/read`: {
+        return server.ReadResource({ before })(req, res);
+      }
+      case `[GET]${prefix}/resource/readList`: {
+        return server.ReadListResource({ before })(req, res);
+      }
+      case `[POST]${prefix}/resource/update`: {
+        return server.UpdateResource({ before })(req, res);
+      }
+      case `[POST]${prefix}/resource/delete`: {
+        return server.DeleteResource({ before })(req, res);
+      }
+      case `[GET]${prefix}/user/info`: {
+        return server.UserInfo({ before })(req, res);
+      }
+    }
+
+    return res.status(404).json({ message: "Not Found" });
+  };
+};
+
+function createCors({ origins = [] }: { origins?: string[] } = {}) {
+  return async <RQ, RS>(req: RQ, res: RS) => {
+    await NextCors(req as NextApiRequest, res as NextApiResponse, {
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      origin: [...origins, "http://localhost:3000"],
+      optionsSuccessStatus: 200,
+      credentials: true,
+    });
+  };
+}

@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "@divops/simple-crypto": "workspace:^",
-    "axios": "^0.27"
+    "axios": "^0.27",
+    "nextjs-cors": "^2.1.2"
   },
   "peerDependencies": {
     "@divops/gist-storage": "*",
