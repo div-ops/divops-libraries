@@ -49,8 +49,9 @@ export const GitHubOAuthRoutes = ({
     const server = GitHubOAuthServer.of({ name: name });
     const before = createCors({ origins });
     console.log(`[${req.method}] ${req.url}`);
+    const path = req.url.split("?")[0];
 
-    switch (`[${req.method}]${req.url}`) {
+    switch (`[${req.method}]${path}`) {
       case `[OPTIONS]${prefix}/resource/create`:
       case `[POST]${prefix}/resource/create`: {
         return server.CreateResource({ before })(req, res);
