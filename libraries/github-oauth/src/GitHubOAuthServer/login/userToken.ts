@@ -8,12 +8,14 @@ import {
 
 interface Options extends CommonAPIOptions, CorsOptions {}
 
-export function createUserToken({ server, client, before }: Options) {
+export function createUserToken({ server, before }: Options) {
   return async function loginUserTokenAPI(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
     await before(req, res);
+
+    const { client } = req.body;
 
     const gitHubOAuth = createGitHubOAuth({ server, client });
 

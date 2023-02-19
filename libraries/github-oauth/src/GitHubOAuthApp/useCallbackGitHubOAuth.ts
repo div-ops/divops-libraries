@@ -24,6 +24,8 @@ export function useCallbackGitHubOAuth({ url }: { url: string }) {
     (async () => {
       guardBrowserEnvironment();
 
+      const referrer = localStorage.getItem("referrer");
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -31,12 +33,11 @@ export function useCallbackGitHubOAuth({ url }: { url: string }) {
         },
         body: JSON.stringify({
           code,
+          client: referrer,
         }),
       });
 
       const token = response.headers.get("Authorization");
-
-      const referrer = localStorage.getItem("referrer");
 
       localStorage.removeItem("referrer");
 
