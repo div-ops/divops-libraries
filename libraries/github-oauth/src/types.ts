@@ -20,3 +20,8 @@ export type NextApiResponse<T = any> = ServerResponse & {
 export interface CorsOptions {
   before: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 }
+
+export interface CommonAPIOptions {
+  server: string;
+  client: string;
+}

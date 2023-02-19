@@ -1,12 +1,15 @@
 import { createGitHubOAuth } from "../../githubOAuth";
-import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
+import {
+  CommonAPIOptions,
+  CorsOptions,
+  NextApiRequest,
+  NextApiResponse,
+} from "../../types";
 import { getAuthorization, parseQueryStr } from "../utils";
 
-interface Options extends CorsOptions {
-  name: string;
-}
+interface Options extends CommonAPIOptions, CorsOptions {}
 
-export function createReadResource({ name, before }: Options) {
+export function createReadResource({ server, client, before }: Options) {
   return async function readResource(
     req: NextApiRequest,
     res: NextApiResponse
@@ -23,7 +26,7 @@ export function createReadResource({ name, before }: Options) {
         return res.json({ data: null });
       }
 
-      const gitHubOAuth = createGitHubOAuth({ name });
+      const gitHubOAuth = createGitHubOAuth({ server, client });
       const githubId = gitHubOAuth.decryptGitHubID({ cryptedGitHubId });
 
       const data = await gitHubOAuth.readResource({ id });

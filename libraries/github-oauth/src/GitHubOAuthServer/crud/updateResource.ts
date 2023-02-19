@@ -1,16 +1,15 @@
 import { createGitHubOAuth } from "../../githubOAuth";
 import {
+  CommonAPIOptions,
   CorsOptions,
   NextApiRequest as Req,
   NextApiResponse as Res,
 } from "../../types";
 import { getAuthorization } from "../utils";
 
-interface Options extends CorsOptions {
-  name: string;
-}
+interface Options extends CommonAPIOptions, CorsOptions {}
 
-export function createUpdateResource({ name, before }: Options) {
+export function createUpdateResource({ server, client, before }: Options) {
   return async function updateResource(req: Req, res: Res) {
     await before(req, res);
 
@@ -26,7 +25,7 @@ export function createUpdateResource({ name, before }: Options) {
         return res.json({ data: null });
       }
 
-      const gitHubOAuth = createGitHubOAuth({ name });
+      const gitHubOAuth = createGitHubOAuth({ server, client });
       const githubId = gitHubOAuth.decryptGitHubID({ cryptedGitHubId });
 
       if (githubId == null) {

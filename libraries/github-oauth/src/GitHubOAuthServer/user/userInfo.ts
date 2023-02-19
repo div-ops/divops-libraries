@@ -1,14 +1,17 @@
 import { createGitHubOAuth } from "../../githubOAuth";
-import { CorsOptions, NextApiRequest, NextApiResponse } from "../../types";
+import {
+  CommonAPIOptions,
+  CorsOptions,
+  NextApiRequest,
+  NextApiResponse,
+} from "../../types";
 import { getAuthorization } from "../utils";
 
 const cache: Record<string, any> = {};
 
-interface Options extends CorsOptions {
-  name: string;
-}
+interface Options extends CommonAPIOptions, CorsOptions {}
 
-export function createUserInfo({ name, before }: Options) {
+export function createUserInfo({ server, client, before }: Options) {
   return async function userInfo(req: NextApiRequest, res: NextApiResponse) {
     await before(req, res);
 
@@ -19,7 +22,7 @@ export function createUserInfo({ name, before }: Options) {
     }
 
     try {
-      const gitHubOAuth = createGitHubOAuth({ name });
+      const gitHubOAuth = createGitHubOAuth({ server, client });
       const promised = gitHubOAuth
         .fetchUserInfo({
           cryptedGitHubId: authorization,

@@ -6,7 +6,8 @@ import { ensureVariable } from "../utils";
 import { fetchUser } from "./resource";
 
 export const createGitHubOAuth = ({
-  name,
+  server,
+  client,
   callbackUrl = "referer",
   oauthCookieKey = "github-oauth",
   loginUrl = "/login/github",
@@ -15,7 +16,8 @@ export const createGitHubOAuth = ({
   GIST_STORAGE_TOKEN = process.env.GIST_STORAGE_TOKEN,
   GIST_STORAGE_KEY_STORE_ID = process.env.GIST_STORAGE_KEY_STORE_ID,
 }: {
-  name: string;
+  server: string;
+  client: string;
   callbackUrl?: string;
   oauthCookieKey?: string;
   loginUrl?: string;
@@ -30,8 +32,8 @@ export const createGitHubOAuth = ({
   ensureVariable("GIST_STORAGE_KEY_STORE_ID", GIST_STORAGE_KEY_STORE_ID);
 
   const keyStoreId = GIST_STORAGE_KEY_STORE_ID;
-  const userPoolKey = `gist-storage-${name}-user-pool`;
-  const cryptoSecret = Buffer.from(`github-oauth-${name}`)
+  const userPoolKey = `gist-storage-${server}-${client}-user-pool`;
+  const cryptoSecret = Buffer.from(`github-oauth-${server}-${client}`)
     .reverse()
     .slice(0, 16);
 
@@ -65,7 +67,7 @@ export const createGitHubOAuth = ({
         },
       });
 
-      const userPoolKey = `gist-storage-${name}-user-pool`;
+      const userPoolKey = `gist-storage-${server}-${client}-user-pool`;
       const githubId = (await fetchUser({ accessToken })).login;
       const cryptedGitHubId = encrypt(githubId, { iv: cryptoSecret });
 
@@ -105,7 +107,7 @@ export const createGitHubOAuth = ({
       resource: R;
       githubId: string;
     }) => {
-      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+      const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
 
       let [user, keyId] = await Promise.all([
         getUserFromUserPool({
@@ -151,7 +153,7 @@ export const createGitHubOAuth = ({
       model: string;
       githubId: string;
     }): Promise<ResourceList> => {
-      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+      const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
 
       return await gistStorage.get(resourceListKey);
     },
@@ -169,7 +171,7 @@ export const createGitHubOAuth = ({
       id: string;
       githubId: string;
     }) => {
-      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+      const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
 
       const keyId = await gistStorage.getId(resourceListKey);
 
@@ -200,7 +202,7 @@ export const createGitHubOAuth = ({
       resource: R;
       githubId: string;
     }) => {
-      const resourceListKey = `gist-storage-${name}-${model}-${githubId}`;
+      const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
 
       const keyId = await gistStorage.getId(resourceListKey);
 
