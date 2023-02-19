@@ -169,6 +169,7 @@ function isAllowed(
   options: MiddlewareOptions,
   { origin, model }: { origin: string; model: string }
 ) {
+  console.log(`isAllowed: ${origin} ${model}`);
   const allowedModels = options.allowedOrigins[origin];
   if (allowedModels == null) {
     return false;
