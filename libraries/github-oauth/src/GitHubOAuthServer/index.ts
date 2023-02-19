@@ -80,6 +80,13 @@ export const GitHubOAuthRoutes = ({
       }
     }
 
+    res.setHeader(
+      "debugging-message",
+      JSON.stringify({
+        method: req.method,
+        url: req.url,
+      })
+    );
     return res.status(404).json({ message: "Not Found" });
   };
 };
