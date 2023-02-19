@@ -15,7 +15,7 @@ export function createUserToken({ server, before }: Options) {
   ) {
     await before(req, res);
 
-    const { client } = req.body;
+    const client = new URL(req.body.client).hostname.replace(/\./g, "-");
 
     const gitHubOAuth = createGitHubOAuth({ server, client });
 
