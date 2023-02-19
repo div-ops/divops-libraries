@@ -56,7 +56,10 @@ export const GitHubOAuthRoutes = ({
         model?: string;
       };
 
-      if (!isAllowed({ allowedOrigins, server }, { origin, model })) {
+      if (
+        model != null &&
+        !isAllowed({ allowedOrigins, server }, { origin, model })
+      ) {
         return res
           .status(403)
           .json({ message: "Forbidden: now allowed origin with model." });
