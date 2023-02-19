@@ -87,6 +87,17 @@ export const GitHubOAuthRoutes = ({
         url: req.url,
       })
     );
+
+    console.log(
+      JSON.stringify(
+        {
+          method: req.method,
+          url: req.url,
+        },
+        null,
+        2
+      )
+    );
     return res.status(404).json({ message: "Not Found" });
   };
 };
