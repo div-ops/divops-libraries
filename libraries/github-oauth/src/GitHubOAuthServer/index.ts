@@ -141,7 +141,8 @@ function createNextAllowedAPI(options: MiddlewareOptions): middleware {
       ...req.query,
     } as { model?: string };
 
-    const isServer = req.headers.origin === options.server;
+    const server = new URL(req.headers.origin).hostname.replace(/\./g, "-");
+    const isServer = server === options.server;
     const allowedModels = allowedOrigins[req.headers.origin];
 
     if (isServer) {
