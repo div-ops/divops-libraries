@@ -153,6 +153,14 @@ function createNextAllowedAPI(options: MiddlewareOptions): middleware {
       return res.status(403).json({ message: "Forbidden" });
     }
 
+    const isUserAPI = ["user/info", "user-token"].some((x) =>
+      req.url.includes(x)
+    );
+
+    if (isUserAPI) {
+      return;
+    }
+
     if (model == null || !allowedModels.includes(model)) {
       return res.status(403).json({ message: "Forbidden" });
     }
