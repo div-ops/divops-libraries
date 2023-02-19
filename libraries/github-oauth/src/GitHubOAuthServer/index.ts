@@ -64,7 +64,7 @@ export const GitHubOAuthRoutes = ({
           .json({ message: "Forbidden: now allowed origin with model." });
       }
 
-      const client = new URL(origin).hostname;
+      const client = new URL(origin).hostname.replace(/\./g, "-");
       const api = GitHubOAuthServer.of({ server, client });
       const path = req.url.split("?")[0];
 
