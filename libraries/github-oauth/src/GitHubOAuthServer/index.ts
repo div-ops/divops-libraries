@@ -68,6 +68,9 @@ export const GitHubOAuthRoutes = ({
       case `[GET]${prefix}/user/info`: {
         return server.UserInfo({ before })(req, res);
       }
+      case `[POST]${prefix}/user-token`: {
+        return server.UserToken({ before })(req, res);
+      }
     }
 
     return res.status(404).json({ message: "Not Found" });
