@@ -1,12 +1,15 @@
-import { getBaseUrl, createAuthHeaders } from "../../utils";
+import { GitHubOAuthSdkContext } from "../../types";
 
-export async function readResource({
-  model,
-  id,
-}: {
-  model: string;
-  id: string;
-}) {
+export async function readResource(
+  {
+    model,
+    id,
+  }: {
+    model: string;
+    id: string;
+  },
+  { baseUrl, getAuthorization }: GitHubOAuthSdkContext
+) {
   if (model == null || model === "") {
     throw new Error(`model is "${model}"`);
   }
@@ -15,11 +18,11 @@ export async function readResource({
   }
 
   const response = await fetch(
-    `${getBaseUrl()}/api/resource/read?model=${model}&id=${id}`,
+    `${baseUrl}/api/resource/read?model=${model}&id=${id}`,
     {
       method: "GET",
       headers: {
-        ...createAuthHeaders(),
+        Authorization: getAuthorization(),
       },
     }
   );

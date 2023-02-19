@@ -1,12 +1,15 @@
-import { getBaseUrl, createAuthHeaders } from "../../utils";
+import { GitHubOAuthSdkContext } from "../../types";
 
-export async function deleteResource({
-  model,
-  id,
-}: {
-  model: string;
-  id: string;
-}) {
+export async function deleteResource(
+  {
+    model,
+    id,
+  }: {
+    model: string;
+    id: string;
+  },
+  { baseUrl, getAuthorization }: GitHubOAuthSdkContext
+) {
   if (model == null || model === "") {
     throw new Error(`model is "${model}"`);
   }
@@ -14,11 +17,11 @@ export async function deleteResource({
     throw new Error(`id is "${id}"`);
   }
 
-  await fetch(`${getBaseUrl()}/api/resource/delete`, {
+  await fetch(`${baseUrl}/api/resource/delete`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...createAuthHeaders(),
+      Authorization: getAuthorization(),
     },
     body: JSON.stringify({
       model,

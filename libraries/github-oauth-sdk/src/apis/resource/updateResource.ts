@@ -1,16 +1,19 @@
-import { getBaseUrl, createAuthHeaders } from "../../utils";
+import { GitHubOAuthSdkContext } from "../../types";
 
-export async function updateResource<R, S>({
-  model,
-  id,
-  resource,
-  summary,
-}: {
-  model: string;
-  id: string;
-  resource: R;
-  summary: S;
-}) {
+export async function updateResource<R, S>(
+  {
+    model,
+    id,
+    resource,
+    summary,
+  }: {
+    model: string;
+    id: string;
+    resource: R;
+    summary: S;
+  },
+  { baseUrl, getAuthorization }: GitHubOAuthSdkContext
+) {
   if (model == null || model === "") {
     throw new Error(`model is "${model}"`);
   }
@@ -18,11 +21,11 @@ export async function updateResource<R, S>({
     throw new Error(`id is "${id}"`);
   }
 
-  await fetch(`${getBaseUrl()}/api/resource/update`, {
+  await fetch(`${baseUrl}/api/resource/update`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...createAuthHeaders(),
+      Authorization: getAuthorization(),
     },
     body: JSON.stringify({
       id,

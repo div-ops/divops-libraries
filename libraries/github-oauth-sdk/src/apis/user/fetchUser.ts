@@ -1,10 +1,13 @@
-import { getBaseUrl, createAuthHeaders } from "../../utils";
+import { GitHubOAuthSdkContext } from "../../types";
 
-export async function fetchUser() {
-  const response = await fetch(`${getBaseUrl()}/api/user/info`, {
+export async function fetchUser({
+  baseUrl,
+  getAuthorization,
+}: GitHubOAuthSdkContext) {
+  const response = await fetch(`${baseUrl}/api/user/info`, {
     method: "GET",
     headers: {
-      ...createAuthHeaders(),
+      Authorization: getAuthorization(),
     },
   });
 

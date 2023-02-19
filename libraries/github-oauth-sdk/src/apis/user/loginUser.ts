@@ -1,5 +1,5 @@
-import { getBaseUrl } from "../../utils";
+import { GitHubOAuthSdkContext } from "../../types";
 
-export const loginUser = () => {
-  location.assign(`${getBaseUrl()}/request?referrer=${location.href}`);
+export const loginUser = ({ baseUrl }: GitHubOAuthSdkContext) => {
+  location.assign(`${baseUrl}/request?referrer=${location.href}`);
 };
