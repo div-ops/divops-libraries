@@ -50,24 +50,31 @@ export const GitHubOAuthRoutes = ({
     const before = createCors();
 
     switch (`[${req.method}]${req.url}`) {
+      case `[OPTIONS]${prefix}/resource/create`:
       case `[POST]${prefix}/resource/create`: {
         return server.CreateResource({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/resource/read`:
       case `[GET]${prefix}/resource/read`: {
         return server.ReadResource({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/resource/readList`:
       case `[GET]${prefix}/resource/readList`: {
         return server.ReadListResource({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/resource/update`:
       case `[POST]${prefix}/resource/update`: {
         return server.UpdateResource({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/resource/delete`:
       case `[POST]${prefix}/resource/delete`: {
         return server.DeleteResource({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/user/info`:
       case `[GET]${prefix}/user/info`: {
         return server.UserInfo({ before })(req, res);
       }
+      case `[OPTIONS]${prefix}/user-token`:
       case `[POST]${prefix}/user-token`: {
         return server.UserToken({ before })(req, res);
       }
