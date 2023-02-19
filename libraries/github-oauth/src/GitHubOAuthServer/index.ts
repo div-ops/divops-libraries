@@ -49,6 +49,16 @@ export const GitHubOAuthRoutes = ({
     const server = GitHubOAuthServer.of({ name: name });
     const before = createCors();
 
+    console.log(
+      JSON.stringify(
+        {
+          method: req.method,
+          url: req.url,
+        },
+        null,
+        2
+      )
+    );
     switch (`[${req.method}]${req.url}`) {
       case `[OPTIONS]${prefix}/resource/create`:
       case `[POST]${prefix}/resource/create`: {
@@ -88,16 +98,6 @@ export const GitHubOAuthRoutes = ({
       })
     );
 
-    console.log(
-      JSON.stringify(
-        {
-          method: req.method,
-          url: req.url,
-        },
-        null,
-        2
-      )
-    );
     return res.status(404).json({ message: "Not Found" });
   };
 };
