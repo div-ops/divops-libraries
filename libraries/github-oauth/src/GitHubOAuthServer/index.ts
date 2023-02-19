@@ -48,7 +48,7 @@ export const GitHubOAuthRoutes = ({
   server: string;
   allowedOrigins: MiddlewareOptions["allowedOrigins"];
 }) => {
-  const before = createBefore({ allowedOrigins });
+  const before = createBefore({ allowedOrigins, server });
 
   return function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -58,7 +58,7 @@ export const GitHubOAuthRoutes = ({
         model?: string;
       };
 
-      if (isAllowed({ allowedOrigins }, { origin, model })) {
+      if (isAllowed({ allowedOrigins, server }, { origin, model })) {
         return res
           .status(403)
           .json({ message: "Forbidden: now allowed origin with model." });
@@ -115,6 +115,7 @@ interface middleware {
 
 interface MiddlewareOptions {
   allowedOrigins: Record<string, string[]>;
+  server: string;
 }
 
 function createBefore(options: MiddlewareOptions): middleware {
@@ -140,7 +141,12 @@ function createNextAllowedAPI(options: MiddlewareOptions): middleware {
       ...req.query,
     } as { model?: string };
 
+    const isServer = req.headers.origin === options.server;
     const allowedModels = allowedOrigins[req.headers.origin];
+
+    if (isServer) {
+      return;
+    }
 
     if (allowedModels == null || !Array.isArray(allowedModels)) {
       return res.status(403).json({ message: "Forbidden" });
