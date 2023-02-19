@@ -38,12 +38,10 @@ const withCorsOptions =
     fn({ server, client, ...options });
 
 export const GitHubOAuthRoutes = ({
-  origins,
   prefix,
   server,
   allowedOrigins,
 }: {
-  origins: string[];
   prefix: string;
   server: string;
   allowedOrigins: MiddlewareOptions["allowedOrigins"];
