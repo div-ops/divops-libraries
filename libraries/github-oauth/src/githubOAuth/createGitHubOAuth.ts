@@ -208,12 +208,13 @@ export const createGitHubOAuth = ({
 
       const prevList = await gistStorage.getById<any>(keyId);
 
-      const prevItem = prevList.data.find((x) => x.id === id);
+      const prevIndex = prevList.data.findIndex((x) => x.id === id);
+      const prevItem = prevList.data[prevIndex];
       const updatedItem = { ...prevItem, ...resource, summary };
 
       await gistStorage.setById(id, updatedItem);
 
-      prevList.data[id] = updatedItem;
+      prevList.data[prevIndex] = updatedItem;
 
       await gistStorage.setById(keyId, {
         totalCount: prevList.length,
