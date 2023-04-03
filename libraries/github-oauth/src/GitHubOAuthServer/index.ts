@@ -178,5 +178,10 @@ function isAllowed(
     return false;
   }
 
-  return allowedModels.includes(model);
+  return (
+    allowedModels.includes(model) ||
+    allowedModels
+      .filter((x) => x.endsWith("*"))
+      .find((x) => model.startsWith(x.replace("*", "")))
+  );
 }
