@@ -107,7 +107,9 @@ export const createGitHubOAuth = ({
       resource: R;
       githubId: string;
     }) => {
+      const start = Date.now();
       const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
+      console.log(`[go.createResource] 1 STEP: ${start - Date.now()}ms`);
 
       let [user, keyId] = await Promise.all([
         getUserFromUserPool({
@@ -117,8 +119,10 @@ export const createGitHubOAuth = ({
         }),
         gistStorage.findId(resourceListKey),
       ]);
+      console.log(`[go.createResource] 2 STEP: ${start - Date.now()}ms`);
 
       if (keyId == null) {
+        console.log(`[go.createResource] 3 STEP: ${start - Date.now()}ms`);
         keyId = await (async () => {
           const newId = await gistStorage.setById(null, {
             totalCount: 0,
@@ -131,19 +135,25 @@ export const createGitHubOAuth = ({
           });
           return newId;
         })();
+      } else {
+        console.log(`[go.createResource] 3 STEP: ${start - Date.now()}ms`);
       }
 
       const created = new Date().toUTCString();
+      console.log(`[go.createResource] 4 STEP: ${start - Date.now()}ms`);
 
       const [prevList, newId] = await Promise.all([
         gistStorage.getById<any>(keyId),
         gistStorage.setById(null, { summary, githubId, created, ...resource }),
       ]);
 
+      console.log(`[go.createResource] 5 STEP: ${start - Date.now()}ms`);
+
       await gistStorage.setById(keyId, {
         totalCount: prevList.data.length + 1,
         data: [...prevList.data, { id: newId, ...summary, githubId, created }],
       });
+      console.log(`[go.createResource] 6 STEP: ${start - Date.now()}ms`);
     },
 
     readResourceList: async ({
@@ -202,17 +212,23 @@ export const createGitHubOAuth = ({
       resource: R;
       githubId: string;
     }) => {
+      const start = Date.now();
+      console.log(`[go.ureateResource] 1 STEP: ${start - Date.now()}ms`);
       const resourceListKey = `gist-storage-${server}-${client}-${model}-${githubId}`;
 
       const keyId = await gistStorage.getId(resourceListKey);
+      console.log(`[go.ureateResource] 2 STEP: ${start - Date.now()}ms`);
 
       const prevList = await gistStorage.getById<any>(keyId);
+      console.log(`[go.ureateResource] 3 STEP: ${start - Date.now()}ms`);
 
       const prevIndex = prevList.data.findIndex((x) => x.id === id);
       const prevItem = prevList.data[prevIndex];
       const updatedItem = { ...prevItem, ...resource, summary };
+      console.log(`[go.ureateResource] 4 STEP: ${start - Date.now()}ms`);
 
       await gistStorage.setById(id, updatedItem);
+      console.log(`[go.ureateResource] 5 STEP: ${start - Date.now()}ms`);
 
       prevList.data[prevIndex] = updatedItem;
 
@@ -220,6 +236,7 @@ export const createGitHubOAuth = ({
         totalCount: prevList.length,
         data: [...prevList.data],
       });
+      console.log(`[go.ureateResource] 6 STEP: ${start - Date.now()}ms`);
     },
   };
 };
