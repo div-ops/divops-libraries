@@ -37,8 +37,11 @@ export const GitHubOAuthSdk = {
             createResource<R, S>({ model, resource, summary }, context),
           read: ({ id }: { id: string }) =>
             readResource({ model, id }, context),
-          readList: ({ pageNo = 1 }: { pageNo?: number } = {}) =>
-            readResources({ model, pageNo }, context),
+          readList: ({
+            pageNo = 1,
+            pageSize = 10,
+          }: { pageNo?: number; pageSize?: number } = {}) =>
+            readResources({ model, pageNo, pageSize }, context),
           update: <R, S>({
             id,
             resource,

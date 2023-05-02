@@ -4,9 +4,11 @@ export async function readResources(
   {
     model,
     pageNo = 1,
+    pageSize = 10,
   }: {
     model: string;
     pageNo?: number;
+    pageSize?: number;
   },
   { baseUrl, getAuthorization }: GitHubOAuthSdkContext
 ) {
@@ -15,7 +17,7 @@ export async function readResources(
   }
 
   const response = await fetch(
-    `${baseUrl}/api/resource/readList?model=${model}&pageNo=${pageNo}`,
+    `${baseUrl}/api/resource/readList?model=${model}&pageNo=${pageNo}&pageSize=${pageSize}`,
     {
       method: "GET",
       headers: {
