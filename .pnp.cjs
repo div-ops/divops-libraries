@@ -3202,15 +3202,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/axios", "npm:0.14.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
+            ["@types/cors", "npm:2.8.17"],\
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.21"],\
             ["@types/react", "npm:18.0.21"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["axios", "npm:0.27.2"],\
             ["babel-jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
+            ["cors", "npm:2.8.5"],\
             ["jest", "virtual:7da6d0c905368cdae3f79694eaebc12f3538cf6f6cac2d8e0d9e8007702194084f7c7f2a1a07303f25ee9479bf7118a88605cc7916b0c38b530940d39071faf4#npm:27.5.1"],\
             ["next", "virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:12.3.4"],\
-            ["nextjs-cors", "virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:2.1.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:18.2.0"],\
             ["ts-node", "virtual:c655dc01dbe83008bc7568a7566bb2d537fcf68961556d9e5764cf4e359f4c3089248f5dd95c0702d49fab7e98478a2312486f842a09c7519da1726d748326d1#npm:10.9.1"],\
@@ -5911,6 +5912,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-connect-npm-3.4.35-7337eee0a3-fe81351470.zip/node_modules/@types/connect/",\
           "packageDependencies": [\
             ["@types/connect", "npm:3.4.35"],\
+            ["@types/node", "npm:17.0.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/cors", [\
+        ["npm:2.8.17", {\
+          "packageLocation": "./.yarn/cache/@types-cors-npm-2.8.17-2556d16051-469bd85e29.zip/node_modules/@types/cors/",\
+          "packageDependencies": [\
+            ["@types/cors", "npm:2.8.17"],\
             ["@types/node", "npm:17.0.21"]\
           ],\
           "linkType": "HARD"\
@@ -10028,29 +10039,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react-dom",\
             "react",\
             "sass"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["nextjs-cors", [\
-        ["npm:2.1.2", {\
-          "packageLocation": "./.yarn/cache/nextjs-cors-npm-2.1.2-a0df7e5245-92417b4367.zip/node_modules/nextjs-cors/",\
-          "packageDependencies": [\
-            ["nextjs-cors", "npm:2.1.2"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:2.1.2", {\
-          "packageLocation": "./.yarn/__virtual__/nextjs-cors-virtual-67e0294c1a/0/cache/nextjs-cors-npm-2.1.2-a0df7e5245-92417b4367.zip/node_modules/nextjs-cors/",\
-          "packageDependencies": [\
-            ["nextjs-cors", "virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:2.1.2"],\
-            ["@types/next", null],\
-            ["cors", "npm:2.8.5"],\
-            ["next", "virtual:e32c49330ef3577795bec2f936c94b617f95b0ca53ede897b9c4d951b05f3ab88247fde04c73aced2cef8d72fc472b366f82a9bb746a8bc089efead878bf2912#npm:12.3.4"]\
-          ],\
-          "packagePeers": [\
-            "@types/next",\
-            "next"\
           ],\
           "linkType": "HARD"\
         }]\

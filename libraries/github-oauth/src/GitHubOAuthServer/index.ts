@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import NextCors from "nextjs-cors";
 import { CorsOptions } from "../types";
 import {
   createCreateResource,
@@ -11,6 +10,31 @@ import {
 import { createUserToken, createSetCookie } from "./login";
 import { createLogout } from "./logout";
 import { createUserInfo } from "./user";
+
+import cors from "cors";
+import type { CorsRequest } from "cors";
+function initMiddleware(middleware: typeof cors) {
+  return (
+    req: CorsRequest,
+    res: {
+      statusCode?: number;
+      setHeader(key: string, value: string): any;
+      end(): any;
+    },
+    options?: cors.CorsOptionsDelegate<cors.CorsRequest> | cors.CorsOptions
+  ) =>
+    new Promise((resolve, reject) => {
+      middleware(options)(req, res, (result: Error | unknown) => {
+        if (result instanceof Error) {
+          return reject(result);
+        }
+
+        return resolve(result);
+      });
+    });
+}
+
+const NextCors = initMiddleware(cors);
 
 export const GitHubOAuthServer = {
   of({ server, client }: { server: string; client: string }) {
